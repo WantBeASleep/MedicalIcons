@@ -2,11 +2,11 @@
   "folders": [
     {
       "name": "Medical Icons",
-      "path": ".."
+      "path": "../.."
     },
     {
       "name": "Barotrauma Medical Items",
-      "path": "../../../Content/Items/Medical"
+      "path": "../../../../Content/Items/Medical"
     }
   ],
   "settings": {}
