@@ -9,8 +9,12 @@
       "path": "../../../../Content/Items/Medical"
     },
     {
-      "name": "Steam root",
-      "path": "../../../../../.."
+      "name": "Barotrauma root",
+      "path": "../../../.."
+    },
+    {
+      "name": "Workshop root",
+      "path": "../../../../../../workshop/content/602960"
     }
   ],
   "settings": {}
