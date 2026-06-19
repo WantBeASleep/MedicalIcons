@@ -102,6 +102,15 @@ def place_entries(entries: list[AtlasEntry], max_width: int, padding: int) -> tu
     return placed, (atlas_width, atlas_height)
 
 
+def round_up_to_multiple(value: int, multiple: int) -> int:
+    if value < 1:
+        raise ValueError("Value must be 1 or greater.")
+    if multiple < 1:
+        raise ValueError("Multiple must be 1 or greater.")
+
+    return ((value + multiple - 1) // multiple) * multiple
+
+
 def build_atlas(
     entries: list[AtlasEntry],
     output_atlas_path: Path,
@@ -110,6 +119,10 @@ def build_atlas(
     padding: int,
 ) -> list[PlacedEntry]:
     placed, atlas_size = place_entries(entries, max_width=max_width, padding=padding)
+    atlas_size = (
+        round_up_to_multiple(atlas_size[0], 4),
+        round_up_to_multiple(atlas_size[1], 4),
+    )
     atlas = Image.new("RGBA", atlas_size, (0, 0, 0, 0))
 
     images_by_identifier = {entry.identifier: entry.image for entry in entries}

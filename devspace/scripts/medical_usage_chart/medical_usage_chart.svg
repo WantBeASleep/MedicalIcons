@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100">
+<style>
+text{font-family:Segoe UI,Arial,sans-serif;fill:#1f252b} .tick{fill:#6b737c;font-size:18px}
+.label{font-size:15px}.small{font-size:14px;fill:#59616b}.title{font-size:34px;font-weight:700}
+.axis{stroke:#313941;stroke-width:2}.grid{stroke:#d9dee3;stroke-width:1}
+</style>
+<rect width="100%" height="100%" fill="#f7f4ee"/>
+<text class="title" x="80" y="46">Vanilla Barotrauma medical items: срочность x частота</text>
+<text class="small" x="80" y="72">Список предметов автоматически взят из Content/Items/Medical/*.xml; координаты 1-10 выставлены эвристикой.</text>
+<line class="grid" x1="120.0" y1="80" x2="120.0" y2="980"/>
+<line class="grid" x1="120" y1="980.0" x2="1240" y2="980.0"/>
+<text class="tick" x="115.0" y="1012">1</text>
+<text class="tick" x="78" y="986.0">1</text>
+<line class="grid" x1="244.4" y1="80" x2="244.4" y2="980"/>
+<line class="grid" x1="120" y1="880.0" x2="1240" y2="880.0"/>
+<text class="tick" x="239.4" y="1012">2</text>
+<text class="tick" x="78" y="886.0">2</text>
+<line class="grid" x1="368.9" y1="80" x2="368.9" y2="980"/>
+<line class="grid" x1="120" y1="780.0" x2="1240" y2="780.0"/>
+<text class="tick" x="363.9" y="1012">3</text>
+<text class="tick" x="78" y="786.0">3</text>
+<line class="grid" x1="493.3" y1="80" x2="493.3" y2="980"/>
+<line class="grid" x1="120" y1="680.0" x2="1240" y2="680.0"/>
+<text class="tick" x="488.3" y="1012">4</text>
+<text class="tick" x="78" y="686.0">4</text>
+<line class="grid" x1="617.8" y1="80" x2="617.8" y2="980"/>
+<line class="grid" x1="120" y1="580.0" x2="1240" y2="580.0"/>
+<text class="tick" x="612.8" y="1012">5</text>
+<text class="tick" x="78" y="586.0">5</text>
+<line class="grid" x1="742.2" y1="80" x2="742.2" y2="980"/>
+<line class="grid" x1="120" y1="480.0" x2="1240" y2="480.0"/>
+<text class="tick" x="737.2" y="1012">6</text>
+<text class="tick" x="78" y="486.0">6</text>
+<line class="grid" x1="866.7" y1="80" x2="866.7" y2="980"/>
+<line class="grid" x1="120" y1="380.0" x2="1240" y2="380.0"/>
+<text class="tick" x="861.7" y="1012">7</text>
+<text class="tick" x="78" y="386.0">7</text>
+<line class="grid" x1="991.1" y1="80" x2="991.1" y2="980"/>
+<line class="grid" x1="120" y1="280.0" x2="1240" y2="280.0"/>
+<text class="tick" x="986.1" y="1012">8</text>
+<text class="tick" x="78" y="286.0">8</text>
+<line class="grid" x1="1115.6" y1="80" x2="1115.6" y2="980"/>
+<line class="grid" x1="120" y1="180.0" x2="1240" y2="180.0"/>
+<text class="tick" x="1110.6" y="1012">9</text>
+<text class="tick" x="78" y="186.0">9</text>
+<line class="grid" x1="1240.0" y1="80" x2="1240.0" y2="980"/>
+<line class="grid" x1="120" y1="80.0" x2="1240" y2="80.0"/>
+<text class="tick" x="1235.0" y="1012">10</text>
+<text class="tick" x="78" y="86.0">10</text>
+<line class="axis" x1="120" y1="980" x2="1240" y2="980"/>
+<line class="axis" x1="120" y1="80" x2="120" y2="980"/>
+<text x="565.0" y="1058" font-size="24" font-weight="600">срочность применения</text>
+<text x="28" y="650.0" transform="rotate(-90 28 650.0)" font-size="24" font-weight="600">частота использования</text>
+<g><title>deusizine: urgency 9.7, frequency 2.6, Почти паническое средство широкого профиля.</title><circle cx="1194.7" cy="812.0" r="6.5" fill="#d7831f" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="1204.7" y="804.0">deusizine</text></g>
+<g><title>cyanide: urgency 9.6, frequency 1.2, Быстро смертельный яд.</title><circle cx="1182.2" cy="952.0" r="6.5" fill="#4d5966" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="1192.2" y="944.0">cyanide</text></g>
+<g><title>cyanideantidote: urgency 9.5, frequency 1.8, Антидот к быстрому смертельному отравлению.</title><circle cx="1169.8" cy="892.0" r="6.5" fill="#8067b7" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="1179.8" y="884.0">cyanideantidote</text></g>
+<g><title>liquidoxygenite: urgency 9.4, frequency 4.3, Острая нехватка кислорода, но применяется ситуативно.</title><circle cx="1157.3" cy="642.0" r="6.5" fill="#2e7bbf" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="1167.3" y="634.0">liquidoxygenite</text></g>
+<g><title>sufforinantidote: urgency 9.3, frequency 1.6, Срочный, редкий антидот.</title><circle cx="1148.9" cy="912.0" r="6.5" fill="#8067b7" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="1158.9" y="904.0">sufforinantidote</text></g>
+<g><title>morbusineantidote: urgency 9.2, frequency 1.7, Антидот нужен срочно, но только при конкретном яде.</title><circle cx="1140.4" cy="902.0" r="6.5" fill="#8067b7" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="1150.4" y="894.0">morbusineantidote</text></g>
+<g><title>antiparalysis: urgency 9.1, frequency 1.9, Паралич требует быстрой реакции, но редок.</title><circle cx="1132.0" cy="882.0" r="6.5" fill="#8067b7" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="1142.0" y="874.0">antiparalysis</text></g>
+<g><title>antibleeding1: urgency 9.0, frequency 9.5, Базовое лечение кровотечения и ожогов.</title><circle cx="1107.6" cy="122.0" r="6.5" fill="#d94c3d" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="1117.6" y="114.0">antibleeding1</text></g>
+<g><title>calyxanide: urgency 8.9, frequency 3.9, Срочно при husk infection, но случай не постоянный.</title><circle cx="1095.1" cy="682.0" r="6.5" fill="#2f8d6a" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="1105.1" y="674.0">calyxanide</text></g>
+<g><title>paralyzant: urgency 8.9, frequency 1.3, Паралич опасен и требует антидота.</title><circle cx="1099.1" cy="942.0" r="6.5" fill="#4d5966" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="1109.1" y="934.0">paralyzant</text></g>
+<g><title>antibleeding3: urgency 8.8, frequency 4.8, Сильный клей для тяжелых ран, но редкий.</title><circle cx="1086.7" cy="592.0" r="6.5" fill="#d94c3d" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="1096.7" y="584.0">antibleeding3</text></g>
+<g><title>deliriumineantidote: urgency 8.8, frequency 1.5, Редкий антидот от deliriumine.</title><circle cx="1098.7" cy="922.0" r="6.5" fill="#8067b7" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="1108.7" y="914.0">deliriumineantidote</text></g>
+<g><title>sufforin: urgency 8.8, frequency 1.1, Опасный редкий яд.</title><circle cx="1090.7" cy="962.0" r="6.5" fill="#4d5966" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="1100.7" y="954.0">sufforin</text></g>
+<g><title>antibleeding2: urgency 8.7, frequency 7.6, Более сильное лечение ран, часто в аптечках.</title><circle cx="1078.2" cy="312.0" r="6.5" fill="#d94c3d" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="1088.2" y="304.0">antibleeding2</text></g>
+<g><title>antidama2: urgency 8.7, frequency 5.2, Сильный анальгетик для критических случаев.</title><circle cx="1082.2" cy="552.0" r="6.5" fill="#d94c3d" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="1092.2" y="544.0">antidama2</text></g>
+<g><title>antibloodloss2: urgency 8.6, frequency 6.4, Сильнее saline, полезно при тяжелой кровопотере.</title><circle cx="1057.8" cy="432.0" r="6.5" fill="#b23a60" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="1067.8" y="424.0">antibloodloss2</text></g>
+<g><title>morbusine: urgency 8.6, frequency 1.1, Яд: высокая срочность как угроза, низкая частота лечения им.</title><circle cx="1069.8" cy="962.0" r="6.5" fill="#4d5966" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="1079.8" y="954.0">morbusine</text></g>
+<g><title>antinarc: urgency 8.4, frequency 4.2, Срочно при опиатной передозировке, но не расходуется постоянно.</title><circle cx="1032.9" cy="656.0" r="6.5" fill="#8067b7" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="1042.9" y="648.0">antinarc</text></g>
+<g><title>pomegrenadeextract: urgency 8.3, frequency 2.4, Сильный кислородный эффект, нишевое средство.</title><circle cx="1024.4" cy="832.0" r="6.5" fill="#2e7bbf" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="1034.4" y="824.0">pomegrenadeextract</text></g>
+<g><title>radiotoxin: urgency 8.2, frequency 1.1, Опасный, но редкий яд.</title><circle cx="1024.0" cy="962.0" r="6.5" fill="#4d5966" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="1034.0" y="954.0">radiotoxin</text></g>
+<g><title>antirad: urgency 8.1, frequency 2.0, Радиация опасна, но обычно ситуативна.</title><circle cx="999.6" cy="876.0" r="6.5" fill="#8067b7" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="1009.6" y="868.0">antirad</text></g>
+<g><title>antidama1: urgency 8.0, frequency 8.2, Частый анальгетик против урона, риск передоза.</title><circle cx="999.1" cy="252.0" r="6.5" fill="#d94c3d" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="1009.1" y="244.0">antidama1</text></g>
+<g><title>antibloodloss1: urgency 8.0, frequency 8.0, Базовая компенсация кровопотери.</title><circle cx="987.1" cy="272.0" r="6.5" fill="#b23a60" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="997.1" y="264.0">antibloodloss1</text></g>
+<g><title>deliriumine: urgency 7.8, frequency 1.1, Редкий психоактивный яд.</title><circle cx="958.2" cy="966.0" r="6.5" fill="#4d5966" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="968.2" y="958.0">deliriumine</text></g>
+<g><title>adrenaline: urgency 7.7, frequency 5.7, Боевой стимулятор и компонент.</title><circle cx="949.8" cy="502.0" r="6.5" fill="#d7831f" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="959.8" y="494.0">adrenaline</text></g>
+<g><title>stabilozine: urgency 7.3, frequency 6.6, Универсальный стабилизатор и компонент.</title><circle cx="896.0" cy="412.0" r="6.5" fill="#5b6fb8" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="906.0" y="404.0">stabilozine</text></g>
+<g><title>meth: urgency 6.9, frequency 3.8, Стимулятор для боя/спасения, не базовое лечение.</title><circle cx="846.2" cy="692.0" r="6.5" fill="#c49b20" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="856.2" y="684.0">meth</text></g>
+<g><title>chloralhydrate: urgency 6.9, frequency 1.8, Снотворный яд, ситуативен.</title><circle cx="850.2" cy="896.0" r="6.5" fill="#4d5966" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="860.2" y="888.0">chloralhydrate</text></g>
+<g><title>hyperzine: urgency 6.7, frequency 2.4, Сильный бафф, но редкий и дорогой.</title><circle cx="825.3" cy="832.0" r="6.5" fill="#c49b20" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="835.3" y="824.0">hyperzine</text></g>
+<g><title>antibiotics: urgency 6.6, frequency 5.4, Профилактика/лечение инфекций, не всегда срочно.</title><circle cx="812.9" cy="532.0" r="6.5" fill="#2f8d6a" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="822.9" y="524.0">antibiotics</text></g>
+<g><title>opium: urgency 6.2, frequency 5.6, Раннее обезболивание/сырье, но с рисками.</title><circle cx="759.1" cy="516.0" r="6.5" fill="#d94c3d" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="769.1" y="508.0">opium</text></g>
+<g><title>antipsychosis: urgency 6.0, frequency 4.0, Психоз опасен, но встречается не каждый рейс.</title><circle cx="742.2" cy="676.0" r="6.5" fill="#8067b7" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="752.2" y="668.0">antipsychosis</text></g>
+<g><title>steroids: urgency 5.8, frequency 3.0, Бафф силы, обычно плановое применение.</title><circle cx="717.3" cy="772.0" r="6.5" fill="#c49b20" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="727.3" y="764.0">steroids</text></g>
+<g><title>beerbottle1: urgency 5.7, frequency 6.1, оценка по XML-эффектам и доступности</title><circle cx="696.9" cy="462.0" r="6.5" fill="#6d9f3a" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="706.9" y="454.0">beerbottle1</text></g>
+<g><title>sulphuricacid: urgency 5.6, frequency 2.1, Опасная химия и компонент.</title><circle cx="692.4" cy="866.0" r="6.5" fill="#4d5966" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="702.4" y="858.0">sulphuricacid</text></g>
+<g><title>raptorbaneextract: urgency 5.2, frequency 1.4, Больше токсин/компонент, чем частая медицина.</title><circle cx="646.7" cy="936.0" r="6.5" fill="#4d5966" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="656.7" y="928.0">raptorbaneextract</text></g>
+<g><title>hallucinogenicbufotoxin: urgency 4.8, frequency 1.2, Нишевый токсин.</title><circle cx="600.9" cy="956.0" r="6.5" fill="#4d5966" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="610.9" y="948.0">hallucinogenicbufotoxin</text></g>
+<g><title>tonicliquid: urgency 4.7, frequency 4.1, Усилитель длительности эффектов, скорее подготовка.</title><circle cx="584.4" cy="662.0" r="6.5" fill="#c49b20" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="594.4" y="654.0">tonicliquid</text></g>
+<g><title>mindsense: urgency 4.5, frequency 2.4, Полезный редкий бафф.</title><circle cx="563.6" cy="832.0" r="6.5" fill="#c49b20" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="573.6" y="824.0">mindsense</text></g>
+<g><title>energydrink: urgency 3.9, frequency 4.7, Бытовой/баффовый расходник.</title><circle cx="476.9" cy="602.0" r="6.5" fill="#6d9f3a" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="486.9" y="594.0">energydrink</text></g>
+<g><title>ethanol: urgency 3.4, frequency 5.5, Часто доступен, медицинская срочность низкая.</title><circle cx="418.7" cy="522.0" r="6.5" fill="#6d9f3a" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="428.7" y="514.0">ethanol</text></g>
+<g><title>mindwipe: urgency 3.2, frequency 1.4, Нишевое средство.</title><circle cx="389.8" cy="932.0" r="6.5" fill="#5b6fb8" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="399.8" y="924.0">mindwipe</text></g>
+<g><title>proteinbar: urgency 2.4, frequency 5.0, Еда/легкий бафф, не срочная медицина.</title><circle cx="298.2" cy="572.0" r="6.5" fill="#6d9f3a" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="308.2" y="564.0">proteinbar</text></g>
+<g><title>elastin: urgency 2.0, frequency 5.0, Материал для крафта, не применяется срочно.</title><circle cx="236.4" cy="572.0" r="6.5" fill="#8a8f99" stroke="#ffffff" stroke-width="1.5"/>
+<text class="label" x="246.4" y="564.0">elastin</text></g>
+<text x="1284" y="82" font-size="22" font-weight="700">Группы</text>
+<circle cx="1284" cy="104" r="7" fill="#d94c3d"/>
+<text x="1302" y="110" font-size="18">trauma</text>
+<circle cx="1284" cy="135" r="7" fill="#d7831f"/>
+<text x="1302" y="141" font-size="18">resuscitation</text>
+<circle cx="1284" cy="166" r="7" fill="#b23a60"/>
+<text x="1302" y="172" font-size="18">blood</text>
+<circle cx="1284" cy="197" r="7" fill="#8067b7"/>
+<text x="1302" y="203" font-size="18">antidote</text>
+<circle cx="1284" cy="228" r="7" fill="#2f8d6a"/>
+<text x="1302" y="234" font-size="18">infection</text>
+<circle cx="1284" cy="259" r="7" fill="#2e7bbf"/>
+<text x="1302" y="265" font-size="18">oxygen</text>
+<circle cx="1284" cy="290" r="7" fill="#c49b20"/>
+<text x="1302" y="296" font-size="18">buff</text>
+<circle cx="1284" cy="321" r="7" fill="#4d5966"/>
+<text x="1302" y="327" font-size="18">poison</text>
+<circle cx="1284" cy="352" r="7" fill="#6d9f3a"/>
+<text x="1302" y="358" font-size="18">food_drink</text>
+<circle cx="1284" cy="383" r="7" fill="#8a8f99"/>
+<text x="1302" y="389" font-size="18">material</text>
+<circle cx="1284" cy="414" r="7" fill="#5b6fb8"/>
+<text x="1302" y="420" font-size="18">misc</text>
+<text class="small" x="1284" y="982">Правая верхняя зона: держать в быстром доступе.</text>
+<text class="small" x="1284" y="1006">Правая нижняя: срочно, но редко/нишево.</text>
+<text class="small" x="1284" y="1030">Левая верхняя: частые, но не панические.</text>
+</svg>

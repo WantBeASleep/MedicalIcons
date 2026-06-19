@@ -5,8 +5,12 @@
       "path": "../.."
     },
     {
-      "name": "Barotrauma Medical Items",
+      "name": "Vanila Medical Items",
       "path": "../../../../Content/Items/Medical"
+    },
+    {
+      "name": "Steam root",
+      "path": "../../../../../.."
     }
   ],
   "settings": {}
