@@ -24,6 +24,8 @@
 
 Я вообще не умею рисовать, да и с чувством вкуса было так себе. Весь мод написан и нарисован нейронкой Codex 5.5 (да, я генерил картинки на Кодексе). Мод выложен на GitHub: https://github.com/WantBeASleep/MedicalIcons. Буду рад идеям и контрибутам.
 
+Благодарность создателю мода https://steamcommunity.com/sharedfiles/filedetails/?id=3539579595 за вдохновение и творческий ориентир.
+
 --------------------------------------------------------
 
 # English version
@@ -53,6 +55,8 @@ Other mods can reference textures from this mod. In local `.xml` files, replace 
 ## Creation
 
 I cannot really draw, and my taste was not exactly carrying the project either. The whole mod was written and drawn with Codex 5.5 (yes, I generated the images in Codex). GitHub: https://github.com/WantBeASleep/MedicalIcons. Ideas and contributions are welcome.
+
+Thanks to the creator of the mod https://steamcommunity.com/sharedfiles/filedetails/?id=3539579595 for the inspiration and creative reference point.
 
 --------------------------------------------------------
 

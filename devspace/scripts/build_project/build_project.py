@@ -425,6 +425,15 @@ def set_visual_element(item: ET.Element, tag: str, texture: str, entry: AtlasEnt
         child.set("origin", "0.5,0.5")
 
 
+def set_body_size_from_sprite(item: ET.Element, entry: AtlasEntry) -> None:
+    body = find_child_case_insensitive(item, "Body")
+    if body is None:
+        body = ET.Element("Body")
+        item.insert(0, body)
+    body.set("width", str(entry.width))
+    body.set("height", str(entry.height))
+
+
 def parse_vanilla_items(vanilla_dir: Path) -> tuple[dict[str, tuple[str, ET.Element]], dict[str, list[ET.Element]]]:
     item_map: dict[str, tuple[str, ET.Element]] = {}
     by_file: dict[str, list[ET.Element]] = {name: [] for name in XML_NAMES}
@@ -516,6 +525,7 @@ def build_xml(ctx: BuildContext) -> None:
             outputs[xml_name].append(source_note)
         set_visual_element(item_element, "InventoryIcon", MOD_ICON_TEXTURE, ctx.icon_entries[item.identifier])
         set_visual_element(item_element, "Sprite", MOD_SPRITE_TEXTURE, ctx.sprite_entries[item.identifier])
+        set_body_size_from_sprite(item_element, ctx.sprite_entries[item.identifier])
         outputs[xml_name].append(item_element)
 
     for xml_name, elements in outputs.items():

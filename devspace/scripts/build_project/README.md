@@ -15,7 +15,7 @@ devspace/scripts/build_project/build_project.py
 1. Validate item assets in `devspace/textures/*/items/*`.
 2. Optionally overlay status icons from `devspace/statusicons`.
 3. Build `icons.png` and `sprites.png` atlases, plus `icons.csv` and `sprites.csv`.
-4. Build item XML files from vanilla Barotrauma XML using `<Override><Items>...`.
+4. Build item XML files from vanilla Barotrauma XML using `<Override><Items>...`, updating visual references and `Body` size from the generated sprite.
 5. Update root `filelist.xml`.
 
 ## Basic Usage
@@ -218,4 +218,5 @@ Print detailed validation output for every item.
 - Item icons must be 64x64 PNG files.
 - Sprite atlas dimensions are padded to multiples of 4.
 - XML is generated from vanilla XML first. If an item does not exist in vanilla XML, the script tries to reuse an existing item definition from `Items/Medical/*.xml`.
+- Generated XML updates each item's `Body width` and `Body height` to match the generated sprite dimensions.
 - Items not found in vanilla XML or existing mod XML are skipped during XML generation with a warning. Use `--strict` to make that an error.

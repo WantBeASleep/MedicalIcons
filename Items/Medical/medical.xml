@@ -14,8 +14,8 @@
         <Price storeidentifier="merchantmedical" multiplier="0.9" minavailable="4" />
       </Price>
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="0,0,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="0,0,18,90" depth="0.6" origin="0.5,0.5" />
-      <Body width="25" height="55" density="10.2" waterdragcoefficient="1" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="0,0,9,44" depth="0.6" origin="0.5,0.5" />
+      <Body width="9" height="44" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
         <StatusEffect type="OnSuccess" target="UseTarget">
@@ -53,11 +53,11 @@
       </Price>
       <Fabricate suitablefabricators="vendingmachine" requiredtime="1" requiredmoney="60" fabricationlimitmin="5" fabricationlimitmax="10" />
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="64,0,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="18,0,18,90" depth="0.6" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="9,0,9,44" depth="0.6" origin="0.5,0.5" />
       <SuitableTreatment type="damage" suitability="-33" />
       <SuitableTreatment identifier="huskinfection" suitability="30" />
       <SuitableTreatment type="infection" suitability="75" />
-      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
+      <Body width="9" height="44" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="25" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
@@ -133,8 +133,8 @@
       <SuitableTreatment identifier="oxygenlow" suitability="-17.5" />
       <SuitableTreatment identifier="opiatewithdrawal" suitability="2" />
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="36,0,18,90" depth="0.6" origin="0.5,0.5" />
-      <Body width="35" height="55" density="15" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="18,0,9,44" depth="0.6" origin="0.5,0.5" />
+      <Body width="9" height="44" density="15" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="40" />
         <StatusEffect type="OnUse" target="This" Condition="-100.0" setvalue="true">
@@ -175,11 +175,11 @@
         <Price storeidentifier="merchantmedical" multiplier="0.9" minavailable="15" />
       </Price>
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="54,0,18,90" depth="0.6" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="27,0,9,44" depth="0.6" origin="0.5,0.5" />
       <SuitableTreatment type="poison" suitability="10" />
       <SuitableTreatment identifier="stabilozineeffect" suitability="-100" />
       <SuitableTreatment type="deliriuminepoisoning" suitability="-10" />
-      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
+      <Body width="9" height="44" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="25" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
@@ -239,8 +239,8 @@
         <Item identifier="opium" />
       </Deconstruct>
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="192,128,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="270,0,17,33" depth="0.6" origin="0.5,0.5" />
-      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="234,0,15,98" depth="0.6" origin="0.5,0.5" />
+      <Body width="15" height="98" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="50" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
@@ -305,8 +305,8 @@
         <Item identifier="adrenaline" mincondition="0.9" />
       </Deconstruct>
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="256,128,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="287,0,18,33" depth="0.6" origin="0.5,0.5" />
-      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="249,0,15,98" depth="0.6" origin="0.5,0.5" />
+      <Body width="15" height="98" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="72" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
@@ -369,7 +369,7 @@
         <Item identifier="liquidoxygenite" />
       </Deconstruct>
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="320,128,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="305,0,15,98" depth="0.6" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="264,0,15,98" depth="0.6" origin="0.5,0.5" />
       <SuitableTreatment type="burn" suitability="-4" />
       <SuitableTreatment type="damage" suitability="60" />
       <SuitableTreatment type="internaldamage" suitability="20" />
@@ -377,7 +377,7 @@
       <SuitableTreatment identifier="oxygenlow" suitability="100" />
       <SuitableTreatment type="bloodloss" suitability="50" />
       <SuitableTreatment type="bleeding" suitability="20" />
-      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
+      <Body width="15" height="98" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="72" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
@@ -457,8 +457,8 @@
       <SuitableTreatment identifier="organdamage" suitability="-30" />
       <SuitableTreatment identifier="oxygenlow" suitability="30" />
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="0,192,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="320,0,15,98" depth="0.6" origin="0.5,0.5" />
-      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="279,0,15,98" depth="0.6" origin="0.5,0.5" />
+      <Body width="15" height="98" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="50" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
@@ -540,8 +540,8 @@
         <Item identifier="creepingorange" amount="2" />
       </Deconstruct>
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="64,192,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="335,0,15,98" depth="0.6" origin="0.5,0.5" />
-      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="294,0,15,98" depth="0.6" origin="0.5,0.5" />
+      <Body width="15" height="98" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="25" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
@@ -599,8 +599,8 @@
       <SuitableTreatment identifier="opiatewithdrawal" suitability="60" />
       <SuitableTreatment identifier="opiateoverdose" suitability="60" />
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="64,256,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="0,108,18,33" depth="0.6" origin="0.5,0.5" />
-      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="459,0,27,44" depth="0.6" origin="0.5,0.5" />
+      <Body width="27" height="44" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="40" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
@@ -660,8 +660,8 @@
       <SuitableTreatment identifier="paralysis" suitability="100" />
       <SuitableTreatment identifier="paralysisresistance" suitability="-60" />
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="128,256,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="18,108,19,33" depth="0.6" origin="0.5,0.5" />
-      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="0,108,27,44" depth="0.6" origin="0.5,0.5" />
+      <Body width="27" height="44" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="64" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
@@ -719,8 +719,8 @@
       </Deconstruct>
       <SuitableTreatment identifier="psychosis" suitability="100" />
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="192,256,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="37,108,18,34" depth="0.6" origin="0.5,0.5" />
-      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="27,108,27,44" depth="0.6" origin="0.5,0.5" />
+      <Body width="27" height="44" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="37" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
@@ -775,8 +775,8 @@
       </Deconstruct>
       <SuitableTreatment identifier="radiationsickness" suitability="100" />
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="256,256,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="55,108,17,32" depth="0.6" origin="0.5,0.5" />
-      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="54,108,27,44" depth="0.6" origin="0.5,0.5" />
+      <Body width="27" height="44" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="25" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
@@ -834,8 +834,8 @@
       </Deconstruct>
       <SuitableTreatment identifier="huskinfection" suitability="100" />
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="320,256,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="72,108,18,34" depth="0.6" origin="0.5,0.5" />
-      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="81,108,27,44" depth="0.6" origin="0.5,0.5" />
+      <Body width="27" height="44" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="38" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
@@ -904,8 +904,8 @@
       </Deconstruct>
       <SuitableTreatment identifier="cyanidepoisoning" suitability="100" />
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="0,320,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="90,108,17,34" depth="0.6" origin="0.5,0.5" />
-      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="108,108,27,44" depth="0.6" origin="0.5,0.5" />
+      <Body width="27" height="44" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="40" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
@@ -959,8 +959,8 @@
       </Deconstruct>
       <SuitableTreatment identifier="deliriuminepoisoning" suitability="100" />
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="64,320,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="107,108,17,34" depth="0.6" origin="0.5,0.5" />
-      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="135,108,27,44" depth="0.6" origin="0.5,0.5" />
+      <Body width="27" height="44" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="40" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
@@ -1015,8 +1015,8 @@
       </Deconstruct>
       <SuitableTreatment identifier="morbusinepoisoning" suitability="100" />
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="128,320,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="124,108,17,34" depth="0.6" origin="0.5,0.5" />
-      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="162,108,27,44" depth="0.6" origin="0.5,0.5" />
+      <Body width="27" height="44" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="40" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
@@ -1071,8 +1071,8 @@
       </Deconstruct>
       <SuitableTreatment identifier="sufforinpoisoning" suitability="100" />
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="192,320,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="141,108,18,34" depth="0.6" origin="0.5,0.5" />
-      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="189,108,27,44" depth="0.6" origin="0.5,0.5" />
+      <Body width="27" height="44" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="40" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />

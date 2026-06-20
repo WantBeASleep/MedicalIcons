@@ -4,11 +4,12 @@ import math
 import random
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 
 ROOT = Path(__file__).resolve().parents[3]
 TEXTURES = ROOT / "devspace" / "textures"
+REFERENCE = ROOT / "devspace" / "reference"
 OUT_DIR = ROOT / "devspace" / "preview"
 HOST_IMAGE = Path(r"C:\Users\LIMANC~1\AppData\Local\Temp\codex-clipboard-7436dffc-ea1f-4a66-a2af-6a1a15f46b80.png")
 
@@ -36,6 +37,38 @@ FONT_SMALL = font(24, True)
 
 def rgba(color: tuple[int, int, int], alpha: int = 255) -> tuple[int, int, int, int]:
     return color[0], color[1], color[2], alpha
+
+
+def load_vanilla_morphine_icon() -> Image.Image:
+    atlas = Image.open(REFERENCE / "InventoryIconAtlas.png").convert("RGBA")
+    return atlas.crop((256, 448, 320, 512))
+
+
+def draw_banned_original_morphine(size: int = 240) -> Image.Image:
+    scale = 4
+    canvas_size = size * scale
+    img = Image.new("RGBA", (canvas_size, canvas_size), (0, 0, 0, 0))
+    icon_size = int(size * 0.66)
+    icon = load_vanilla_morphine_icon().resize((icon_size * scale, icon_size * scale), Image.Resampling.NEAREST)
+    icon_x = (canvas_size - icon.width) // 2
+    icon_y = (canvas_size - icon.height) // 2 + 4 * scale
+
+    item_shadow = Image.new("RGBA", icon.size, (0, 0, 0, 120))
+    item_shadow.putalpha(icon.getchannel("A").filter(ImageFilter.GaussianBlur(5 * scale)))
+    img.alpha_composite(item_shadow, (icon_x + 7 * scale, icon_y + 10 * scale))
+    img.alpha_composite(icon, (icon_x, icon_y))
+
+    overlay = Image.new("RGBA", (canvas_size, canvas_size), (0, 0, 0, 0))
+    d = ImageDraw.Draw(overlay, "RGBA")
+    ring_box = (26 * scale, 24 * scale, (size - 24) * scale, (size - 26) * scale)
+    d.ellipse((ring_box[0] + 7 * scale, ring_box[1] + 9 * scale, ring_box[2] + 7 * scale, ring_box[3] + 9 * scale), outline=(0, 0, 0, 140), width=14 * scale)
+    d.ellipse(ring_box, outline=(205, 79, 45, 255), width=11 * scale)
+    d.ellipse((ring_box[0] + 8 * scale, ring_box[1] + 8 * scale, ring_box[2] - 8 * scale, ring_box[3] - 8 * scale), outline=(119, 48, 37, 230), width=3 * scale)
+    d.line((58 * scale, 52 * scale, (size - 54) * scale, (size - 56) * scale), fill=(0, 0, 0, 145), width=20 * scale)
+    d.line((53 * scale, 47 * scale, (size - 59) * scale, (size - 61) * scale), fill=(211, 76, 45, 255), width=15 * scale)
+    d.line((51 * scale, 44 * scale, (size - 62) * scale, (size - 64) * scale), fill=(246, 143, 91, 125), width=4 * scale)
+    img.alpha_composite(overlay)
+    return img.resize((size, size), Image.Resampling.LANCZOS)
 
 
 def gradient_bg(seed: int, mood: str) -> Image.Image:
@@ -112,8 +145,8 @@ def chroma_extract(crop: tuple[int, int, int, int]) -> Image.Image:
 
 def load_icons() -> list[tuple[str, Image.Image]]:
     icons: list[tuple[str, Image.Image]] = []
-    for path in sorted(TEXTURES.glob("*/items/*/icon.png")):
-        name = path.parent.name
+    for name in ["ampoule", "dart_syringe", "insulin_syringe", "pocket_injector", "vial"]:
+        path = TEXTURES / name / "icon.png"
         icons.append((name, Image.open(path).convert("RGBA")))
     return icons
 
@@ -157,11 +190,8 @@ def variant_hero(icons: list[tuple[str, Image.Image]], medic: Image.Image, nosyr
     paste_with_shadow(img, nosyringe, (806, 172), scale=0.48, blur=10)
     draw_badge(d, (306, 242, 709, 302), "ONE SYRINGE LOOK -> MANY ICONS", (45, 112, 91))
 
-    chosen_names = ["stabilozine", "antirad", "combatstimulant", "cyanide", "pomegrenadeextract", "antiparalysis", "hyperzine", "opium", "liquidoxygenite"]
-    by_name = {n: im for n, im in icons}
-    chosen = [(n, by_name[n]) for n in chosen_names if n in by_name]
-    positions = [(174, 366), (322, 342), (470, 366), (618, 342), (766, 366), (248, 548), (396, 576), (544, 548), (692, 576)]
-    for (name, icon), pos in zip(chosen, positions):
+    positions = [(186, 416), (336, 366), (486, 416), (636, 366), (786, 416)]
+    for (name, icon), pos in zip(icons, positions):
         card = icon_card(icon, 126, None)
         paste_with_shadow(img, card, pos, 1, 8)
     d.rounded_rectangle((95, 820, 930, 904), radius=28, fill=(8, 13, 13, 178), outline=(255, 255, 255, 36), width=2)
@@ -177,19 +207,21 @@ def variant_before_after(icons: list[tuple[str, Image.Image]], medic: Image.Imag
     d.rounded_rectangle((554, 194, 948, 876), radius=30, fill=(14, 22, 21, 205), outline=(106, 185, 147, 112), width=3)
     d.text((171, 226), "BEFORE", font=font(44, True), fill=(224, 154, 127, 245))
     d.text((674, 226), "AFTER", font=font(44, True), fill=(180, 231, 198, 245))
-    paste_with_shadow(img, nosyringe, (178, 328), scale=1.15, blur=10)
-    d.line((170, 665, 376, 665), fill=(221, 65, 43, 230), width=14)
-    d.text((142, 705), "same-looking syringes", font=FONT_SUB, fill=(211, 190, 176, 220))
+    paste_with_shadow(img, nosyringe, (151, 413), scale=1.0, blur=10)
     d.polygon([(575, 514), (524, 480), (524, 503), (484, 503), (484, 525), (524, 525), (524, 548)], fill=(231, 220, 185, 230))
-    chosen = icons[0:0]
-    for wanted in ["adrenaline", "stabilozine", "antinarc", "cyanide", "hyperzine", "pressurestabilizer", "antibiotics", "antirad"]:
-        for n, im in icons:
-            if n == wanted:
-                chosen.append((n, im))
-                break
-    positions = [(602, 315), (737, 315), (602, 450), (737, 450), (602, 585), (737, 585), (602, 720), (737, 720)]
-    for (name, icon), pos in zip(chosen, positions):
-        paste_with_shadow(img, icon_card(icon, 112, None), pos, 1, 7)
+    card_size = 98
+    right_center_x = (554 + 948) // 2
+    right_center_y = (194 + 876) // 2 + 36
+    column_gap = 13
+    column_height = card_size * 5 + column_gap * 4
+    column_x = right_center_x - card_size // 2
+    column_y = right_center_y - column_height // 2
+    positions = [
+        (column_x, column_y + idx * (card_size + column_gap))
+        for idx in range(5)
+    ]
+    for (name, icon), pos in zip(icons, positions):
+        paste_with_shadow(img, icon_card(icon, card_size, None), pos, 1, 7)
     paste_with_shadow(img, medic, (55, 45), scale=0.43, blur=8)
     return img
 
@@ -202,17 +234,10 @@ def variant_showcase(icons: list[tuple[str, Image.Image]], medic: Image.Image, n
     draw_title(d, 0, 118, "center")
     d.text((319, 216), "inventory clarity for every medic", font=FONT_SUB, fill=(190, 217, 224, 230))
 
-    chosen = icons[:]
-    random.Random(3).shuffle(chosen)
-    chosen = chosen[:30]
-    x0, y0 = 108, 318
-    gap = 13
-    size = 104
-    for idx, (name, icon) in enumerate(chosen):
-        col = idx % 6
-        row = idx // 6
-        card = icon_card(icon, size, None)
-        paste_with_shadow(img, card, (x0 + col * (size + gap), y0 + row * (size + gap)), 1, 6)
+    positions = [(174, 412), (324, 352), (474, 412), (624, 352), (774, 412)]
+    for (name, icon), pos in zip(icons, positions):
+        card = icon_card(icon, 126, None)
+        paste_with_shadow(img, card, pos, 1, 8)
     d.rounded_rectangle((184, 893, 840, 950), radius=20, fill=(12, 18, 23, 190), outline=(255, 255, 255, 38), width=2)
     d.text((260, 907), "ampoules / vials / injectors / antidotes / toxins", font=font(26, False), fill=(232, 231, 212, 235))
     return img
@@ -221,9 +246,9 @@ def variant_showcase(icons: list[tuple[str, Image.Image]], medic: Image.Image, n
 def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     medic = chroma_extract((50, 75, 320, 355)).resize((270, 270), Image.Resampling.LANCZOS)
-    nosyringe = chroma_extract((390, 180, 565, 355)).resize((190, 190), Image.Resampling.LANCZOS)
+    nosyringe = draw_banned_original_morphine(245)
     medic.save(OUT_DIR / "medic_class_logo_extracted.png")
-    nosyringe.save(OUT_DIR / "no_standard_syringe_extracted.png")
+    nosyringe.save(OUT_DIR / "no_standard_morphine_original_banned.png")
 
     icons = load_icons()
     variants = {
