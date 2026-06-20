@@ -3,7 +3,7 @@ ampoule,adrenaline,devspace\items\ampoule\items\adrenaline\sprite.png,0,0,20,92,
 ampoule,antibiotics,devspace\items\ampoule\items\antibiotics\sprite.png,20,0,20,92,"20,0,20,92"
 ampoule,opium,devspace\items\ampoule\items\opium\sprite.png,40,0,20,92,"40,0,20,92"
 ampoule,stabilozine,devspace\items\ampoule\items\stabilozine\sprite.png,60,0,20,92,"60,0,20,92"
-dart_syringe,calyxanide,devspace\items\dart_syringe\items\calyxanide\sprite.png,80,0,20,108,"80,0,20,108"
+dart_syringe,huskeggs,devspace\items\dart_syringe\items\huskeggs\sprite.png,80,0,20,108,"80,0,20,108"
 dart_syringe,chloralhydrate,devspace\items\dart_syringe\items\chloralhydrate\sprite.png,100,0,20,108,"100,0,20,108"
 dart_syringe,cyanide,devspace\items\dart_syringe\items\cyanide\sprite.png,120,0,20,108,"120,0,20,108"
 dart_syringe,dart_syringe,devspace\items\dart_syringe\items\dart_syringe\sprite.png,140,0,20,104,"140,0,20,104"

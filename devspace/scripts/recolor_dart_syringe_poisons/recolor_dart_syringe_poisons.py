@@ -7,7 +7,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
 DART_DIR = PROJECT_ROOT / "devspace" / "items" / "dart_syringe"
 ITEMS_DIR = DART_DIR / "items"
 
@@ -18,7 +18,7 @@ POISON_COLORS: dict[str, tuple[int, int, int]] = {
     "deliriumine": (145, 95, 45),
     "paralyzant": (45, 115, 165),
     "radiotoxin": (185, 125, 5),
-    "calyxanide": (115, 115, 115),
+    "huskeggs": (115, 115, 115),
     "sulphuricacid": (190, 45, 40),
     "raptorbaneextract": (190, 15, 90),
     "europabrew": (65, 55, 70),
@@ -32,7 +32,7 @@ CHAMBER_COLORS: dict[str, tuple[int, int, int]] = {
     "deliriumine": (196, 154, 98),
     "paralyzant": (124, 169, 201),
     "radiotoxin": (214, 178, 58),
-    "calyxanide": (168, 173, 176),
+    "huskeggs": (168, 173, 176),
     "sulphuricacid": (216, 120, 88),
     "raptorbaneextract": (214, 90, 149),
     "europabrew": (139, 120, 148),

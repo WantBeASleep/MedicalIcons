@@ -47,6 +47,7 @@ icon_source.png
 icon.png
 sprite_source.png
 sprite.png
+masks/
 items/
   antidama1/
     icon.png
@@ -60,6 +61,7 @@ File meanings:
 - `icon.png` - non-game preview/scaffold icon used to evaluate the generated icon's shape and style before creating final in-game item icons.
 - `sprite_source.png` - large high-resolution source image for the sprite.
 - `sprite.png` - non-game preview/scaffold sprite used to evaluate the generated sprite's shape and style before creating final in-game item sprites.
+- `masks/` - optional development-only folder for manual recoloring masks for this item. Create this folder only when a manual mask is required because simple/automatic recoloring does not produce acceptable results.
 - `items/` - contains one folder per in-game item that uses this generated artwork.
 - `items/<identifier>/` - folder named after the in-game item identifier, for example `items/antidama1/`.
 - `items/<identifier>/icon.png` - final 64x64 icon for that in-game item.
@@ -81,7 +83,9 @@ Stores development-only automation scripts.
 devspace/items/<item>/items/<identifier>/
 ```
 
-The script expects each identifier folder to contain `icon.png` and `sprite.png`. It writes `icons.png`, `sprites.png`, `icons.csv`, and `sprites.csv` into `devspace/scripts/item_atlases/`. The CSV files store each asset's `item`, `identifier`, source path, atlas coordinates, dimensions, and Barotrauma-style `sourcerect`.
+By default, the script expects each identifier folder to contain `icon.png` and `sprite.png`. The `--icons_suf` and `--sprites_suf` flags build atlases from suffixed source files instead, for example `--icons_suf "_statusicon"` reads `icon_statusicon.png`. It writes `icons.png`, `sprites.png`, `icons.csv`, and `sprites.csv` into `devspace/scripts/item_atlases/`. With `--mod-output` or `--copy-to-medical`, it also writes `icons.png` and `sprites.png` directly into `Items/Medical/` for the playable mod build. The CSV files store each asset's `item`, `identifier`, source path, atlas coordinates, dimensions, and Barotrauma-style `sourcerect`.
+
+`devspace/scripts/update_item_overrides/update_item_overrides.py` rebuilds mod-facing XML overrides for all generated item identifiers discovered under `devspace/items/<item>/items/<identifier>/`. It reads `icons.csv` and `sprites.csv`, finds the matching vanilla top-level item definitions under Barotrauma `Content/Items`, copies those definitions into `Override` XML files under `Items/Medical/`, updates their `InventoryIcon` and `Sprite` elements to use the mod atlases, and adds generated XML files to `filelist.xml` when needed. The script fails if an identifier appears in more than one generated item folder, if atlas CSV entries are missing, or if a vanilla identifier cannot be resolved unambiguously.
 
 Use this script when icon or sprite layout changes. During atlas generation, each sprite is copied into a transparent rectangle whose width and height are rounded up to multiples of 4. The generated sprite atlas is also padded so its texture width and height are multiples of 4. Individual source sprite dimensions do not need to be multiples of 4.
 
@@ -92,18 +96,18 @@ Expected structure:
 
 ```text
 devspace/statusicons/
-  affliction_<affliction_name>.png
+  <affliction_name>.png
   atlas.png
 ```
 
 File meanings:
 
-- `affliction_<affliction_name>.png` - individual Barotrauma affliction status icon, 24x24 pixels.
+- `<affliction_name>.png` - individual Barotrauma affliction status icon, 24x24 pixels.
 - `atlas.png` - atlas containing all affliction status icons.
 
 When extracting vanilla affliction icons, apply the icon's XML `color`/`iconcolors` tint or the user-requested target palette before saving the 24x24 PNG. Do not save raw grayscale mask icons unless the user explicitly asks for an uncolored source mask.
 
-`devspace/scripts/statusicons/build_statusicon_atlas.py` builds `devspace/statusicons/atlas.png` from all `devspace/statusicons/affliction_*.png` files. The script validates that each source icon is exactly 24x24 pixels.
+`devspace/scripts/statusicons/build_status_icons.py` builds `devspace/statusicons/atlas.png` from all status icon PNG files in `devspace/statusicons/`, excluding `atlas.png`. The script validates that each source icon is exactly 24x24 pixels.
 
 ### Barotrauma Mod Files
 Everything outside `devspace` is part of the actual Barotrauma mod.
@@ -135,12 +139,12 @@ File meanings:
 
 ## Mod Build Workflow
 
-Only run the mod build workflow when the user explicitly asks to build, rebuild, update atlases, update XML, or otherwise prepare the mod-facing Barotrauma files. Do not automatically build atlases, copy atlas files into `Items/Medical`, or edit mod XML after ordinary icon/sprite generation requests.
+Only run the mod build workflow when the user explicitly asks to build, rebuild, update atlases, update XML, or otherwise prepare the mod-facing Barotrauma files. Do not automatically build atlases, copy atlas files into `Items/Medical`, or edit mod XML after ordinary icon/sprite generation requests. When the user does ask for a playable mod build, use the item atlas builder's `--mod-output` flag to write `icons.png` and `sprites.png` into `Items/Medical/`.
 
 After building item atlases with `devspace/scripts/item_atlases/build_item_atlases.py`:
 
-1. Read `devspace/scripts/item_atlases/icons.csv` and `devspace/scripts/item_atlases/sprites.csv` to see which item identifiers are present in the atlases and which `sourcerect` belongs to each item.
-2. For each item identifier in the CSV files, copy the original vanilla XML item definition for that identifier into the mod XML and override its `InventoryIcon` and `Sprite` elements to use `%ModDir%/Items/Medical/icons.png` and `%ModDir%/Items/Medical/sprites.png` with the matching CSV `sourcerect` values.
+1. Run `devspace/scripts/update_item_overrides/update_item_overrides.py`.
+2. The script reads `devspace/scripts/item_atlases/icons.csv` and `devspace/scripts/item_atlases/sprites.csv`, discovers generated item identifiers from `devspace/items/<item>/items/<identifier>/`, copies the matching vanilla XML item definitions into mod `Override` files, and updates their `InventoryIcon` and `Sprite` elements with the matching CSV `sourcerect` values.
 
 ## Icon Generation Rules
 

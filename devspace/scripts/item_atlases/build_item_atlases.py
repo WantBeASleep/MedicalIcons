@@ -1,21 +1,23 @@
 from __future__ import annotations
 
+import argparse
 import csv
 import math
 from dataclasses import dataclass
 from pathlib import Path
 
-from PIL import Image
-
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parents[2]
 ITEMS_ROOT = PROJECT_ROOT / "devspace" / "items"
+MEDICAL_DIR = PROJECT_ROOT / "Items" / "Medical"
 
 ICON_ATLAS = SCRIPT_DIR / "icons.png"
 SPRITE_ATLAS = SCRIPT_DIR / "sprites.png"
 ICON_CSV = SCRIPT_DIR / "icons.csv"
 SPRITE_CSV = SCRIPT_DIR / "sprites.csv"
+MEDICAL_ICON_ATLAS = MEDICAL_DIR / "icons.png"
+MEDICAL_SPRITE_ATLAS = MEDICAL_DIR / "sprites.png"
 
 ICON_SIZE = 64
 SPRITE_ATLAS_MAX_WIDTH = 512
@@ -44,20 +46,42 @@ class AtlasEntry:
 @dataclass(frozen=True)
 class SpriteAsset:
     item_asset: ItemAsset
-    image: Image.Image
+    image: object
     width: int
     height: int
     source_width: int
     source_height: int
 
 
+@dataclass(frozen=True)
+class BuildOptions:
+    icon_suffix: str
+    sprite_suffix: str
+    copy_to_medical: bool
+
+
 def round_up(value: int, multiple: int) -> int:
     return math.ceil(value / multiple) * multiple
 
 
-def iter_item_assets() -> list[ItemAsset]:
+def asset_filename(base_name: str, suffix: str) -> str:
+    return f"{base_name}{suffix}.png"
+
+
+def normalize_suffix(suffix: str, option_name: str) -> str:
+    if suffix.endswith(".png"):
+        suffix = suffix[:-4]
+    if "/" in suffix or "\\" in suffix:
+        raise ValueError(f"{option_name} must be a filename suffix, not a path")
+    return suffix
+
+
+def iter_item_assets(options: BuildOptions) -> list[ItemAsset]:
     assets: list[ItemAsset] = []
     missing_errors: list[str] = []
+    icon_name = asset_filename("icon", options.icon_suffix)
+    sprite_name = asset_filename("sprite", options.sprite_suffix)
+
     for item_dir in sorted(ITEMS_ROOT.iterdir()):
         identifiers_dir = item_dir / "items"
         if not item_dir.is_dir() or not identifiers_dir.is_dir():
@@ -67,8 +91,8 @@ def iter_item_assets() -> list[ItemAsset]:
             if not identifier_dir.is_dir():
                 continue
 
-            icon_path = identifier_dir / "icon.png"
-            sprite_path = identifier_dir / "sprite.png"
+            icon_path = identifier_dir / icon_name
+            sprite_path = identifier_dir / sprite_name
             missing = [p.name for p in (icon_path, sprite_path) if not p.is_file()]
             if missing:
                 joined = ", ".join(missing)
@@ -95,7 +119,9 @@ def iter_item_assets() -> list[ItemAsset]:
     return assets
 
 
-def build_icon_atlas(assets: list[ItemAsset]) -> list[AtlasEntry]:
+def build_icon_atlas(assets: list[ItemAsset], output_paths: list[Path]) -> list[AtlasEntry]:
+    from PIL import Image
+
     columns = max(1, math.ceil(math.sqrt(len(assets))))
     rows = math.ceil(len(assets) / columns)
     atlas = Image.new("RGBA", (columns * ICON_SIZE, rows * ICON_SIZE), (0, 0, 0, 0))
@@ -121,11 +147,15 @@ def build_icon_atlas(assets: list[ItemAsset]) -> list[AtlasEntry]:
             )
         )
 
-    atlas.save(ICON_ATLAS)
+    for output_path in output_paths:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        atlas.save(output_path)
     return entries
 
 
-def build_sprite_atlas(assets: list[ItemAsset]) -> list[AtlasEntry]:
+def build_sprite_atlas(assets: list[ItemAsset], output_paths: list[Path]) -> list[AtlasEntry]:
+    from PIL import Image
+
     loaded: list[SpriteAsset] = []
     for asset in assets:
         sprite = Image.open(asset.sprite_path).convert("RGBA")
@@ -188,7 +218,9 @@ def build_sprite_atlas(assets: list[ItemAsset]) -> list[AtlasEntry]:
             )
         )
 
-    atlas.save(SPRITE_ATLAS)
+    for output_path in output_paths:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        atlas.save(output_path)
     return entries
 
 
@@ -214,15 +246,56 @@ def write_csv(path: Path, entries: list[AtlasEntry]) -> None:
             )
 
 
+def parse_args() -> BuildOptions:
+    parser = argparse.ArgumentParser(description="Build item icon and sprite atlases.")
+    parser.add_argument(
+        "--icons_suf",
+        "--icons-suf",
+        dest="icon_suffix",
+        default="",
+        help="Suffix for source icon files. Example: --icons_suf _statusicon reads icon_statusicon.png.",
+    )
+    parser.add_argument(
+        "--sprites_suf",
+        "--sprites-suf",
+        dest="sprite_suffix",
+        default="",
+        help="Suffix for source sprite files. Example: --sprites_suf _large reads sprite_large.png.",
+    )
+    parser.add_argument(
+        "--mod-output",
+        "--copy-to-medical",
+        dest="copy_to_medical",
+        action="store_true",
+        help="Also write icons.png and sprites.png directly to Items/Medical for the playable mod.",
+    )
+    args = parser.parse_args()
+    return BuildOptions(
+        icon_suffix=normalize_suffix(args.icon_suffix, "--icons_suf"),
+        sprite_suffix=normalize_suffix(args.sprite_suffix, "--sprites_suf"),
+        copy_to_medical=args.copy_to_medical,
+    )
+
+
 def main() -> None:
-    assets = iter_item_assets()
-    icon_entries = build_icon_atlas(assets)
-    sprite_entries = build_sprite_atlas(assets)
+    options = parse_args()
+    assets = iter_item_assets(options)
+    icon_outputs = [ICON_ATLAS]
+    sprite_outputs = [SPRITE_ATLAS]
+    if options.copy_to_medical:
+        icon_outputs.append(MEDICAL_ICON_ATLAS)
+        sprite_outputs.append(MEDICAL_SPRITE_ATLAS)
+
+    icon_entries = build_icon_atlas(assets, icon_outputs)
+    sprite_entries = build_sprite_atlas(assets, sprite_outputs)
     write_csv(ICON_CSV, icon_entries)
     write_csv(SPRITE_CSV, sprite_entries)
 
     print(f"Built {ICON_ATLAS.relative_to(PROJECT_ROOT)} ({len(icon_entries)} icons)")
     print(f"Built {SPRITE_ATLAS.relative_to(PROJECT_ROOT)} ({len(sprite_entries)} sprites)")
+    if options.copy_to_medical:
+        print(f"Built {MEDICAL_ICON_ATLAS.relative_to(PROJECT_ROOT)}")
+        print(f"Built {MEDICAL_SPRITE_ATLAS.relative_to(PROJECT_ROOT)}")
     print(f"Wrote {ICON_CSV.relative_to(PROJECT_ROOT)}")
     print(f"Wrote {SPRITE_CSV.relative_to(PROJECT_ROOT)}")
 

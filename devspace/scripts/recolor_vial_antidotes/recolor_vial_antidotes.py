@@ -6,18 +6,15 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
 VIAL_DIR = PROJECT_ROOT / "devspace" / "items" / "vial"
 ITEMS_DIR = VIAL_DIR / "items"
-ICON_CAP_METAL_MASK = VIAL_DIR / "mask_icon_cap_metal.png"
-ICON_CAP_RUBBER_MASK = VIAL_DIR / "mask_icon_cap_rubber.png"
-ICON_CAP_METAL_OFFSET = (22, -7)
-ICON_CAP_RUBBER_OFFSET = (37, 6)
-SOURCE_CAP_METAL_MASK = VIAL_DIR / "mask_source_cap_metal.png"
-SOURCE_CAP_RUBBER_MASK = VIAL_DIR / "mask_source_cap_rubber.png"
-SOURCE_CAP_EDGE_MASK = VIAL_DIR / "mask_source_cap_edge.png"
-SOURCE_LABEL_UPPER_MASK = VIAL_DIR / "mask_source_label_upper.png"
-SOURCE_LABEL_LOWER_MASK = VIAL_DIR / "mask_source_label_lower.png"
+MASKS_DIR = VIAL_DIR / "masks"
+SOURCE_CAP_METAL_MASK = MASKS_DIR / "mask_source_cap_metal.png"
+SOURCE_CAP_RUBBER_MASK = MASKS_DIR / "mask_source_cap_rubber.png"
+SOURCE_CAP_EDGE_MASK = MASKS_DIR / "mask_source_cap_edge.png"
+SOURCE_LABEL_UPPER_MASK = MASKS_DIR / "mask_source_label_upper.png"
+SOURCE_LABEL_LOWER_MASK = MASKS_DIR / "mask_source_label_lower.png"
 ANTIDOTE_ICON_SOURCE_DIR = VIAL_DIR / "antidote_icon_sources"
 
 
@@ -81,19 +78,25 @@ def manual_masks(size: tuple[int, int]) -> dict[str, Image.Image]:
 
 def icon_masks(size: tuple[int, int]) -> dict[str, Image.Image]:
     source = Image.open(VIAL_DIR / "icon_source.png").convert("RGBA")
-    if size == (64, 64) and SOURCE_CAP_METAL_MASK.exists() and SOURCE_CAP_RUBBER_MASK.exists():
-        masks = {
-            "cap_metal": render_mask_from_source(source, load_mask(SOURCE_CAP_METAL_MASK)),
-            "cap_rubber": render_mask_from_source(source, load_mask(SOURCE_CAP_RUBBER_MASK)),
-        }
-        for name, path in optional_source_mask_paths().items():
-            masks[name] = render_mask_from_source(source, load_mask(path))
-        return masks
+    if size != (64, 64):
+        raise ValueError(f"No source-rendered vial icon masks for {size[0]}x{size[1]}")
 
-    return {
-        "cap_metal": paste_cropped_mask(size, ICON_CAP_METAL_MASK, ICON_CAP_METAL_OFFSET),
-        "cap_rubber": paste_cropped_mask(size, ICON_CAP_RUBBER_MASK, ICON_CAP_RUBBER_OFFSET),
+    required_paths = {
+        "cap_metal": SOURCE_CAP_METAL_MASK,
+        "cap_rubber": SOURCE_CAP_RUBBER_MASK,
     }
+    missing = [path.relative_to(PROJECT_ROOT) for path in required_paths.values() if not path.is_file()]
+    if missing:
+        joined = ", ".join(str(path) for path in missing)
+        raise FileNotFoundError(f"Missing required vial masks: {joined}")
+
+    masks = {
+        name: render_mask_from_source(source, load_mask(path))
+        for name, path in required_paths.items()
+    }
+    for name, path in optional_source_mask_paths().items():
+        masks[name] = render_mask_from_source(source, load_mask(path))
+    return masks
 
 
 def sprite_masks(size: tuple[int, int]) -> dict[str, Image.Image]:
@@ -108,14 +111,6 @@ def sprite_masks(size: tuple[int, int]) -> dict[str, Image.Image]:
         "cap_metal": metal,
         "cap_rubber": rubber,
     }
-
-
-def paste_cropped_mask(size: tuple[int, int], path: Path, offset: tuple[int, int]) -> Image.Image:
-    source = Image.open(path).convert("RGBA")
-    mask = source.getchannel("A")
-    out = Image.new("L", size, 0)
-    out.paste(mask, offset, mask)
-    return out
 
 
 def colorize_with_mask(

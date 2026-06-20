@@ -29,7 +29,7 @@ def iter_status_icons() -> list[StatusIcon]:
         raise FileNotFoundError(f"Missing status icon folder: {STATUSICONS_ROOT}")
 
     icons: list[StatusIcon] = []
-    for path in sorted(STATUSICONS_ROOT.glob("affliction_*.png")):
+    for path in sorted(STATUSICONS_ROOT.glob("*.png")):
         if path.name == ATLAS_PATH.name:
             continue
 
@@ -42,7 +42,7 @@ def iter_status_icons() -> list[StatusIcon]:
 
     if not icons:
         relative_root = STATUSICONS_ROOT.relative_to(PROJECT_ROOT)
-        raise RuntimeError(f"No affliction_*.png files found under {relative_root}")
+        raise RuntimeError(f"No status icon PNG files found under {relative_root}")
 
     return icons
 
