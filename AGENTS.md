@@ -23,8 +23,9 @@ Expected structure:
 ```text
 devspace/
   items/
-  mapping.csv
   reference/
+  scripts/
+  statusicons/
 ```
 
 #### `devspace/items`
@@ -43,7 +44,9 @@ Each item folder contains source files for the generated artwork and an `items` 
 ```text
 origin.png
 icon_source.png
+icon.png
 sprite_source.png
+sprite.png
 items/
   antidama1/
     icon.png
@@ -54,31 +57,53 @@ File meanings:
 
 - `origin.png` - generation reference image used to create the item icon; this is not an original Barotrauma style reference.
 - `icon_source.png` - large high-resolution source image for the icon.
+- `icon.png` - non-game preview/scaffold icon used to evaluate the generated icon's shape and style before creating final in-game item icons.
 - `sprite_source.png` - large high-resolution source image for the sprite.
+- `sprite.png` - non-game preview/scaffold sprite used to evaluate the generated sprite's shape and style before creating final in-game item sprites.
 - `items/` - contains one folder per in-game item that uses this generated artwork.
 - `items/<identifier>/` - folder named after the in-game item identifier, for example `items/antidama1/`.
 - `items/<identifier>/icon.png` - final 64x64 icon for that in-game item.
 - `items/<identifier>/sprite.png` - final sprite displayed in game for that in-game item.
 
-The folder names under `devspace/items/<item>/items/` are the in-game item identifiers. Final icon and sprite files that will be used by the game must be stored only in these identifier folders.
+The folder names under `devspace/items/<item>/items/` are the in-game item identifiers. Final icon and sprite files that will be used by the game must be stored only in these identifier folders. Root-level `icon.png` and `sprite.png` files in an item asset folder are important preview/scaffold files, but they are not used in game.
 
 #### `devspace/reference`
 Stores original Barotrauma sprites and icons used as visual references.
 
 Use this folder when matching the original Barotrauma icon and sprite style.
 
-#### `devspace/mapping.csv`
-Stores the mapping between original Barotrauma item identifiers and replacement mod item identifiers.
+#### `devspace/scripts`
+Stores development-only automation scripts.
 
-Use only identifiers in this file; do not store paths.
+`devspace/scripts/item_atlases/build_item_atlases.py` builds development item atlases from all final per-item assets under:
 
-Expected columns:
-
-```csv
-original_identifier,mod_identifier
+```text
+devspace/items/<item>/items/<identifier>/
 ```
 
-Whenever XML files are updated to replace an original game item with a mod item, update `devspace/mapping.csv` in the same change so it remains the source of truth for item replacement mappings.
+The script expects each identifier folder to contain `icon.png` and `sprite.png`. It writes `icons.png`, `sprites.png`, `icons.csv`, and `sprites.csv` into `devspace/scripts/item_atlases/`. The CSV files store each asset's `item`, `identifier`, source path, atlas coordinates, dimensions, and Barotrauma-style `sourcerect`.
+
+Use this script when icon or sprite layout changes. During atlas generation, each sprite is copied into a transparent rectangle whose width and height are rounded up to multiples of 4. The generated sprite atlas is also padded so its texture width and height are multiples of 4. Individual source sprite dimensions do not need to be multiples of 4.
+
+#### `devspace/statusicons`
+Stores Barotrauma status affliction icons.
+
+Expected structure:
+
+```text
+devspace/statusicons/
+  affliction_<affliction_name>.png
+  atlas.png
+```
+
+File meanings:
+
+- `affliction_<affliction_name>.png` - individual Barotrauma affliction status icon, 24x24 pixels.
+- `atlas.png` - atlas containing all affliction status icons.
+
+When extracting vanilla affliction icons, apply the icon's XML `color`/`iconcolors` tint or the user-requested target palette before saving the 24x24 PNG. Do not save raw grayscale mask icons unless the user explicitly asks for an uncolored source mask.
+
+`devspace/scripts/statusicons/build_statusicon_atlas.py` builds `devspace/statusicons/atlas.png` from all `devspace/statusicons/affliction_*.png` files. The script validates that each source icon is exactly 24x24 pixels.
 
 ### Barotrauma Mod Files
 Everything outside `devspace` is part of the actual Barotrauma mod.
@@ -91,8 +116,8 @@ Expected mod-facing structure:
 filelist.xml
 Items/
   Medical/
-    Icons.png
-    Sprites.png
+    icons.png
+    sprites.png
     medical.xml
     poisons.xml
     buffs.xml
@@ -102,11 +127,20 @@ File meanings:
 
 - `filelist.xml` - root Barotrauma mod descriptor.
 - `Items/Medical` - Barotrauma item files for the medical part of the mod.
-- `Items/Medical/Icons.png` - atlas containing all final item icons.
-- `Items/Medical/Sprites.png` - atlas containing all final item sprites.
+- `Items/Medical/icons.png` - atlas containing all final item icons.
+- `Items/Medical/sprites.png` - atlas containing all final item sprites.
 - `Items/Medical/medical.xml` - medical item definitions.
 - `Items/Medical/poisons.xml` - poison item definitions.
 - `Items/Medical/buffs.xml` - buff item definitions.
+
+## Mod Build Workflow
+
+Only run the mod build workflow when the user explicitly asks to build, rebuild, update atlases, update XML, or otherwise prepare the mod-facing Barotrauma files. Do not automatically build atlases, copy atlas files into `Items/Medical`, or edit mod XML after ordinary icon/sprite generation requests.
+
+After building item atlases with `devspace/scripts/item_atlases/build_item_atlases.py`:
+
+1. Read `devspace/scripts/item_atlases/icons.csv` and `devspace/scripts/item_atlases/sprites.csv` to see which item identifiers are present in the atlases and which `sourcerect` belongs to each item.
+2. For each item identifier in the CSV files, copy the original vanilla XML item definition for that identifier into the mod XML and override its `InventoryIcon` and `Sprite` elements to use `%ModDir%/Items/Medical/icons.png` and `%ModDir%/Items/Medical/sprites.png` with the matching CSV `sourcerect` values.
 
 ## Icon Generation Rules
 
@@ -161,5 +195,4 @@ Observed from `devspace/reference/Medicines.png`:
 - Make visual changes to icons, sprites, and source images by regenerating the visual asset, not by manually editing or patching the bitmap.
 - When adding a new item, create a dedicated folder under `devspace/items`.
 - When adding a new in-game item output, create `devspace/items/<item>/items/<identifier>/` and store only that item's final `icon.png` and `sprite.png` there.
-- When changing icon or sprite layout, update the relevant atlas and XML references together.
-- When changing XML item replacements, update `devspace/mapping.csv` together with the XML change.
+- When changing icon or sprite layout, update the relevant atlas and XML references together only if the user explicitly asked to build or update the mod-facing files.
