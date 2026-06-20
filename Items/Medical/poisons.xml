@@ -1,7 +1,59 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Override>
   <Items>
-    <!-- Override vanilla cyanide visuals with dart_syringe assets. -->
+    <ChloralHydrate name="" identifier="chloralhydrate" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,poison,syringe" description="" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+      <Upgrade gameversion="0.10.0.0" scale="0.5" />
+      <PreferredContainer primary="toxcab" secondary="toxcontainer" />
+      <PreferredContainer primary="wrecktoxcab,abandonedtoxcab,piratetoxcab" spawnprobability="0.1" />
+      <Price baseprice="100" minavailable="1">
+        <Price storeidentifier="merchantoutpost" sold="false" />
+        <Price storeidentifier="merchantcity" multiplier="0.9" />
+        <Price storeidentifier="merchantresearch" multiplier="0.9" minavailable="2" />
+        <Price storeidentifier="merchantmilitary" multiplier="1.1" />
+        <Price storeidentifier="merchantmine" sold="false" multiplier="1.1" />
+      </Price>
+      <Fabricate suitablefabricators="medicalfabricator" requiredtime="60">
+        <RequiredSkill identifier="medical" level="50" />
+        <RequiredItem identifier="chlorine" count="2" />
+        <RequiredItem identifier="ethanol" />
+      </Fabricate>
+      <Deconstruct time="20">
+        <Item identifier="chlorine" />
+        <Item identifier="ethanol" />
+      </Deconstruct>
+      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="72,0,18,108" depth="0.6" origin="0.5,0.5" />
+      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
+      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+        <RequiredSkill identifier="medical" level="30" />
+        <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
+        <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true" />
+        <StatusEffect type="OnSuccess" target="UseTarget" duration="5">
+          <Affliction identifier="organdamage" amount="0.5" />
+          <Affliction identifier="incrementalstun" amount="25.0" />
+        </StatusEffect>
+        <StatusEffect type="OnFailure" target="UseTarget" duration="2.5">
+          <Affliction identifier="organdamage" amount="0.5" />
+          <Affliction identifier="incrementalstun" amount="25.0" />
+        </StatusEffect>
+        <StatusEffect type="OnSuccess" target="UseTarget">
+          <Conditional entitytype="eq Character" />
+          <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
+        </StatusEffect>
+        <StatusEffect type="OnFailure" target="UseTarget">
+          <Conditional entitytype="eq Character" />
+          <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
+        </StatusEffect>
+        <StatusEffect type="OnImpact" target="UseTarget" multiplyafflictionsbymaxvitality="true" AllowWhenBroken="true">
+          <Affliction identifier="stun" amount="0.1" />
+        </StatusEffect>
+        <StatusEffect type="OnBroken" target="This">
+          <Remove />
+        </StatusEffect>
+      </MeleeWeapon>
+      <Projectile characterusable="false" launchimpulse="18.0" sticktocharacters="true" launchrotation="-90" inheritStatusEffectsFrom="MeleeWeapon" inheritrequiredskillsfrom="MeleeWeapon" />
+      <SkillRequirementHint identifier="medical" level="30" />
+    </ChloralHydrate>
     <Cyanide name="" identifier="cyanide" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,poison,syringe" description="" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
       <Upgrade gameversion="0.10.0.0" scale="0.5" />
       <PreferredContainer primary="toxcab" secondary="toxcontainer" />
@@ -26,9 +78,9 @@
         <Item identifier="sodium" />
         <Item identifier="sodium" />
       </Deconstruct>
-      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="64,64,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="120,0,20,108" depth="0.6" origin="0.5,0.5" />
-      <Body width="18" height="108" density="10.2" waterdragcoefficient="1" />
+      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="90,0,18,108" depth="0.6" origin="0.5,0.5" />
+      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="60" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
@@ -62,46 +114,35 @@
       <Projectile characterusable="false" launchimpulse="18.0" sticktocharacters="true" launchrotation="-90" inheritStatusEffectsFrom="MeleeWeapon" inheritrequiredskillsfrom="MeleeWeapon" />
       <SkillRequirementHint identifier="medical" level="60" />
     </Cyanide>
-    <!-- Override vanilla sufforin visuals with dart_syringe assets. -->
-    <Sufforin name="" identifier="sufforin" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,poison,syringe" description="" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+    <Deliriumine name="" identifier="deliriumine" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,poison,syringe" description="" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
       <Upgrade gameversion="0.10.0.0" scale="0.5" />
       <PreferredContainer primary="toxcab" secondary="toxcontainer" />
       <PreferredContainer primary="wrecktoxcab,abandonedtoxcab,piratetoxcab" spawnprobability="0.05" />
-      <Price baseprice="100" minavailable="1">
+      <Price baseprice="250" minavailable="1">
         <Price storeidentifier="merchantoutpost" sold="false" />
         <Price storeidentifier="merchantcity" multiplier="0.9" />
         <Price storeidentifier="merchantresearch" multiplier="0.9" />
         <Price storeidentifier="merchantmilitary" multiplier="1.1" />
         <Price storeidentifier="merchantmine" sold="false" multiplier="1.1" />
-        <Price storeidentifier="merchanthusk" minavailable="0" maxavailable="1">
-          <Reputation faction="huskcult" min="50" />
-        </Price>
       </Price>
-      <Fabricate suitablefabricators="medicalfabricator" requiredtime="60">
-        <RequiredSkill identifier="medical" level="60" />
-        <RequiredItem identifier="sulphuricacid" />
-        <RequiredItem identifier="potassium" />
+      <Fabricate suitablefabricators="medicalfabricator" requiredtime="60" amount="2">
+        <RequiredSkill identifier="medical" level="50" />
+        <RequiredItem identifier="dementonite" />
+        <RequiredItem identifier="ethanol" />
       </Fabricate>
-      <Deconstruct time="20">
-        <Item identifier="sulphuricacid" />
-      </Deconstruct>
-      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="256,128,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="280,0,20,108" depth="0.6" origin="0.5,0.5" />
-      <Body width="18" height="108" density="10.2" waterdragcoefficient="1" />
+      <Deconstruct time="5" />
+      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="0,64,64,64" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="108,0,18,108" depth="0.6" origin="0.5,0.5" />
+      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
-        <RequiredSkill identifier="medical" level="40" />
+        <RequiredSkill identifier="medical" level="35" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
         <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true" />
         <StatusEffect type="OnSuccess" target="UseTarget" multiplyafflictionsbymaxvitality="true">
-          <Conditional ishuman="true" />
-          <Affliction identifier="sufforinpoisoning" amount="11" />
-        </StatusEffect>
-        <StatusEffect type="OnSuccess" target="UseTarget" multiplyafflictionsbymaxvitality="true">
-          <Conditional ishuman="false" />
-          <Affliction identifier="sufforinpoisoning" amount="20" />
+          <Affliction identifier="deliriuminepoisoning" amount="20" />
         </StatusEffect>
         <StatusEffect type="OnFailure" target="UseTarget" multiplyafflictionsbymaxvitality="true">
-          <Affliction identifier="sufforinpoisoning" amount="10" />
+          <Affliction identifier="deliriuminepoisoning" amount="10" />
         </StatusEffect>
         <StatusEffect type="OnSuccess" target="UseTarget">
           <Conditional entitytype="eq Character" />
@@ -119,9 +160,92 @@
         </StatusEffect>
       </MeleeWeapon>
       <Projectile characterusable="false" launchimpulse="18.0" sticktocharacters="true" launchrotation="-90" inheritStatusEffectsFrom="MeleeWeapon" inheritrequiredskillsfrom="MeleeWeapon" />
-      <SkillRequirementHint identifier="medical" level="40" />
-    </Sufforin>
-    <!-- Override vanilla morbusine visuals with dart_syringe assets. -->
+      <SkillRequirementHint identifier="medical" level="35" />
+    </Deliriumine>
+    <!-- Existing mod item fallback for europabrew. -->
+    <Item name="" identifier="europabrew" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+      <PreferredContainer primary="toxcab" secondary="toxcontainer" />
+      <PreferredContainer primary="wrecktoxcab,abandonedtoxcab,piratetoxcab" spawnprobability="0.05" />
+      <Price baseprice="200" minavailable="1">
+        <Price storeidentifier="merchantoutpost" sold="false" />
+        <Price storeidentifier="merchantcity" multiplier="0.9" />
+        <Price storeidentifier="merchantresearch" multiplier="0.9" />
+        <Price storeidentifier="merchantmilitary" multiplier="1.1" />
+        <Price storeidentifier="merchantmine" sold="false" multiplier="1.1" />
+      </Price>
+      <Fabricate suitablefabricators="medicalfabricator" requiredtime="10" requiresrecipe="true">
+        <RequiredSkill identifier="medical" level="30" />
+        <RequiredItem identifier="alienblood" count="1" />
+        <RequiredItem identifier="calcium" count="2" />
+      </Fabricate>
+      <Deconstruct time="20">
+        <Item identifier="alienblood" />
+        <Item identifier="calcium" />
+      </Deconstruct>
+      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="64,64,64,64" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="126,0,18,108" depth="0.6" origin="0.5,0.5" />
+      <Body width="18" height="108" density="10.2" waterdragcoefficient="1" />
+      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+        <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
+        <StatusEffect type="OnSuccess" target="UseTarget">
+          <Conditional entitytype="eq Character" />
+          <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
+          <Affliction identifier="acidreaction" amount="30" MultiplyByMaxVitality="true" />
+        </StatusEffect>
+        <StatusEffect statuseffecttags="medical" type="OnSuccess" target="UseTarget" duration="30">
+          <ReduceAffliction type="poison" amount="1" />
+        </StatusEffect>
+        <StatusEffect type="OnBroken" target="This">
+          <Remove />
+        </StatusEffect>
+      </MeleeWeapon>
+      <Projectile characterusable="false" launchimpulse="20.0" sticktocharacters="true" launchrotation="-90" inheritstatuseffectsfrom="MeleeWeapon" />
+    </Item>
+    <Item name="" identifier="huskeggs" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" RequireAimToUse="True" HitOnlyCharacters="true">
+      <Upgrade gameversion="0.10.0.0" scale="0.5" />
+      <PreferredContainer primary="toxcontainer" spawnprobability="0.5" notcampaign="true" notpvp="true" />
+      <PreferredContainer primary="wrecktoxcontainer" spawnprobability="0.2" />
+      <PreferredContainer secondary="medfabcab" />
+      <Price baseprice="400">
+        <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.2" />
+        <Price storeidentifier="merchantcity" multiplier="1.3" />
+        <Price storeidentifier="merchantresearch" minavailable="1" />
+        <Price storeidentifier="merchantmilitary" sold="false" multiplier="1.2" />
+        <Price storeidentifier="merchantmine" sold="false" multiplier="1.3" />
+        <Price storeidentifier="merchanthusk" minavailable="2" maxavailable="6">
+          <Reputation faction="huskcult" min="30" />
+        </Price>
+      </Price>
+      <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">
+        <RequiredSkill identifier="medical" level="30" />
+        <RequiredItem identifier="huskeggsbasic" />
+        <RequiredItem identifier="calcium" />
+      </Fabricate>
+      <Deconstruct time="5">
+        <Item identifier="calcium" />
+      </Deconstruct>
+      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="128,64,64,64" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="144,0,18,108" depth="0.6" origin="0.5,0.5" />
+      <Body width="35" height="70" density="20" />
+      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect">
+        <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
+        <StatusEffect type="OnSuccess" target="UseTarget" duration="60.0">
+          <Conditional huskinfection="lt 0.01" />
+          <Affliction identifier="huskinfection" amount="0.01" />
+        </StatusEffect>
+        <StatusEffect type="OnSuccess" target="UseTarget">
+          <Conditional entitytype="eq Character" />
+          <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
+        </StatusEffect>
+        <StatusEffect type="OnImpact" target="UseTarget" multiplyafflictionsbymaxvitality="true" AllowWhenBroken="true">
+          <Affliction identifier="stun" amount="0.1" />
+        </StatusEffect>
+        <StatusEffect type="OnBroken" target="This">
+          <Remove />
+        </StatusEffect>
+      </MeleeWeapon>
+      <Projectile characterusable="false" launchimpulse="20.0" sticktocharacters="true" launchrotation="-90" inheritstatuseffectsfrom="MeleeWeapon" />
+    </Item>
     <Morbusine name="" identifier="morbusine" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,poison,syringe" description="" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
       <Upgrade gameversion="0.10.0.0" scale="0.5" />
       <PreferredContainer primary="toxcab" secondary="toxcontainer" />
@@ -147,9 +271,9 @@
         <Item identifier="calcium" />
         <Item identifier="sulphuricacid" />
       </Deconstruct>
-      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="0,128,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="200,0,20,108" depth="0.6" origin="0.5,0.5" />
-      <Body width="18" height="108" density="10.2" waterdragcoefficient="1" />
+      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="192,64,64,64" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="162,0,18,108" depth="0.6" origin="0.5,0.5" />
+      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="50" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
@@ -183,56 +307,6 @@
       <Projectile characterusable="false" launchimpulse="18.0" sticktocharacters="true" launchrotation="-90" inheritStatusEffectsFrom="MeleeWeapon" inheritrequiredskillsfrom="MeleeWeapon" />
       <SkillRequirementHint identifier="medical" level="50" />
     </Morbusine>
-    <!-- Override vanilla deliriumine visuals with dart_syringe assets. -->
-    <Deliriumine name="" identifier="deliriumine" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,poison,syringe" description="" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
-      <Upgrade gameversion="0.10.0.0" scale="0.5" />
-      <PreferredContainer primary="toxcab" secondary="toxcontainer" />
-      <PreferredContainer primary="wrecktoxcab,abandonedtoxcab,piratetoxcab" spawnprobability="0.05" />
-      <Price baseprice="250" minavailable="1">
-        <Price storeidentifier="merchantoutpost" sold="false" />
-        <Price storeidentifier="merchantcity" multiplier="0.9" />
-        <Price storeidentifier="merchantresearch" multiplier="0.9" />
-        <Price storeidentifier="merchantmilitary" multiplier="1.1" />
-        <Price storeidentifier="merchantmine" sold="false" multiplier="1.1" />
-      </Price>
-      <Fabricate suitablefabricators="medicalfabricator" requiredtime="60" amount="2">
-        <RequiredSkill identifier="medical" level="50" />
-        <RequiredItem identifier="dementonite" />
-        <RequiredItem identifier="ethanol" />
-      </Fabricate>
-      <Deconstruct time="5" />
-      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="192,64,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="160,0,20,108" depth="0.6" origin="0.5,0.5" />
-      <Body width="18" height="108" density="10.2" waterdragcoefficient="1" />
-      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
-        <RequiredSkill identifier="medical" level="35" />
-        <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
-        <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true" />
-        <StatusEffect type="OnSuccess" target="UseTarget" multiplyafflictionsbymaxvitality="true">
-          <Affliction identifier="deliriuminepoisoning" amount="20" />
-        </StatusEffect>
-        <StatusEffect type="OnFailure" target="UseTarget" multiplyafflictionsbymaxvitality="true">
-          <Affliction identifier="deliriuminepoisoning" amount="10" />
-        </StatusEffect>
-        <StatusEffect type="OnSuccess" target="UseTarget">
-          <Conditional entitytype="eq Character" />
-          <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
-        </StatusEffect>
-        <StatusEffect type="OnFailure" target="UseTarget">
-          <Conditional entitytype="eq Character" />
-          <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
-        </StatusEffect>
-        <StatusEffect type="OnImpact" target="UseTarget" multiplyafflictionsbymaxvitality="true" AllowWhenBroken="true">
-          <Affliction identifier="stun" amount="0.1" />
-        </StatusEffect>
-        <StatusEffect type="OnBroken" target="This">
-          <Remove />
-        </StatusEffect>
-      </MeleeWeapon>
-      <Projectile characterusable="false" launchimpulse="18.0" sticktocharacters="true" launchrotation="-90" inheritStatusEffectsFrom="MeleeWeapon" inheritrequiredskillsfrom="MeleeWeapon" />
-      <SkillRequirementHint identifier="medical" level="35" />
-    </Deliriumine>
-    <!-- Override vanilla paralyzant visuals with dart_syringe assets. -->
     <Paralyzant name="" identifier="paralyzant" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,poison,syringe" description="" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
       <Upgrade gameversion="0.10.0.0" scale="0.5" />
       <PreferredContainer primary="toxcab" secondary="toxcontainer" />
@@ -253,9 +327,9 @@
         <Item identifier="chlorine" />
         <Item identifier="paralyxis" />
       </Deconstruct>
-      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="64,128,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="220,0,20,108" depth="0.6" origin="0.5,0.5" />
-      <Body width="18" height="108" density="10.2" waterdragcoefficient="1" />
+      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="256,64,64,64" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="180,0,18,108" depth="0.6" origin="0.5,0.5" />
+      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="60" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
@@ -289,7 +363,6 @@
       <Projectile characterusable="false" launchimpulse="18.0" sticktocharacters="true" launchrotation="-90" inheritStatusEffectsFrom="MeleeWeapon" inheritrequiredskillsfrom="MeleeWeapon" />
       <SkillRequirementHint identifier="medical" level="60" />
     </Paralyzant>
-    <!-- Override vanilla radiotoxin visuals with dart_syringe assets. -->
     <Radiotoxin name="" identifier="radiotoxin" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,poison,syringe" description="" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
       <Upgrade gameversion="0.10.0.0" scale="0.5" />
       <PreferredContainer primary="toxcab" secondary="toxcontainer" />
@@ -310,9 +383,9 @@
         <Item identifier="thorium" />
         <Item identifier="uranium" />
       </Deconstruct>
-      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="128,128,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="240,0,20,108" depth="0.6" origin="0.5,0.5" />
-      <Body width="18" height="108" density="10.2" waterdragcoefficient="1" />
+      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="320,64,64,64" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="198,0,18,108" depth="0.6" origin="0.5,0.5" />
+      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="30" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
@@ -341,109 +414,6 @@
       <Projectile characterusable="false" launchimpulse="18.0" sticktocharacters="true" launchrotation="-90" inheritStatusEffectsFrom="MeleeWeapon" inheritrequiredskillsfrom="MeleeWeapon" />
       <SkillRequirementHint identifier="medical" level="30" />
     </Radiotoxin>
-    <!-- Override vanilla calyxanide visuals with dart_syringe assets. -->
-    <Calyxanide name="" identifier="calyxanide" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="mediccrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
-      <Upgrade gameversion="0.10.0.0" scale="0.5" />
-      <PreferredContainer secondary="wreckmedcab,abandonedmedcab,piratemedcab" amount="1" spawnprobability="0.2" />
-      <PreferredContainer secondary="outpostmedcab" amount="1" spawnprobability="0.1" />
-      <PreferredContainer secondary="outpostmedcompartment" amount="1" spawnprobability="0.03" />
-      <PreferredContainer primary="medcab" secondary="medcontainer" />
-      <Price baseprice="510">
-        <Price storeidentifier="merchantoutpost" minavailable="5" />
-        <Price storeidentifier="merchantcity" minavailable="5" />
-        <Price storeidentifier="merchantresearch" minavailable="7" />
-        <Price storeidentifier="merchantmilitary" multiplier="1.1" minavailable="5" />
-        <Price storeidentifier="merchantmine" multiplier="1.1" minavailable="5" />
-        <Price storeidentifier="merchantmedical" multiplier="0.9" minavailable="7" />
-        <Price storeidentifier="merchanthusk" minavailable="3" maxavailable="5">
-          <Reputation faction="huskcult" min="30" />
-        </Price>
-      </Price>
-      <Fabricate suitablefabricators="medicalfabricator" requiredtime="30">
-        <RequiredSkill identifier="medical" level="22" />
-        <RequiredItem identifier="huskeggs" />
-        <RequiredItem identifier="antibiotics" />
-        <RequiredItem identifier="stabilozine" />
-      </Fabricate>
-      <Deconstruct time="20">
-        <Item identifier="antibiotics" />
-        <Item identifier="stabilozine" />
-      </Deconstruct>
-      <SuitableTreatment identifier="huskinfection" suitability="100" />
-      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="80,0,20,108" depth="0.6" origin="0.5,0.5" />
-      <Body width="18" height="108" density="10.2" waterdragcoefficient="1" />
-      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
-        <RequiredSkill identifier="medical" level="38" />
-        <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
-        <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true" />
-        <StatusEffect statuseffecttags="medical" type="OnSuccess" target="UseTarget" duration="1">
-          <Conditional huskinfection="lt 100.0" />
-          <ReduceAffliction identifier="huskinfection" amount="100" />
-        </StatusEffect>
-        <StatusEffect statuseffecttags="medical" type="OnFailure" target="UseTarget" duration="1">
-          <Conditional huskinfection="lt 100.0" />
-          <ReduceAffliction identifier="huskinfection" amount="60" />
-        </StatusEffect>
-        <StatusEffect statuseffecttags="medical,calyxanide" type="OnSuccess" target="UseTarget" duration="10.0">
-          <Conditional huskinfection="eq 100.0" />
-          <Affliction identifier="organdamage" amount="3" />
-        </StatusEffect>
-        <StatusEffect statuseffecttags="medical,calyxanide" type="OnSuccess" target="UseTarget" duration="5.0" comparison="or">
-          <Conditional IsHusk="true" />
-          <Affliction identifier="organdamage" amount="120" />
-        </StatusEffect>
-        <StatusEffect statuseffecttags="medical,calyxanide" type="OnFailure" target="UseTarget" duration="3.0" comparison="or">
-          <Conditional IsHusk="true" />
-          <Affliction identifier="organdamage" amount="100" />
-        </StatusEffect>
-        <StatusEffect type="OnSuccess" target="UseTarget">
-          <Conditional entitytype="eq Character" />
-          <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
-        </StatusEffect>
-        <StatusEffect type="OnFailure" target="UseTarget">
-          <Conditional entitytype="eq Character" />
-          <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
-        </StatusEffect>
-        <StatusEffect type="OnImpact" target="UseTarget" multiplyafflictionsbymaxvitality="true" AllowWhenBroken="true">
-          <Affliction identifier="stun" amount="0.1" />
-        </StatusEffect>
-        <StatusEffect type="OnBroken" target="This">
-          <Remove />
-        </StatusEffect>
-      </MeleeWeapon>
-      <Projectile characterusable="false" launchimpulse="18.0" sticktocharacters="true" launchrotation="-90" inheritstatuseffectsfrom="MeleeWeapon" inheritrequiredskillsfrom="MeleeWeapon" />
-      <SkillRequirementHint identifier="medical" level="38" />
-    </Calyxanide>
-    <!-- Override vanilla sulphuricacid visuals with dart_syringe assets. -->
-    <SulphuricAcid name="" identifier="sulphuricacid" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="mediccrate" description="" Tags="smallitem,chem,poison" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
-      <Upgrade gameversion="0.10.0.0" scale="0.5" />
-      <PreferredContainer secondary="wrecktoxcab,abandonedtoxcab,piratetoxcab" spawnprobability="0.5" />
-      <PreferredContainer primary="toxcab" secondary="toxcontainer" />
-      <Price baseprice="80">
-        <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.25" />
-        <Price storeidentifier="merchantcity" sold="false" multiplier="1.25" />
-        <Price storeidentifier="merchantresearch" multiplier="0.9" minavailable="4" />
-        <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="2" />
-        <Price storeidentifier="merchantmine" multiplier="1.1" sold="false" />
-        <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="2" />
-      </Price>
-      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="0,192,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="300,0,20,108" depth="0.6" origin="0.5,0.5" />
-      <Body width="18" height="108" density="10.2" waterdragcoefficient="1" />
-      <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" characterusable="false" holdangle="30" aimable="false" msg="ItemMsgPickUpSelect">
-        <StatusEffect type="OnUse" target="This" Condition="-100.0" setvalue="true">
-          <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
-        </StatusEffect>
-        <StatusEffect type="OnUse" target="UseTarget" duration="5.0">
-          <Affliction identifier="acidburn" amount="3" />
-        </StatusEffect>
-        <StatusEffect type="OnBroken" target="This">
-          <Remove />
-        </StatusEffect>
-      </Holdable>
-    </SulphuricAcid>
-    <!-- Override vanilla raptorbaneextract visuals with dart_syringe assets. -->
     <raptorbaneextract name="" identifier="raptorbaneextract" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,poison,syringe" description="" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
       <Upgrade gameversion="0.10.0.0" scale="0.5" />
       <PreferredContainer primary="toxcab" secondary="toxcontainer" />
@@ -466,9 +436,9 @@
         <Item identifier="carbon" />
         <Item identifier="carbon" />
       </Deconstruct>
-      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="192,128,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="260,0,20,108" depth="0.6" origin="0.5,0.5" />
-      <Body width="18" height="108" density="10.2" waterdragcoefficient="1" />
+      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="0,128,64,64" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="216,0,18,108" depth="0.6" origin="0.5,0.5" />
+      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="35" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
@@ -504,80 +474,45 @@
       <Projectile characterusable="false" launchimpulse="18.0" sticktocharacters="true" launchrotation="-90" inheritStatusEffectsFrom="MeleeWeapon" inheritrequiredskillsfrom="MeleeWeapon" />
       <SkillRequirementHint identifier="medical" level="35" />
     </raptorbaneextract>
-    <!-- Override vanilla europabrew visuals with dart_syringe assets. -->
-    <Item name="" identifier="europabrew" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+    <Sufforin name="" identifier="sufforin" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,poison,syringe" description="" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+      <Upgrade gameversion="0.10.0.0" scale="0.5" />
       <PreferredContainer primary="toxcab" secondary="toxcontainer" />
       <PreferredContainer primary="wrecktoxcab,abandonedtoxcab,piratetoxcab" spawnprobability="0.05" />
-      <Price baseprice="200" minavailable="1">
+      <Price baseprice="100" minavailable="1">
         <Price storeidentifier="merchantoutpost" sold="false" />
         <Price storeidentifier="merchantcity" multiplier="0.9" />
         <Price storeidentifier="merchantresearch" multiplier="0.9" />
         <Price storeidentifier="merchantmilitary" multiplier="1.1" />
         <Price storeidentifier="merchantmine" sold="false" multiplier="1.1" />
-      </Price>
-      <Fabricate suitablefabricators="medicalfabricator" requiredtime="10" requiresrecipe="true">
-        <RequiredSkill identifier="medical" level="30" />
-        <RequiredItem identifier="alienblood" count="1" />
-        <RequiredItem identifier="calcium" count="2" />
-      </Fabricate>
-      <Deconstruct time="20">
-        <Item identifier="alienblood" />
-        <Item identifier="calcium" />
-      </Deconstruct>
-      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="256,64,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="180,0,20,108" depth="0.6" origin="0.5,0.5" />
-      <Body width="18" height="108" density="10.2" waterdragcoefficient="1" />
-      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
-        <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
-        <StatusEffect type="OnSuccess" target="UseTarget">
-          <Conditional entitytype="eq Character" />
-          <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
-          <Affliction identifier="acidreaction" amount="30" MultiplyByMaxVitality="true" />
-        </StatusEffect>
-        <StatusEffect statuseffecttags="medical" type="OnSuccess" target="UseTarget" duration="30">
-          <ReduceAffliction type="poison" amount="1" />
-        </StatusEffect>
-        <StatusEffect type="OnBroken" target="This">
-          <Remove />
-        </StatusEffect>
-      </MeleeWeapon>
-      <Projectile characterusable="false" launchimpulse="20.0" sticktocharacters="true" launchrotation="-90" inheritstatuseffectsfrom="MeleeWeapon" />
-    </Item>
-    <!-- Override vanilla chloralhydrate visuals with dart_syringe assets. -->
-    <ChloralHydrate name="" identifier="chloralhydrate" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,poison,syringe" description="" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
-      <Upgrade gameversion="0.10.0.0" scale="0.5" />
-      <PreferredContainer primary="toxcab" secondary="toxcontainer" />
-      <PreferredContainer primary="wrecktoxcab,abandonedtoxcab,piratetoxcab" spawnprobability="0.1" />
-      <Price baseprice="100" minavailable="1">
-        <Price storeidentifier="merchantoutpost" sold="false" />
-        <Price storeidentifier="merchantcity" multiplier="0.9" />
-        <Price storeidentifier="merchantresearch" multiplier="0.9" minavailable="2" />
-        <Price storeidentifier="merchantmilitary" multiplier="1.1" />
-        <Price storeidentifier="merchantmine" sold="false" multiplier="1.1" />
+        <Price storeidentifier="merchanthusk" minavailable="0" maxavailable="1">
+          <Reputation faction="huskcult" min="50" />
+        </Price>
       </Price>
       <Fabricate suitablefabricators="medicalfabricator" requiredtime="60">
-        <RequiredSkill identifier="medical" level="50" />
-        <RequiredItem identifier="chlorine" count="2" />
-        <RequiredItem identifier="ethanol" />
+        <RequiredSkill identifier="medical" level="60" />
+        <RequiredItem identifier="sulphuricacid" />
+        <RequiredItem identifier="potassium" />
       </Fabricate>
       <Deconstruct time="20">
-        <Item identifier="chlorine" />
-        <Item identifier="ethanol" />
+        <Item identifier="sulphuricacid" />
       </Deconstruct>
-      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="0,64,64,64" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="100,0,20,108" depth="0.6" origin="0.5,0.5" />
-      <Body width="18" height="108" density="10.2" waterdragcoefficient="1" />
+      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="64,128,64,64" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="234,0,18,108" depth="0.6" origin="0.5,0.5" />
+      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
-        <RequiredSkill identifier="medical" level="30" />
+        <RequiredSkill identifier="medical" level="40" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
         <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true" />
-        <StatusEffect type="OnSuccess" target="UseTarget" duration="5">
-          <Affliction identifier="organdamage" amount="0.5" />
-          <Affliction identifier="incrementalstun" amount="25.0" />
+        <StatusEffect type="OnSuccess" target="UseTarget" multiplyafflictionsbymaxvitality="true">
+          <Conditional ishuman="true" />
+          <Affliction identifier="sufforinpoisoning" amount="11" />
         </StatusEffect>
-        <StatusEffect type="OnFailure" target="UseTarget" duration="2.5">
-          <Affliction identifier="organdamage" amount="0.5" />
-          <Affliction identifier="incrementalstun" amount="25.0" />
+        <StatusEffect type="OnSuccess" target="UseTarget" multiplyafflictionsbymaxvitality="true">
+          <Conditional ishuman="false" />
+          <Affliction identifier="sufforinpoisoning" amount="20" />
+        </StatusEffect>
+        <StatusEffect type="OnFailure" target="UseTarget" multiplyafflictionsbymaxvitality="true">
+          <Affliction identifier="sufforinpoisoning" amount="10" />
         </StatusEffect>
         <StatusEffect type="OnSuccess" target="UseTarget">
           <Conditional entitytype="eq Character" />
@@ -595,7 +530,34 @@
         </StatusEffect>
       </MeleeWeapon>
       <Projectile characterusable="false" launchimpulse="18.0" sticktocharacters="true" launchrotation="-90" inheritStatusEffectsFrom="MeleeWeapon" inheritrequiredskillsfrom="MeleeWeapon" />
-      <SkillRequirementHint identifier="medical" level="30" />
-    </ChloralHydrate>
+      <SkillRequirementHint identifier="medical" level="40" />
+    </Sufforin>
+    <SulphuricAcid name="" identifier="sulphuricacid" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="mediccrate" description="" Tags="smallitem,chem,poison" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+      <Upgrade gameversion="0.10.0.0" scale="0.5" />
+      <PreferredContainer secondary="wrecktoxcab,abandonedtoxcab,piratetoxcab" spawnprobability="0.5" />
+      <PreferredContainer primary="toxcab" secondary="toxcontainer" />
+      <Price baseprice="80">
+        <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.25" />
+        <Price storeidentifier="merchantcity" sold="false" multiplier="1.25" />
+        <Price storeidentifier="merchantresearch" multiplier="0.9" minavailable="4" />
+        <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="2" />
+        <Price storeidentifier="merchantmine" multiplier="1.1" sold="false" />
+        <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="2" />
+      </Price>
+      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="128,128,64,64" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="252,0,18,108" depth="0.6" origin="0.5,0.5" />
+      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
+      <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" characterusable="false" holdangle="30" aimable="false" msg="ItemMsgPickUpSelect">
+        <StatusEffect type="OnUse" target="This" Condition="-100.0" setvalue="true">
+          <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
+        </StatusEffect>
+        <StatusEffect type="OnUse" target="UseTarget" duration="5.0">
+          <Affliction identifier="acidburn" amount="3" />
+        </StatusEffect>
+        <StatusEffect type="OnBroken" target="This">
+          <Remove />
+        </StatusEffect>
+      </Holdable>
+    </SulphuricAcid>
   </Items>
 </Override>
