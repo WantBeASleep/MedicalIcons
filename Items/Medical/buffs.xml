@@ -1,6 +1,56 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Override>
   <Items>
+    <Item name="" identifier="sulphuricacidsyringe" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" description="" Tags="smallitem,chem,syringe" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+      <PreferredContainer secondary="wrecktoxcab,abandonedtoxcab,piratetoxcab" spawnprobability="0" />
+      <PreferredContainer primary="toxcab" secondary="toxcontainer" />
+      <Price baseprice="160" sold="false">
+        <Price storeidentifier="merchantoutpost" multiplier="1.25" />
+        <Price storeidentifier="merchantcity" multiplier="1.25" />
+        <Price storeidentifier="merchantresearch" multiplier="0.9" />
+        <Price storeidentifier="merchantmilitary" multiplier="0.9" />
+        <Price storeidentifier="merchantmine" multiplier="1.1" />
+        <Price storeidentifier="merchantarmory" multiplier="0.9" />
+      </Price>
+      <Fabricate suitablefabricators="medicalfabricator" amount="2" requiredtime="5" requiresrecipe="true">
+        <RequiredSkill identifier="medical" level="30" />
+        <RequiredItem identifier="sulphuricacid" count="2" />
+        <RequiredItem identifier="alienblood" count="1" />
+        <RequiredItem identifier="plastic" count="1" />
+      </Fabricate>
+      <Deconstruct time="5">
+        <Item identifier="sulphuricacid" />
+      </Deconstruct>
+      <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="128,128,64,64" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="252,0,18,108" depth="0.6" origin="0.5,0.5" />
+      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
+      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+        <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
+        <StatusEffect type="OnSuccess" target="UseTarget" duration="10.0">
+          <Conditional mass="lt 3000" />
+          <Affliction identifier="acidburn" amount="7.5" />
+          <Affliction identifier="acidburn" amount="2.0" MultiplyByMaxVitality="true" />
+          <Affliction identifier="slow" amount="20" MultiplyByMaxVitality="true" />
+        </StatusEffect>
+        <StatusEffect type="OnSuccess" target="UseTarget" duration="20.0">
+          <Conditional mass="gte 3000" />
+          <Affliction identifier="acidburn" amount="7.5" />
+          <Affliction identifier="acidburn" amount="0.25" MultiplyByMaxVitality="true" />
+          <Affliction identifier="slow" amount="20" MultiplyByMaxVitality="true" />
+        </StatusEffect>
+        <StatusEffect type="OnSuccess" target="UseTarget">
+          <Conditional entitytype="eq Character" />
+          <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
+        </StatusEffect>
+        <StatusEffect type="OnImpact" target="UseTarget" multiplyafflictionsbymaxvitality="true" AllowWhenBroken="true">
+          <Affliction identifier="stun" amount="0.1" />
+        </StatusEffect>
+        <StatusEffect type="OnBroken" target="This">
+          <Remove />
+        </StatusEffect>
+      </MeleeWeapon>
+      <Projectile characterusable="false" launchimpulse="18.0" sticktocharacters="true" launchrotation="-90" inheritstatuseffectsfrom="MeleeWeapon" />
+    </Item>
     <Item name="" identifier="combatstimulantsyringe" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" Tags="smallitem,chem,medical,syringe" allowasextracargo="true" description="" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light">
       <PreferredContainer primary="medcab" />
       <Price baseprice="340" sold="false">

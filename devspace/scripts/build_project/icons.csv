@@ -13,7 +13,7 @@ paralyzant,devspace/textures/dart_syringe/items/paralyzant/icon.png,256,64,64,64
 radiotoxin,devspace/textures/dart_syringe/items/radiotoxin/icon.png,320,64,64,64,"320,64,64,64"
 raptorbaneextract,devspace/textures/dart_syringe/items/raptorbaneextract/icon.png,0,128,64,64,"0,128,64,64"
 sufforin,devspace/textures/dart_syringe/items/sufforin/icon.png,64,128,64,64,"64,128,64,64"
-sulphuricacid,devspace/textures/dart_syringe/items/sulphuricacid/icon.png,128,128,64,64,"128,128,64,64"
+sulphuricacidsyringe,devspace/textures/dart_syringe/items/sulphuricacidsyringe/icon.png,128,128,64,64,"128,128,64,64"
 antidama1,devspace/textures/insulin_syringe/items/antidama1/icon.png,192,128,64,64,"192,128,64,64"
 antidama2,devspace/textures/insulin_syringe/items/antidama2/icon.png,256,128,64,64,"256,128,64,64"
 deusizine,devspace/textures/insulin_syringe/items/deusizine/icon.png,320,128,64,64,"320,128,64,64"

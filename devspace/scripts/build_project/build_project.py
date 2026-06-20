@@ -30,6 +30,7 @@ EXTRA_VANILLA_ITEMS = {
     "huskeggs": ("CreatureLoot/creatureloot.xml", "poisons.xml"),
     "combatstimulantsyringe": ("Jobgear/Medic/medic_talent_items.xml", "buffs.xml"),
     "pressurestabilizer": ("Jobgear/Medic/medic_talent_items.xml", "buffs.xml"),
+    "sulphuricacidsyringe": ("Jobgear/Medic/medic_talent_items.xml", "buffs.xml"),
 }
 
 
