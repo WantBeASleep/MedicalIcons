@@ -30,7 +30,7 @@
 
 ## Why
 
-I was tired of the default medical icons. It is especially painful when you have five seconds to find Liquid Oxygenite in a pile of thirty almost identical syringes.
+Fuck the default medical icons. It is a pain in the ass when you have five seconds to find Liquid Oxygenite in a pile of thirty almost identical syringes.
 
 ## About
 

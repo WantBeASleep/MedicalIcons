@@ -28,6 +28,7 @@ STATUS_ICON_SIZE = 24
 XML_NAMES = ("medical.xml", "poisons.xml", "buffs.xml")
 EXTRA_VANILLA_ITEMS = {
     "huskeggs": ("CreatureLoot/creatureloot.xml", "poisons.xml"),
+    "europabrew": ("Jobgear/Medic/medic_talent_items.xml", "poisons.xml"),
     "combatstimulantsyringe": ("Jobgear/Medic/medic_talent_items.xml", "buffs.xml"),
     "pressurestabilizer": ("Jobgear/Medic/medic_talent_items.xml", "buffs.xml"),
     "sulphuricacidsyringe": ("Jobgear/Medic/medic_talent_items.xml", "buffs.xml"),

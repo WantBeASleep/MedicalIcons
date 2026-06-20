@@ -162,7 +162,6 @@
       <Projectile characterusable="false" launchimpulse="18.0" sticktocharacters="true" launchrotation="-90" inheritStatusEffectsFrom="MeleeWeapon" inheritrequiredskillsfrom="MeleeWeapon" />
       <SkillRequirementHint identifier="medical" level="35" />
     </Deliriumine>
-    <!-- Existing mod item fallback for europabrew. -->
     <Item name="" identifier="europabrew" category="Medical" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="chemicalcrate" Tags="smallitem,chem,medical,syringe" description="" useinhealthinterface="true" scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
       <PreferredContainer primary="toxcab" secondary="toxcontainer" />
       <PreferredContainer primary="wrecktoxcab,abandonedtoxcab,piratetoxcab" spawnprobability="0.05" />
@@ -184,7 +183,7 @@
       </Deconstruct>
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="64,64,64,64" origin="0.5,0.5" />
       <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="126,0,18,108" depth="0.6" origin="0.5,0.5" />
-      <Body width="18" height="108" density="10.2" waterdragcoefficient="1" />
+      <Body width="35" height="65" density="10.2" waterdragcoefficient="1" />
       <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
         <StatusEffect type="OnSuccess" target="UseTarget">
