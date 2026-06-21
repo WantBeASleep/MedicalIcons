@@ -14,10 +14,14 @@ devspace/preview/
   <preview_name>.png
 ```
 
+Preview scripts may use shared font files from `devspace/fonts`.
+
 ## Preview Scripts
 `devspace/preview/scripts` stores preview-only scripts, such as Steam Workshop preview generators and small preview-specific helpers.
 
 Preview-only scripts are local scripts. Do not place preview-only helpers in the top-level `devspace/scripts`.
+
+Preview scripts should load bundled fonts from `devspace/fonts` instead of hard-coded system font paths such as `C:/Windows/Fonts`.
 
 ## Preview Sources
 `devspace/preview/source` stores source images used to generate finished Steam Workshop preview images.

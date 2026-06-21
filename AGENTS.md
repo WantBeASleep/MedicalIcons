@@ -33,6 +33,7 @@ Expected development structure:
 
 ```text
 devspace/
+  fonts/
   paint.net/
   preview/
   reference/
@@ -42,6 +43,8 @@ devspace/
 ```
 
 `devspace/reference` stores original Barotrauma sprites and icons used as visual references. Use this folder when matching the original Barotrauma icon and sprite style.
+
+`devspace/fonts` stores font files used by development-only preview generation scripts. These fonts are not used by Barotrauma at runtime and must not be added to `filelist.xml`.
 
 ## Mod-Facing Files
 Everything outside `devspace` is mod-facing or publishing-facing.
@@ -81,5 +84,6 @@ When changing icon or sprite layout, update the relevant atlas and XML reference
 - Keep development artifacts inside `devspace`.
 - Keep the mod root clean and Barotrauma-ready.
 - Before adding new root-level files, verify that Barotrauma needs them at runtime.
+- Scripts must not hard-code absolute paths or depend on external files outside the Barotrauma install/project tree. Computing paths from the current script, project root, or known Barotrauma directory structure is allowed. If a script needs external support files such as fonts, images, templates, or references, copy those files into the appropriate `devspace` folder and load them from there.
 - Make visual changes to icons, sprites, and source images by regenerating the visual asset, not by manually editing or patching the bitmap.
 - After running any Python script anywhere in this project, remove all generated `__pycache__` folders and `.pyc` files from the mod workspace. The mod may be published to Steam Workshop with source files included, and Workshop publishing does not use `.gitignore` to exclude Python cache artifacts.

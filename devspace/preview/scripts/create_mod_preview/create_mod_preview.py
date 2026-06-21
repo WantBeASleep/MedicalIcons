@@ -12,7 +12,8 @@ TEXTURES = ROOT / "devspace" / "textures"
 REFERENCE = ROOT / "devspace" / "reference"
 OUT_DIR = ROOT / "devspace" / "preview"
 SOURCE_DIR = OUT_DIR / "source"
-HOST_IMAGE = Path(r"C:\Users\LIMANC~1\AppData\Local\Temp\codex-clipboard-7436dffc-ea1f-4a66-a2af-6a1a15f46b80.png")
+FONT_DIR = ROOT / "devspace" / "fonts"
+HOST_IMAGE = SOURCE_DIR / "host_image.png"
 
 W = 1920
 H = 1080
@@ -21,14 +22,13 @@ TITLE = "QoL - Medical Icons"
 
 def font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
     candidates = [
-        r"C:\Windows\Fonts\bahnschrift.ttf",
-        r"C:\Windows\Fonts\arialbd.ttf" if bold else r"C:\Windows\Fonts\arial.ttf",
-        r"C:\Windows\Fonts\segoeuib.ttf" if bold else r"C:\Windows\Fonts\segoeui.ttf",
+        FONT_DIR / "bahnschrift.ttf",
+        FONT_DIR / ("arialbd.ttf" if bold else "arial.ttf"),
+        FONT_DIR / ("segoeuib.ttf" if bold else "segoeui.ttf"),
     ]
     for candidate in candidates:
-        path = Path(candidate)
-        if path.exists():
-            return ImageFont.truetype(str(path), size)
+        if candidate.exists():
+            return ImageFont.truetype(str(candidate), size)
     return ImageFont.load_default()
 
 
@@ -128,6 +128,8 @@ def paste_with_shadow(base: Image.Image, obj: Image.Image, xy: tuple[int, int], 
 
 
 def chroma_extract(crop: tuple[int, int, int, int]) -> Image.Image:
+    if not HOST_IMAGE.is_file():
+        raise FileNotFoundError(f"Missing preview source image: {HOST_IMAGE.relative_to(ROOT)}")
     src = Image.open(HOST_IMAGE).convert("RGBA").crop(crop)
     out = Image.new("RGBA", src.size, (0, 0, 0, 0))
     sp = src.load()

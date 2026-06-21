@@ -11,6 +11,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 ROOT = Path(__file__).resolve().parents[4]
 TEXTURES = ROOT / "devspace" / "textures"
 OUT_DIR = ROOT / "devspace" / "preview"
+FONT_DIR = ROOT / "devspace" / "fonts"
 STATUS_CSV = ROOT / "devspace" / "scripts" / "build_project" / "statusicons.csv"
 STATUS_ICON_OUT = ROOT / "devspace" / "scripts" / "build_project" / "status_icons"
 
@@ -30,14 +31,13 @@ ITEM_PREVIEW_TITLES = {
 
 def font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
     candidates = [
-        r"C:\Windows\Fonts\bahnschrift.ttf",
-        r"C:\Windows\Fonts\arialbd.ttf" if bold else r"C:\Windows\Fonts\arial.ttf",
-        r"C:\Windows\Fonts\segoeuib.ttf" if bold else r"C:\Windows\Fonts\segoeui.ttf",
+        FONT_DIR / "bahnschrift.ttf",
+        FONT_DIR / ("arialbd.ttf" if bold else "arial.ttf"),
+        FONT_DIR / ("segoeuib.ttf" if bold else "segoeui.ttf"),
     ]
     for candidate in candidates:
-        path = Path(candidate)
-        if path.exists():
-            return ImageFont.truetype(str(path), size)
+        if candidate.exists():
+            return ImageFont.truetype(str(candidate), size)
     return ImageFont.load_default()
 
 
