@@ -16,7 +16,7 @@
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="0,0,64,64" origin="0.5,0.5" />
       <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="0,0,9,44" depth="0.6" origin="0.5,0.5" />
       <Body width="9" height="44" density="10.2" waterdragcoefficient="1" />
-      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="10" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
         <StatusEffect type="OnSuccess" target="UseTarget">
           <Conditional entitytype="eq Character" />
@@ -58,7 +58,7 @@
       <SuitableTreatment identifier="huskinfection" suitability="30" />
       <SuitableTreatment type="infection" suitability="75" />
       <Body width="9" height="44" density="10.2" waterdragcoefficient="1" />
-      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="10" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="25" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
         <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true" />
@@ -135,7 +135,7 @@
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" />
       <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="18,0,9,44" depth="0.6" origin="0.5,0.5" />
       <Body width="9" height="44" density="15" />
-      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="10" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="40" />
         <StatusEffect type="OnUse" target="This" Condition="-100.0" setvalue="true">
           <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
@@ -180,7 +180,7 @@
       <SuitableTreatment identifier="stabilozineeffect" suitability="-100" />
       <SuitableTreatment type="deliriuminepoisoning" suitability="-10" />
       <Body width="9" height="44" density="10.2" waterdragcoefficient="1" />
-      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="10" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="25" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
         <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true" />
@@ -601,7 +601,7 @@
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="64,256,64,64" origin="0.5,0.5" />
       <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="308,0,27,44" depth="0.6" origin="0.5,0.5" />
       <Body width="27" height="44" density="10.2" waterdragcoefficient="1" />
-      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="10" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="40" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
         <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true" />
@@ -662,7 +662,7 @@
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="128,256,64,64" origin="0.5,0.5" />
       <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="335,0,27,44" depth="0.6" origin="0.5,0.5" />
       <Body width="27" height="44" density="10.2" waterdragcoefficient="1" />
-      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="10" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="64" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
         <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true" />
@@ -721,7 +721,7 @@
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="192,256,64,64" origin="0.5,0.5" />
       <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="362,0,27,44" depth="0.6" origin="0.5,0.5" />
       <Body width="27" height="44" density="10.2" waterdragcoefficient="1" />
-      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="10" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="37" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
         <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true" />
@@ -777,7 +777,7 @@
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="256,256,64,64" origin="0.5,0.5" />
       <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="389,0,27,44" depth="0.6" origin="0.5,0.5" />
       <Body width="27" height="44" density="10.2" waterdragcoefficient="1" />
-      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="10" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="25" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
         <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true" />
@@ -836,7 +836,7 @@
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="320,256,64,64" origin="0.5,0.5" />
       <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="416,0,27,44" depth="0.6" origin="0.5,0.5" />
       <Body width="27" height="44" density="10.2" waterdragcoefficient="1" />
-      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="10" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="38" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
         <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true" />
@@ -906,7 +906,7 @@
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="0,320,64,64" origin="0.5,0.5" />
       <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="443,0,27,44" depth="0.6" origin="0.5,0.5" />
       <Body width="27" height="44" density="10.2" waterdragcoefficient="1" />
-      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="10" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="40" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
         <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true" />
@@ -961,7 +961,7 @@
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="64,320,64,64" origin="0.5,0.5" />
       <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="470,0,27,44" depth="0.6" origin="0.5,0.5" />
       <Body width="27" height="44" density="10.2" waterdragcoefficient="1" />
-      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="10" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="40" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
         <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true" />
@@ -1017,7 +1017,7 @@
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="128,320,64,64" origin="0.5,0.5" />
       <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="0,72,27,44" depth="0.6" origin="0.5,0.5" />
       <Body width="27" height="44" density="10.2" waterdragcoefficient="1" />
-      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="10" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="40" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
         <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true" />
@@ -1073,7 +1073,7 @@
       <InventoryIcon texture="%ModDir%/Items/Medical/icons.png" sourcerect="192,320,64,64" origin="0.5,0.5" />
       <Sprite texture="%ModDir%/Items/Medical/sprites.png" sourcerect="27,72,27,44" depth="0.6" origin="0.5,0.5" />
       <Body width="27" height="44" density="10.2" waterdragcoefficient="1" />
-      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="220" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
+      <MeleeWeapon canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" aimpos="40,5" handle1="0,0" holdangle="10" reload="1.0" msg="ItemMsgPickUpSelect" HitOnlyCharacters="true">
         <RequiredSkill identifier="medical" level="40" />
         <StatusEffect type="OnSuccess" target="This" Condition="-100.0" setvalue="true" />
         <StatusEffect type="OnFailure" target="This" Condition="-100.0" setvalue="true" />

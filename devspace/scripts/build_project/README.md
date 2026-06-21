@@ -26,13 +26,13 @@ Validate only:
 python devspace/scripts/build_project/build_project.py --validate-only
 ```
 
-Dry-run full build:
+Dry-run full build with status icon overlays:
 
 ```powershell
 python devspace/scripts/build_project/build_project.py --all --dry-run
 ```
 
-Full build:
+Full build with status icon overlays:
 
 ```powershell
 python devspace/scripts/build_project/build_project.py --all
@@ -48,10 +48,22 @@ antidama1,opiatewithdrawal
 hyperzine,haste
 ```
 
-Overlay status icons during atlas build:
+Status icons are overlaid during atlas build by default. The default mapping file is:
+
+```text
+devspace/scripts/build_project/statusicons.csv
+```
+
+Use a custom mapping file:
 
 ```powershell
 python devspace/scripts/build_project/build_project.py --all --add-status-icons devspace/statusicon_map.csv
+```
+
+Build without status icon overlays:
+
+```powershell
+python devspace/scripts/build_project/build_project.py --all --disable-staus-icons
 ```
 
 Also save standalone 64x64 icons with status overlays:
@@ -64,6 +76,18 @@ Save them to a specific directory:
 
 ```powershell
 python devspace/scripts/build_project/build_project.py --all --add-status-icons devspace/statusicon_map.csv --save-status-icons devspace/scripts/build_project/status_icons
+```
+
+## XML Rules
+
+When building XML, the script updates each item's `InventoryIcon`, `Sprite`, and `Body` dimensions from the generated atlases.
+
+Items generated from these texture asset folders also get `holdangle="10"` on their `MeleeWeapon` or `Holdable` component:
+
+```text
+devspace/textures/ampoule
+devspace/textures/pocket_injector
+devspace/textures/vial
 ```
 
 ## Flags
@@ -80,11 +104,25 @@ Only validate item assets. Does not write atlases, XML, or `filelist.xml`.
 
 Read `identifier,statusicon` mappings and overlay status icons onto matching item icons before atlas packing.
 
+Default:
+
+```text
+devspace/scripts/build_project/statusicons.csv
+```
+
+When status icon overlays are enabled, this CSV must exist. If the CSV does not contain a row for a discovered item, the script emits a warning and packs that item's icon without an overlay.
+
+```text
+--disable-staus-icons
+```
+
+Build item icon atlases without status icon overlays.
+
 ```text
 --save-status-icons [DIR]
 ```
 
-Save standalone item icons after status icon overlay. Requires `--add-status-icons`.
+Save standalone item icons after status icon overlay.
 
 If `DIR` is omitted, output goes to:
 

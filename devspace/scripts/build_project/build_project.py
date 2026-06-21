@@ -17,6 +17,7 @@ DEFAULT_TEXTURES_DIR = PROJECT_ROOT / "devspace" / "textures"
 DEFAULT_STATUSICONS_DIR = PROJECT_ROOT / "devspace" / "statusicons"
 DEFAULT_ATLAS_OUT_DIR = PROJECT_ROOT / "Items" / "Medical"
 DEFAULT_CSV_OUT_DIR = SCRIPT_DIR
+DEFAULT_STATUS_ICON_CSV = SCRIPT_DIR / "statusicons.csv"
 DEFAULT_STATUS_ICON_OUT_DIR = SCRIPT_DIR / "status_icons"
 DEFAULT_VANILLA_MEDICAL_DIR = PROJECT_ROOT.parents[1] / "Content" / "Items" / "Medical"
 DEFAULT_VANILLA_ITEMS_DIR = PROJECT_ROOT.parents[1] / "Content" / "Items"
@@ -26,6 +27,11 @@ MOD_SPRITE_TEXTURE = "%ModDir%/Items/Medical/sprites.png"
 ICON_SIZE = 64
 STATUS_ICON_SIZE = 24
 XML_NAMES = ("medical.xml", "poisons.xml", "buffs.xml")
+ASSET_HOLDANGLE_OVERRIDES = {
+    "ampoule": "10",
+    "pocket_injector": "10",
+    "vial": "10",
+}
 EXTRA_VANILLA_ITEMS = {
     "huskeggs": ("CreatureLoot/creatureloot.xml", "poisons.xml"),
     "europabrew": ("Jobgear/Medic/medic_talent_items.xml", "poisons.xml"),
@@ -77,8 +83,16 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--add-status-icons",
         type=Path,
+        default=DEFAULT_STATUS_ICON_CSV,
         metavar="STATUS_CSV",
-        help="CSV mapping item identifier to status icon name. Columns: identifier,statusicon.",
+        help="CSV mapping item identifier to status icon name. Default: devspace/scripts/build_project/statusicons.csv.",
+    )
+    parser.add_argument(
+        "--disable-staus-icons",
+        "--disable-status-icons",
+        dest="disable_status_icons",
+        action="store_true",
+        help="Build item icon atlases without status icon overlays.",
     )
     parser.add_argument(
         "--save-status-icons",
@@ -244,6 +258,16 @@ def read_status_icon_map(csv_path: Path, item_ids: set[str], statusicons_dir: Pa
             mapping[identifier] = statusicon
 
     return mapping
+
+
+def warn_missing_status_icon_mappings(ctx: BuildContext, status_map: dict[str, str]) -> None:
+    missing = sorted(item.identifier for item in ctx.items if item.identifier not in status_map)
+    if not missing:
+        return
+    warn(
+        ctx,
+        f"Status icon CSV is missing mappings for {len(missing)} item(s): {', '.join(missing)}",
+    )
 
 
 def load_icon_with_status_overlay(item: ItemAsset, statusicon: str | None, statusicons_dir: Path) -> Image.Image:
@@ -434,6 +458,14 @@ def set_body_size_from_sprite(item: ET.Element, entry: AtlasEntry) -> None:
     body.set("height", str(entry.height))
 
 
+def set_holdangle_override(item: ET.Element, holdangle: str) -> None:
+    for tag in ("MeleeWeapon", "Holdable"):
+        component = find_child_case_insensitive(item, tag)
+        if component is not None:
+            component.set("holdangle", holdangle)
+            return
+
+
 def parse_vanilla_items(vanilla_dir: Path) -> tuple[dict[str, tuple[str, ET.Element]], dict[str, list[ET.Element]]]:
     item_map: dict[str, tuple[str, ET.Element]] = {}
     by_file: dict[str, list[ET.Element]] = {name: [] for name in XML_NAMES}
@@ -526,6 +558,9 @@ def build_xml(ctx: BuildContext) -> None:
         set_visual_element(item_element, "InventoryIcon", MOD_ICON_TEXTURE, ctx.icon_entries[item.identifier])
         set_visual_element(item_element, "Sprite", MOD_SPRITE_TEXTURE, ctx.sprite_entries[item.identifier])
         set_body_size_from_sprite(item_element, ctx.sprite_entries[item.identifier])
+        holdangle_override = ASSET_HOLDANGLE_OVERRIDES.get(item.asset_name)
+        if holdangle_override is not None:
+            set_holdangle_override(item_element, holdangle_override)
         outputs[xml_name].append(item_element)
 
     for xml_name, elements in outputs.items():
@@ -620,17 +655,18 @@ def print_item_summary(items: list[ItemAsset], verbose: bool) -> None:
 def main() -> None:
     args = parse_args()
     ensure_project_dirs(args)
-    if args.save_status_icons is not None and args.add_status_icons is None:
-        fail("--save-status-icons requires --add-status-icons")
+    if args.disable_status_icons and args.save_status_icons is not None:
+        fail("--save-status-icons cannot be used with --disable-staus-icons")
 
     items = discover_items(args.textures_dir)
     print_item_summary(items, args.verbose)
     ctx = BuildContext(args=args, items=items, icon_entries={}, sprite_entries={}, warnings=[])
 
     status_map: dict[str, str] = {}
-    if args.add_status_icons is not None:
+    if not args.disable_status_icons:
         status_map = read_status_icon_map(args.add_status_icons, {item.identifier for item in items}, args.statusicons_dir)
         print(f"Loaded {len(status_map)} status icon mappings from {rel(args.add_status_icons)}")
+        warn_missing_status_icon_mappings(ctx, status_map)
         save_status_overlay_icons(items, status_map, args)
 
     build_atlases = args.all or (not args.validate_only)
