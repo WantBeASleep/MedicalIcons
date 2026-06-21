@@ -258,7 +258,6 @@ def main() -> None:
     }
     for name, image in variants.items():
         image.save(OUT_DIR / name)
-        image.resize((512, 512), Image.Resampling.LANCZOS).save(OUT_DIR / name.replace(".png", "_512.png"))
 
 
 if __name__ == "__main__":

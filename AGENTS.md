@@ -22,6 +22,7 @@ Expected structure:
 
 ```text
 devspace/
+  preview/
   reference/
   scripts/
   statusicons/
@@ -73,6 +74,26 @@ The folder names under `devspace/textures/<item>/items/` are the in-game item id
 Stores original Barotrauma sprites and icons used as visual references.
 
 Use this folder when matching the original Barotrauma icon and sprite style.
+
+#### `devspace/preview`
+Stores development-only preview images for the mod, such as Steam Workshop preview images, item showcase images, before/after comparison images, and generated visual review sheets.
+
+Preview files are not used by Barotrauma at runtime. Do not copy preview images into mod-facing folders and do not add them to `filelist.xml`.
+
+Expected structure:
+
+```text
+devspace/preview/
+  <preview_name>.png
+```
+
+Preview image rules:
+
+- Keep preview and showcase images inside `devspace/preview`.
+- Use 1024x1024 PNG files for workshop-style preview images unless the user explicitly requests another size.
+- Do not create or keep 512x512 duplicate preview variants unless the user explicitly asks for them.
+- Preview images may compose existing item icons, sprites, status icons, backgrounds, labels, and other development-only visual elements.
+- Store preview-generation scripts in `devspace/scripts`, not in `devspace/preview`.
 
 #### `devspace/scripts`
 Stores development-only automation scripts.
