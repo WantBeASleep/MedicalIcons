@@ -28,5 +28,5 @@ The `paralyzant` variant uses a special multi-color tail/band recolor.
 Run from the project root:
 
 ```powershell
-python devspace/scripts/recolor_dart_syringe_poisons/recolor_dart_syringe_poisons.py
+python devspace/textures/dart_syringe/scripts/recolor_dart_syringe_poisons.py
 ```

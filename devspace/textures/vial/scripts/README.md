@@ -24,5 +24,5 @@ It uses the vial masks to recolor cap metal, cap rubber, optional cap edge, opti
 Run from the project root:
 
 ```powershell
-python devspace/scripts/recolor_vial_antidotes/recolor_vial_antidotes.py
+python devspace/textures/vial/scripts/recolor_vial_antidotes.py
 ```

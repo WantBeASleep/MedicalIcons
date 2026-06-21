@@ -7,7 +7,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[3]
+PROJECT_ROOT = Path(__file__).resolve().parents[4]
 DART_DIR = PROJECT_ROOT / "devspace" / "textures" / "dart_syringe"
 ITEMS_DIR = DART_DIR / "items"
 

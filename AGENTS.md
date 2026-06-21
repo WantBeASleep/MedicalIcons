@@ -81,6 +81,15 @@ Stores development-only paint.net files used for visual editing work.
 
 Use this folder for `.pdn` working files and other paint.net-specific visual sources. Files in this folder are not used by Barotrauma at runtime and must not be copied into mod-facing folders or added to `filelist.xml`.
 
+#### Script Storage Rules
+Store scripts based on their scope.
+
+Global scripts belong under `devspace/scripts`. A script is global when it works on the whole mod, builds or validates the project, creates shared atlases, updates XML/filelist data, or performs similar project-wide automation.
+
+Local scripts belong in a `scripts` folder next to the files or folder tree they operate on. A script is local when it exists for one small, specific task or one narrow asset area. For example, preview-only scripts belong under `devspace/preview/scripts`, and one-texture helper scripts belong under `devspace/textures/<item>/scripts`.
+
+Do not place one-off or narrow local helper scripts in the top-level `devspace/scripts`.
+
 #### `devspace/preview`
 Stores development-only preview images for the mod, such as Steam Workshop preview images, item showcase images, before/after comparison images, and generated visual review sheets.
 
@@ -96,9 +105,7 @@ devspace/preview/
 ```
 
 #### `devspace/preview/scripts`
-Stores development-only scripts used to generate preview images or perform small preview-specific tasks.
-
-Keep only preview-related scripts in this folder. Do not store general project build scripts, atlas builders, XML builders, item texture generation scripts, or other project-wide automation here.
+Stores preview-only scripts, such as Steam Workshop preview generators and small preview-specific helpers.
 
 #### `devspace/preview/source`
 Stores source images used to generate finished Steam Workshop preview images.
@@ -109,35 +116,13 @@ Preview image rules:
 
 - Keep only finished Steam Workshop preview images directly inside `devspace/preview`.
 - Keep source images used for preview generation inside `devspace/preview/source`.
-- Use 1024x1024 PNG files for workshop-style preview images unless the user explicitly requests another size.
-- Do not create or keep 512x512 duplicate preview variants unless the user explicitly asks for them.
+- Use 1920x1080 PNG files for Steam Workshop preview images unless the user explicitly requests another size.
 - Preview images may compose existing item icons, sprites, status icons, backgrounds, labels, and other development-only visual elements.
-- Store preview-generation scripts in `devspace/preview/scripts`, not in `devspace/scripts`.
 
 #### `devspace/scripts`
-Stores development-only automation scripts for the whole project, build pipeline, atlas generation, XML generation, item texture generation, or similar project-wide tasks.
+Stores development-only automation scripts for the whole project, build pipeline, validation, atlas generation, XML generation, filelist updates, or similar project-wide tasks.
 
-Do not store scripts that only generate preview images or perform small preview-specific tasks here; place those under `devspace/preview/scripts`.
-
-Current project scripts:
-
-```text
-devspace/scripts/
-  build_project/
-    build_project.py
-    README.md
-  build_statusicons_atlas/
-    build_statusicons_atlas.py
-  recolor_dart_syringe_poisons/
-    recolor_dart_syringe_poisons.py
-  recolor_vial_antidotes/
-    recolor_vial_antidotes.py
-```
-
-- `build_project.py` - validates generated item assets, optionally overlays status icons, builds final item icon/sprite atlases, writes atlas coordinate CSV files, rebuilds medical XML overrides, and updates root `filelist.xml`.
-- `build_statusicons_atlas.py` - builds `devspace/statusicons/atlas.png` from 24x24 status icons and writes status icon coordinates to `devspace/scripts/build_statusicons_atlas/statusicons.csv`.
-- `recolor_dart_syringe_poisons.py` - recolors dart syringe poison item assets.
-- `recolor_vial_antidotes.py` - recolors vial antidote item assets.
+- `build_project.py` - validates generated item assets, overlays status icons by default, builds final item icon/sprite atlases, writes atlas coordinate CSV files, rebuilds medical XML overrides, and updates root `filelist.xml`.
 
 #### `devspace/statusicons`
 Stores Barotrauma status affliction icons.
@@ -147,20 +132,16 @@ Expected structure:
 ```text
 devspace/statusicons/
   <affliction_name>.png
-  atlas.png
 ```
 
 File meanings:
 
 - `<affliction_name>.png` - individual Barotrauma affliction status icon, 24x24 pixels.
-- `atlas.png` - atlas containing all affliction status icons.
 
 When extracting vanilla affliction icons, apply the icon's XML `color`/`iconcolors` tint or the user-requested target palette before saving the 24x24 PNG. Do not save raw grayscale mask icons unless the user explicitly asks for an uncolored source mask.
 
-`devspace/scripts/build_statusicons_atlas/build_statusicons_atlas.py` builds `devspace/statusicons/atlas.png` from all status icon PNG files in `devspace/statusicons/`, excluding `atlas.png`. The script validates that each source icon is exactly 24x24 pixels and writes `statusicons.csv` with atlas coordinates in its own script directory.
-
 ### Barotrauma Mod Files
-Everything outside `devspace` is part of the actual Barotrauma mod.
+Everything outside `devspace` is mod-facing or publishing-facing.
 
 Do not store files outside `devspace` unless they are required for the mod to work in Barotrauma.
 
@@ -168,10 +149,12 @@ Expected mod-facing structure:
 
 ```text
 filelist.xml
+workshop_description_en.bbcode
+workshop_description_ru.bbcode
 Items/
   Medical/
-    icons.png
-    sprites.png
+    Icons.png
+    Sprites.png
     medical.xml
     poisons.xml
     buffs.xml
@@ -180,16 +163,20 @@ Items/
 File meanings:
 
 - `filelist.xml` - root Barotrauma mod descriptor.
+- `workshop_description_en.bbcode` - English Steam Workshop description, similar to a Workshop-facing README.
+- `workshop_description_ru.bbcode` - Russian Steam Workshop description, similar to a Workshop-facing README.
 - `Items/Medical` - Barotrauma item files for the medical part of the mod.
-- `Items/Medical/icons.png` - atlas containing all final item icons.
-- `Items/Medical/sprites.png` - atlas containing all final item sprites.
+- `Items/Medical/Icons.png` - atlas containing all final item icons.
+- `Items/Medical/Sprites.png` - atlas containing all final item sprites.
 - `Items/Medical/medical.xml` - medical item definitions.
 - `Items/Medical/poisons.xml` - poison item definitions.
 - `Items/Medical/buffs.xml` - buff item definitions.
 
 ## Mod Build Workflow
 
-Only run the mod build workflow when the user explicitly asks to build, rebuild, update atlases, update XML, or otherwise prepare the mod-facing Barotrauma files. Do not automatically build atlases, copy atlas files into `Items/Medical`, or edit mod XML after ordinary icon/sprite generation requests.
+Run the mod build workflow whenever a project change affects the future runtime build of the mod. This includes changes to final item icons or sprites under `devspace/textures/*/items/*`, status icon overlay inputs, build scripts, XML generation rules, atlas packing behavior, or any other source that changes the generated `Items/Medical` outputs.
+
+Do not run the mod build workflow for changes that only affect documentation, `devspace/preview`, `devspace/paint.net`, Steam Workshop descriptions, or other publishing/development-only files unless the user explicitly asks to rebuild.
 
 The main mod build script is:
 
@@ -206,16 +193,16 @@ devspace/scripts/build_project/README.md
 Build pipeline:
 
 1. Validate final in-game item assets under `devspace/textures/*/items/*`.
-2. Optionally overlay status icons from `devspace/statusicons` onto item icons.
-3. Build final `icons.png` and `sprites.png` atlases and write `icons.csv` and `sprites.csv` coordinate maps.
+2. Overlay status icons from `devspace/statusicons` onto item icons by default.
+3. Build final `Icons.png` and `Sprites.png` atlases and write `icons.csv` and `sprites.csv` coordinate maps.
 4. Build item XML files from vanilla Barotrauma XML using `<Override><Items>...`.
 5. Update the root `filelist.xml`.
 
 Default outputs:
 
 ```text
-Items/Medical/icons.png
-Items/Medical/sprites.png
+Items/Medical/Icons.png
+Items/Medical/Sprites.png
 Items/Medical/medical.xml
 Items/Medical/poisons.xml
 Items/Medical/buffs.xml
@@ -248,7 +235,7 @@ Important build flags:
 - `--dry-run` - print planned writes without writing files.
 - `--strict` - treat warnings as errors.
 - `--verbose` - print detailed item validation output.
-- `--atlas-out DIR` - write `icons.png` and `sprites.png` to a custom directory.
+- `--atlas-out DIR` - write `Icons.png` and `Sprites.png` to a custom directory.
 - `--csv-out DIR` - write `icons.csv` and `sprites.csv` to a custom directory.
 - `--xml` - build XML overrides without necessarily updating `filelist.xml`.
 - `--filelist` - update root `filelist.xml`.
@@ -259,13 +246,16 @@ Important build flags:
 
 Status icon overlay:
 
-- Use `--add-status-icons STATUS_CSV` to overlay status icons before item icon atlas packing.
+- Status icons are overlaid before item icon atlas packing by default.
+- The default status icon mapping file is `devspace/scripts/build_project/statusicons.csv`.
+- Use `--add-status-icons STATUS_CSV` to override the default status icon mapping CSV.
+- Use `--disable-status-icons` to build item icon atlases without status icon overlays.
 - The CSV format is `identifier,statusicon`.
 - `identifier` is the in-game item identifier, matching `devspace/textures/<asset>/items/<identifier>/`.
 - `statusicon` is the status icon PNG stem in `devspace/statusicons`, for example `opiatewithdrawal` for `devspace/statusicons/opiatewithdrawal.png`.
 - Status icons must be 24x24 PNG files.
 - Status overlays are applied in memory for atlas building by default; they do not overwrite source item icons.
-- Use `--save-status-icons [DIR]` with `--add-status-icons` to also save standalone 64x64 icons after overlay.
+- Use `--save-status-icons [DIR]` to also save standalone 64x64 icons after overlay.
 - If `--save-status-icons` is provided without a directory, save to `devspace/scripts/build_project/status_icons`.
 
 XML build rules:
@@ -282,15 +272,15 @@ XML build rules:
 ```
 
 - Build XML from vanilla files in `D:\SteamLibrary\steamapps\common\Barotrauma\Content\Items\Medical` by default.
-- Update each item's `InventoryIcon` texture to `%ModDir%/Items/Medical/icons.png` and its `sourcerect` from `icons.csv`.
-- Update each item's `Sprite` texture to `%ModDir%/Items/Medical/sprites.png` and its `sourcerect` from `sprites.csv`.
+- Update each item's `InventoryIcon` texture to `%ModDir%/Items/Medical/Icons.png` and its `sourcerect` from `icons.csv`.
+- Update each item's `Sprite` texture to `%ModDir%/Items/Medical/Sprites.png` and its `sourcerect` from `sprites.csv`.
 - If an item is not found in vanilla XML, the build script may reuse an existing definition from `Items/Medical/*.xml` as a fallback.
 - If an item is not found in either vanilla XML or existing mod XML, skip XML generation for that item with a warning; `--strict` turns this into an error.
 
 Filelist rules:
 
 - `filelist.xml` must include only mod-facing runtime files, not `devspace` files.
-- Do not add PNG texture atlas files to `filelist.xml`; Barotrauma loads `icons.png` and `sprites.png` through XML texture references.
+- Do not add PNG texture atlas files to `filelist.xml`; Barotrauma loads `Icons.png` and `Sprites.png` through XML texture references.
 - Required item file entries are:
 
 ```text
@@ -301,8 +291,8 @@ Filelist rules:
 
 Build safety:
 
-- For ordinary icon/sprite generation requests, create or update only files under `devspace/textures` unless the user explicitly asks to build/update mod-facing files.
-- Before running a real full build, prefer running `--all --dry-run` first and review warnings.
+- Before running a real full build, run `--all --dry-run` first and review warnings.
+- If a change affects the future runtime build, follow the dry-run with a real full build unless the dry-run reveals a problem that should be fixed first.
 - Do not write generated status-overlay preview icons outside `devspace`.
 
 ## Icon Generation Rules

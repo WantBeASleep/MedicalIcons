@@ -2,3 +2,4 @@ legacy
 devspace/.vscode/
 devspace/preview/scripts/__pycache__
 devspace/scripts/__pycache__
+devspace/textures/*/scripts/__pycache__

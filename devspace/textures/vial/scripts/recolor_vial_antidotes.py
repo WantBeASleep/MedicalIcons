@@ -6,7 +6,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[3]
+PROJECT_ROOT = Path(__file__).resolve().parents[4]
 VIAL_DIR = PROJECT_ROOT / "devspace" / "textures" / "vial"
 ITEMS_DIR = VIAL_DIR / "items"
 MASKS_DIR = VIAL_DIR / "masks"
