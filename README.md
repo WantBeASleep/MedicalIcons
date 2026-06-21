@@ -1,12 +1,14 @@
-# Зачем
+# Почему
 
-Я рот ебал стандартных медицинских иконок, ебало к осмотру когда у тебя есть 5 секунд найти кислородит среди 30 одинаковых шприцов
+Я рот ебал стандартных медицинских шприцов, невъебенное решение сделать 30 одинаковых иконок, что бы в критической ситуации с умирающем тиммейтом на руках судорожно перебирать глазами эту размазню.
 
 # О моде
 
-Мод меняет все ванильные медицинские шприцы на собственные иконки. В игре 5 классов медицины: Medicine, Basic Chemicals, Toxins, Antidotes, Stimulants. У каждого класса медицины своя икона, которая уже внутри класса различается по цветам/значкам статусов. В конце описания есть таблица всех замененных иконок.
-
 **Мод SERVER-SIDE, требуется подписка хоста.**
+
+Мод меняет все ванильные медицинские шприцы на собственные иконки. В игре 5 классов медицины: Medicine, Basic Chemicals, Toxins, Antidotes, Stimulants. Классы в моде соответствуют оф. вики: [Medical Items](https://barotraumagame.com/wiki/Medical_Items)
+
+У каждого класса медицины своя икона, которая уже внутри класса различается по цветам/значкам статусов.
 
 # Совместимость
 
@@ -16,47 +18,53 @@
 
 # Редактирование мода
 
-Вы можете скопировать этот мод в локальные и изменять его там, как хотите. Структура мода описана в файле `AGENTS.md`.
+Вы можете скопировать этот мод в локальные и изменять его там, как хотите. Структура мода описана в файлах `AGENTS.md`.
 
 В других модах можно ссылаться на текстуры этого мода. Замените в локальных версиях модов в `.xml` файлах ссылку на текстуру с `Content` на `QoL - Medical icons`.
 
 # Как создавался
 
-Я вообще не умею рисовать, да и с чувством вкуса было так себе. Весь мод написан и нарисован нейронкой Codex 5.5 (да, я генерил картинки на Кодексе). Мод выложен на GitHub: https://github.com/WantBeASleep/MedicalIcons. Буду рад идеям и контрибутам.
+Я вообще не умею рисовать, да и с чувством вкуса было так себе. Весь мод написан и нарисован нейронкой Codex 5.5 (да, я генерил картинки на Кодексе). Мод выложен на [GitHub](https://github.com/WantBeASleep/MedicalIcons). Буду рад идеям и контрибутам.
 
 Благодарность создателю мода https://steamcommunity.com/sharedfiles/filedetails/?id=3539579595 за вдохновение и творческий ориентир.
 
 --------------------------------------------------------
 
-# English version
 
-## Why
 
-Fuck the default medical icons. It is a pain in the ass when you have five seconds to find Liquid Oxygenite in a pile of thirty almost identical syringes.
+--------------------------------------------------------
 
-## About
+# English Version
 
-This mod replaces vanilla Barotrauma medical syringe icons with custom ones. The items are split into 5 visual classes: Medicine, Basic Chemicals, Toxins, Antidotes, and Stimulants. Each class has its own base shape, then individual items differ by color and status-affliction marks. A full replacement table is included below.
+# Why
 
-**This is a SERVER-SIDE mod. The host must be subscribed.**
+Fuck the standard medical syringes. What a fucking brilliant decision to make 30 identical icons, so that in a critical situation, with a dying teammate in your hands, you have to frantically scan this smear with your eyes.
 
-## Compatibility
+# About the Mod
 
-- The texture pack should work with mods that do not override the same vanilla medical items.
-- If you use mods that change vanilla medical items, move this texture pack to the end of the mod list. In that case its texture priority will be lower, so some replacements may not appear.
-- Other local mods can be edited manually to reference textures from this mod. See the note below.
+**This is a SERVER-SIDE mod; the host must be subscribed.**
 
-## Editing
+The mod replaces all vanilla medical syringes with custom icons. The game has 5 medical classes: Medicine, Basic Chemicals, Toxins, Antidotes, Stimulants. The classes in the mod match the official wiki: [Medical Items](https://barotraumagame.com/wiki/Medical_Items)
 
-You can copy this mod to your local mods folder and edit it however you want. The project structure is described in `AGENTS.md`.
+Each medical class has its own icon, and items inside the class are already distinguished by colors and status symbols.
 
-Other mods can reference textures from this mod. In local `.xml` files, replace texture paths that start with `Content` with paths that point to `QoL - Medical icons`.
+# Compatibility
 
-## Creation
+- The texture pack works correctly with all mods that do not change the vanilla items listed above.
+- If you use mods that change vanilla content, move this texture pack to the end of the list. In that case, its texture priority will be lower, so some textures may not appear.
+- You can manually rewrite other mods so they reference textures from here. More on that point below.
 
-I cannot really draw, and my taste was not exactly carrying the project either. The whole mod was written and drawn with Codex 5.5 (yes, I generated the images in Codex). GitHub: https://github.com/WantBeASleep/MedicalIcons. Ideas and contributions are welcome.
+# Editing the Mod
 
-Thanks to the creator of the mod https://steamcommunity.com/sharedfiles/filedetails/?id=3539579595 for the inspiration and creative reference point.
+You can copy this mod into your local mods and fuck with it there however you want. The mod structure is described in the `AGENTS.md` files.
+
+Other mods can reference textures from this mod. In local versions of those mods, replace the texture path in `.xml` files from `Content` to `QoL - Medical icons`.
+
+# How It Was Made
+
+I cannot fucking draw at all, and my sense of taste was pretty damn questionable too. The whole mod was written and drawn by the Codex 5.5 neural network (yes, I generated the images in Codex). The mod is available on [GitHub](https://github.com/WantBeASleep/MedicalIcons). Ideas and contributions are welcome.
+
+Thanks to the creator of https://steamcommunity.com/sharedfiles/filedetails/?id=3539579595 for the inspiration and creative direction.
 
 --------------------------------------------------------
 
