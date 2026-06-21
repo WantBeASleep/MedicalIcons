@@ -22,6 +22,7 @@ Expected structure:
 
 ```text
 devspace/
+  paint.net/
   preview/
   reference/
   scripts/
@@ -75,6 +76,11 @@ Stores original Barotrauma sprites and icons used as visual references.
 
 Use this folder when matching the original Barotrauma icon and sprite style.
 
+#### `devspace/paint.net`
+Stores development-only paint.net files used for visual editing work.
+
+Use this folder for `.pdn` working files and other paint.net-specific visual sources. Files in this folder are not used by Barotrauma at runtime and must not be copied into mod-facing folders or added to `filelist.xml`.
+
 #### `devspace/preview`
 Stores development-only preview images for the mod, such as Steam Workshop preview images, item showcase images, before/after comparison images, and generated visual review sheets.
 
@@ -84,19 +90,34 @@ Expected structure:
 
 ```text
 devspace/preview/
+  scripts/
+  source/
   <preview_name>.png
 ```
 
+#### `devspace/preview/scripts`
+Stores development-only scripts used to generate preview images or perform small preview-specific tasks.
+
+Keep only preview-related scripts in this folder. Do not store general project build scripts, atlas builders, XML builders, item texture generation scripts, or other project-wide automation here.
+
+#### `devspace/preview/source`
+Stores source images used to generate finished Steam Workshop preview images.
+
+Files in this folder are preview-generation inputs only. They are not final Steam Workshop images, are not used by Barotrauma at runtime, and must not be added to `filelist.xml`.
+
 Preview image rules:
 
-- Keep preview and showcase images inside `devspace/preview`.
+- Keep only finished Steam Workshop preview images directly inside `devspace/preview`.
+- Keep source images used for preview generation inside `devspace/preview/source`.
 - Use 1024x1024 PNG files for workshop-style preview images unless the user explicitly requests another size.
 - Do not create or keep 512x512 duplicate preview variants unless the user explicitly asks for them.
 - Preview images may compose existing item icons, sprites, status icons, backgrounds, labels, and other development-only visual elements.
-- Store preview-generation scripts in `devspace/scripts`, not in `devspace/preview`.
+- Store preview-generation scripts in `devspace/preview/scripts`, not in `devspace/scripts`.
 
 #### `devspace/scripts`
-Stores development-only automation scripts.
+Stores development-only automation scripts for the whole project, build pipeline, atlas generation, XML generation, item texture generation, or similar project-wide tasks.
+
+Do not store scripts that only generate preview images or perform small preview-specific tasks here; place those under `devspace/preview/scripts`.
 
 Current project scripts:
 
@@ -335,6 +356,7 @@ Observed from `devspace/reference/Medicines.png`:
 - Keep the mod root clean and Barotrauma-ready.
 - Before adding new root-level files, verify that Barotrauma needs them at runtime.
 - Make visual changes to icons, sprites, and source images by regenerating the visual asset, not by manually editing or patching the bitmap.
+- After running any Python script, remove all generated `__pycache__` folders and `.pyc` files from the mod workspace. The mod may be published to Steam Workshop with source files included, and Workshop publishing does not use `.gitignore` to exclude Python cache artifacts.
 - When adding a new item, create a dedicated folder under `devspace/textures`.
 - When adding a new in-game item output, create `devspace/textures/<item>/items/<identifier>/` and store only that item's final `icon.png` and `sprite.png` there.
 - When changing icon or sprite layout, update the relevant atlas and XML references together only if the user explicitly asked to build or update the mod-facing files.

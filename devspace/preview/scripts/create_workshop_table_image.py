@@ -6,8 +6,8 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 
-ROOT = Path(__file__).resolve().parents[2]
-BBCODE_PATH = ROOT / "devspace" / "workshop_description_ru.bbcode"
+ROOT = Path(__file__).resolve().parents[3]
+BBCODE_PATH = ROOT / "workshop_description_ru.bbcode"
 OUT_PATH = ROOT / "devspace" / "preview" / "workshop_item_replacements_ru.png"
 
 GITHUB_PREFIX = (

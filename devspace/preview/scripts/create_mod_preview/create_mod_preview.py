@@ -7,13 +7,15 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 
-ROOT = Path(__file__).resolve().parents[3]
+ROOT = Path(__file__).resolve().parents[4]
 TEXTURES = ROOT / "devspace" / "textures"
 REFERENCE = ROOT / "devspace" / "reference"
 OUT_DIR = ROOT / "devspace" / "preview"
+SOURCE_DIR = OUT_DIR / "source"
 HOST_IMAGE = Path(r"C:\Users\LIMANC~1\AppData\Local\Temp\codex-clipboard-7436dffc-ea1f-4a66-a2af-6a1a15f46b80.png")
 
-W = H = 1024
+W = 1920
+H = 1080
 TITLE = "QoL - Medical Icons"
 
 
@@ -30,9 +32,9 @@ def font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
     return ImageFont.load_default()
 
 
-FONT_TITLE = font(70, True)
-FONT_SUB = font(31, False)
-FONT_SMALL = font(24, True)
+FONT_TITLE = font(92, True)
+FONT_SUB = font(40, False)
+FONT_SMALL = font(28, True)
 
 
 def rgba(color: tuple[int, int, int], alpha: int = 255) -> tuple[int, int, int, int]:
@@ -202,27 +204,27 @@ def variant_hero(icons: list[tuple[str, Image.Image]], medic: Image.Image, nosyr
 def variant_before_after(icons: list[tuple[str, Image.Image]], medic: Image.Image, nosyringe: Image.Image) -> Image.Image:
     img = gradient_bg(11, "red")
     d = ImageDraw.Draw(img, "RGBA")
-    draw_title(d, 0, 60, "center")
-    d.rounded_rectangle((76, 194, 470, 876), radius=30, fill=(19, 18, 17, 195), outline=(177, 84, 65, 105), width=3)
-    d.rounded_rectangle((554, 194, 948, 876), radius=30, fill=(14, 22, 21, 205), outline=(106, 185, 147, 112), width=3)
-    d.text((171, 226), "BEFORE", font=font(44, True), fill=(224, 154, 127, 245))
-    d.text((674, 226), "AFTER", font=font(44, True), fill=(180, 231, 198, 245))
-    paste_with_shadow(img, nosyringe, (151, 413), scale=1.0, blur=10)
-    d.polygon([(575, 514), (524, 480), (524, 503), (484, 503), (484, 525), (524, 525), (524, 548)], fill=(231, 220, 185, 230))
-    card_size = 98
-    right_center_x = (554 + 948) // 2
-    right_center_y = (194 + 876) // 2 + 36
-    column_gap = 13
-    column_height = card_size * 5 + column_gap * 4
-    column_x = right_center_x - card_size // 2
-    column_y = right_center_y - column_height // 2
+    draw_title(d, 0, 72, "center")
+    left_box = (150, 260, 830, 930)
+    right_box = (1090, 260, 1770, 930)
+    d.rounded_rectangle(left_box, radius=34, fill=(19, 18, 17, 195), outline=(177, 84, 65, 105), width=3)
+    d.rounded_rectangle(right_box, radius=34, fill=(14, 22, 21, 205), outline=(106, 185, 147, 112), width=3)
+    d.text((378, 300), "BEFORE", font=font(56, True), fill=(224, 154, 127, 245))
+    d.text((1338, 300), "AFTER", font=font(56, True), fill=(180, 231, 198, 245))
+    paste_with_shadow(img, nosyringe, (336, 492), scale=1.18, blur=12)
+    d.polygon([(1014, 590), (930, 535), (930, 570), (860, 570), (860, 610), (930, 610), (930, 645)], fill=(231, 220, 185, 230))
+    card_size = 120
+    row_gap = 14
+    row_width = card_size * 5 + row_gap * 4
+    row_x = (right_box[0] + right_box[2] - row_width) // 2
+    row_y = 574
     positions = [
-        (column_x, column_y + idx * (card_size + column_gap))
+        (row_x + idx * (card_size + row_gap), row_y)
         for idx in range(5)
     ]
     for (name, icon), pos in zip(icons, positions):
         paste_with_shadow(img, icon_card(icon, card_size, None), pos, 1, 7)
-    paste_with_shadow(img, medic, (55, 45), scale=0.43, blur=8)
+    paste_with_shadow(img, medic, (136, 72), scale=0.5, blur=8)
     return img
 
 
@@ -245,16 +247,17 @@ def variant_showcase(icons: list[tuple[str, Image.Image]], medic: Image.Image, n
 
 def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
+    SOURCE_DIR.mkdir(parents=True, exist_ok=True)
     medic = chroma_extract((50, 75, 320, 355)).resize((270, 270), Image.Resampling.LANCZOS)
     nosyringe = draw_banned_original_morphine(245)
-    medic.save(OUT_DIR / "medic_class_logo_extracted.png")
-    nosyringe.save(OUT_DIR / "no_standard_morphine_original_banned.png")
+    medic.save(SOURCE_DIR / "medic_class_logo_extracted.png")
+    nosyringe.save(SOURCE_DIR / "no_standard_morphine_original_banned.png")
 
     icons = load_icons()
     variants = {
-        "qol_medical_icons_preview_hero.png": variant_hero(icons, medic, nosyringe),
-        "qol_medical_icons_preview_before_after.png": variant_before_after(icons, medic, nosyringe),
-        "qol_medical_icons_preview_showcase.png": variant_showcase(icons, medic, nosyringe),
+        "hero.png": variant_hero(icons, medic, nosyringe),
+        "before_after.png": variant_before_after(icons, medic, nosyringe),
+        "showcase.png": variant_showcase(icons, medic, nosyringe),
     }
     for name, image in variants.items():
         image.save(OUT_DIR / name)

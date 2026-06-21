@@ -8,13 +8,14 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 
-ROOT = Path(__file__).resolve().parents[3]
+ROOT = Path(__file__).resolve().parents[4]
 TEXTURES = ROOT / "devspace" / "textures"
 OUT_DIR = ROOT / "devspace" / "preview"
 STATUS_CSV = ROOT / "devspace" / "scripts" / "build_project" / "statusicons.csv"
 STATUS_ICON_OUT = ROOT / "devspace" / "scripts" / "build_project" / "status_icons"
 
-W = H = 1024
+W = 1920
+H = 1080
 TITLE = "QoL - Medical Icons"
 ICON_NAMES = ["ampoule", "dart_syringe", "insulin_syringe", "pocket_injector", "vial"]
 TEXTURE_PREVIEW_TITLE = "Textures"
@@ -40,8 +41,8 @@ def font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
     return ImageFont.load_default()
 
 
-FONT_TITLE = font(70, True)
-FONT_SUBTITLE = font(42, True)
+FONT_TITLE = font(92, True)
+FONT_SUBTITLE = font(54, True)
 
 
 def rgba(color: tuple[int, int, int], alpha: int = 255) -> tuple[int, int, int, int]:
@@ -76,7 +77,7 @@ def gradient_bg(seed: int = 11) -> Image.Image:
     return img.filter(ImageFilter.GaussianBlur(0.25))
 
 
-def draw_title(draw: ImageDraw.ImageDraw, y: int = 63) -> None:
+def draw_title(draw: ImageDraw.ImageDraw, y: int = 74) -> None:
     bbox = draw.textbbox((0, 0), TITLE, font=FONT_TITLE)
     tw = bbox[2] - bbox[0]
     x = (W - tw) // 2
@@ -84,7 +85,7 @@ def draw_title(draw: ImageDraw.ImageDraw, y: int = 63) -> None:
         draw.text((x + ox, y + oy), TITLE, font=FONT_TITLE, fill=fill)
 
 
-def draw_subtitle(draw: ImageDraw.ImageDraw, text: str, y: int = 178) -> None:
+def draw_subtitle(draw: ImageDraw.ImageDraw, text: str, y: int = 202) -> None:
     bbox = draw.textbbox((0, 0), text, font=FONT_SUBTITLE)
     tw = bbox[2] - bbox[0]
     x = (W - tw) // 2
@@ -100,7 +101,7 @@ def paste_with_shadow(base: Image.Image, obj: Image.Image, xy: tuple[int, int], 
     base.alpha_composite(obj, xy)
 
 
-def icon_card(icon: Image.Image, size: int = 176) -> Image.Image:
+def icon_card(icon: Image.Image, size: int = 240) -> Image.Image:
     card = Image.new("RGBA", (size, size), (0, 0, 0, 0))
     d = ImageDraw.Draw(card, "RGBA")
     d.rounded_rectangle(
@@ -111,12 +112,12 @@ def icon_card(icon: Image.Image, size: int = 176) -> Image.Image:
         width=2,
     )
     d.rounded_rectangle((11, 11, size - 12, size - 12), radius=16, outline=(255, 255, 255, 26), width=1)
-    icon_big = icon.resize((132, 132), Image.Resampling.NEAREST)
+    icon_big = icon.resize((180, 180), Image.Resampling.NEAREST)
     card.alpha_composite(icon_big, ((size - icon_big.width) // 2, (size - icon_big.height) // 2))
     return card
 
 
-def item_card(icon: Image.Image, size: int = 212) -> Image.Image:
+def item_card(icon: Image.Image, size: int = 260) -> Image.Image:
     card = Image.new("RGBA", (size, size), (0, 0, 0, 0))
     d = ImageDraw.Draw(card, "RGBA")
     d.rounded_rectangle(
@@ -128,7 +129,7 @@ def item_card(icon: Image.Image, size: int = 212) -> Image.Image:
     )
     d.rounded_rectangle((12, 12, size - 13, size - 13), radius=18, outline=(255, 255, 255, 28), width=1)
 
-    icon_big = icon.resize((150, 150), Image.Resampling.NEAREST)
+    icon_big = icon.resize((188, 188), Image.Resampling.NEAREST)
     card.alpha_composite(icon_big, ((size - icon_big.width) // 2, (size - icon_big.height) // 2 + 4))
     return card
 
@@ -168,11 +169,11 @@ def draw_texture_preview(texture_name: str, status_map: dict[str, str]) -> Image
 
     items = texture_items(texture_name, status_map)
     positions_by_count = {
-        1: [(406, 407)],
-        2: [(294, 407), (518, 407)],
-        3: [(184, 407), (406, 407), (628, 407)],
-        4: [(294, 296), (518, 296), (294, 520), (518, 520)],
-        5: [(184, 296), (406, 296), (628, 296), (294, 520), (518, 520)],
+        1: [(830, 430)],
+        2: [(690, 430), (970, 430)],
+        3: [(550, 430), (830, 430), (1110, 430)],
+        4: [(410, 430), (690, 430), (970, 430), (1250, 430)],
+        5: [(270, 430), (550, 430), (830, 430), (1110, 430), (1390, 430)],
     }
     for (_identifier, icon), pos in zip(items, positions_by_count[len(items)]):
         paste_with_shadow(img, item_card(icon), pos)
@@ -187,22 +188,22 @@ def main() -> None:
     draw_subtitle(d, TEXTURE_PREVIEW_TITLE)
 
     positions = [
-        (222, 296),
-        (423, 296),
-        (624, 296),
-        (323, 520),
-        (524, 520),
+        (240, 430),
+        (520, 430),
+        (800, 430),
+        (1080, 430),
+        (1360, 430),
     ]
     for icon, pos in zip(load_icons(), positions):
         paste_with_shadow(img, icon_card(icon), pos)
 
-    out = OUT_DIR / "qol_medical_icons_preview_new_icons.png"
+    out = OUT_DIR / "new_icons.png"
     img.save(out)
 
     status_map = load_status_map()
     for texture_name in ICON_NAMES:
         preview = draw_texture_preview(texture_name, status_map)
-        preview.save(OUT_DIR / f"qol_medical_icons_preview_{texture_name}_items.png")
+        preview.save(OUT_DIR / f"{texture_name}_items.png")
 
 
 if __name__ == "__main__":
