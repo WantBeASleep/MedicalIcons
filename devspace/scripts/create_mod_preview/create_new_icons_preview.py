@@ -17,6 +17,14 @@ STATUS_ICON_OUT = ROOT / "devspace" / "scripts" / "build_project" / "status_icon
 W = H = 1024
 TITLE = "QoL - Medical Icons"
 ICON_NAMES = ["ampoule", "dart_syringe", "insulin_syringe", "pocket_injector", "vial"]
+TEXTURE_PREVIEW_TITLE = "Textures"
+ITEM_PREVIEW_TITLES = {
+    "ampoule": "Basic Chemicals",
+    "insulin_syringe": "Medicine",
+    "dart_syringe": "Toxins",
+    "vial": "Antidotes",
+    "pocket_injector": "Stimulants",
+}
 
 
 def font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
@@ -33,6 +41,7 @@ def font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
 
 
 FONT_TITLE = font(70, True)
+FONT_SUBTITLE = font(42, True)
 
 
 def rgba(color: tuple[int, int, int], alpha: int = 255) -> tuple[int, int, int, int]:
@@ -73,6 +82,14 @@ def draw_title(draw: ImageDraw.ImageDraw, y: int = 63) -> None:
     x = (W - tw) // 2
     for ox, oy, fill in [(5, 6, (0, 0, 0, 160)), (0, 0, (238, 231, 208, 255))]:
         draw.text((x + ox, y + oy), TITLE, font=FONT_TITLE, fill=fill)
+
+
+def draw_subtitle(draw: ImageDraw.ImageDraw, text: str, y: int = 178) -> None:
+    bbox = draw.textbbox((0, 0), text, font=FONT_SUBTITLE)
+    tw = bbox[2] - bbox[0]
+    x = (W - tw) // 2
+    for ox, oy, fill in [(3, 4, (0, 0, 0, 150)), (0, 0, (211, 231, 218, 245))]:
+        draw.text((x + ox, y + oy), text, font=FONT_SUBTITLE, fill=fill)
 
 
 def paste_with_shadow(base: Image.Image, obj: Image.Image, xy: tuple[int, int], blur: int = 16) -> None:
@@ -147,6 +164,7 @@ def draw_texture_preview(texture_name: str, status_map: dict[str, str]) -> Image
     img = gradient_bg()
     d = ImageDraw.Draw(img, "RGBA")
     draw_title(d)
+    draw_subtitle(d, ITEM_PREVIEW_TITLES[texture_name])
 
     items = texture_items(texture_name, status_map)
     positions_by_count = {
@@ -166,6 +184,7 @@ def main() -> None:
     img = gradient_bg()
     d = ImageDraw.Draw(img, "RGBA")
     draw_title(d)
+    draw_subtitle(d, TEXTURE_PREVIEW_TITLE)
 
     positions = [
         (222, 296),
