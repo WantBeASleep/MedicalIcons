@@ -7,11 +7,11 @@ Expected structure:
 
 ```text
 devspace/statusicons/
-  <affliction_name>.png
+  <name>.png
 ```
 
 ## File Meanings
-- `<affliction_name>.png` - individual Barotrauma affliction status icon, 24x24 pixels.
+- `<name>.png` - individual Barotrauma affliction status icon, 24x24 pixels.
 
 ## Color Rules
 When extracting vanilla affliction icons, apply the icon's XML `color`/`iconcolors` tint or the user-requested target palette before saving the 24x24 PNG.
