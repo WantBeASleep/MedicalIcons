@@ -1,6 +1,10 @@
 std = "lua52+selene_std_luacs_client"
 # std = "lua52+selene_std_luacs_server"
 
+exclude = [
+    "Lua/limanchel/medical_icons/generated/**",
+]
+
 [lints]
 almost_swapped = "deny"
 bad_string_escape = "deny"
