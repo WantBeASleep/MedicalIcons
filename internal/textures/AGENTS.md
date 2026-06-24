@@ -8,7 +8,7 @@ Each item asset set must have its own folder named after the icon/source asset i
 Example:
 
 ```text
-devspace/textures/insulin_syringe/
+internal/textures/insulin_syringe/
 ```
 
 Each item folder contains source files for the generated artwork and an `items` subfolder for final in-game item assets:
@@ -38,8 +38,8 @@ items/
 - `items/<identifier>/icon.png` - final 64x64 icon for that in-game item.
 - `items/<identifier>/sprite.png` - final sprite displayed in game for that in-game item.
 
-The folder names under `devspace/textures/<item>/items/` are the in-game item identifiers. Final icon and sprite files that will be used by the game must be stored only in these identifier folders. Root-level `icon.png` and `sprite.png` files in an item asset folder are important preview/scaffold files, but they are not used in game.
+The folder names under `internal/textures/<item>/items/` are the in-game item identifiers. Final icon and sprite files that will be used by the game must be stored only in these identifier folders. Root-level `icon.png` and `sprite.png` files in an item asset folder are important preview/scaffold files, but they are not used in game.
 
-When adding a new item, create a dedicated folder under `devspace/textures`.
+When adding a new item, create a dedicated folder under `internal/textures`.
 
-When adding a new in-game item output, create `devspace/textures/<item>/items/<identifier>/` and store only that item's final `icon.png` and `sprite.png` there.
+When adding a new in-game item output, create `internal/textures/<item>/items/<identifier>/` and store only that item's final `icon.png` and `sprite.png` there.

@@ -9,7 +9,7 @@ from PIL import Image
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
-STATUSICONS_DIR = PROJECT_ROOT / "devspace" / "statusicons"
+STATUSICONS_DIR = PROJECT_ROOT / "internal" / "statusicons"
 SCRIPT_DIR = Path(__file__).resolve().parent
 DEFAULT_ATLAS_PATH = STATUSICONS_DIR / "atlas.png"
 DEFAULT_CSV_PATH = SCRIPT_DIR / "statusicons.csv"

@@ -6,7 +6,7 @@ This folder stores Barotrauma status affliction icons.
 Expected structure:
 
 ```text
-devspace/statusicons/
+internal/statusicons/
   <name>.png
 ```
 

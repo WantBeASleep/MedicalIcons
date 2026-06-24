@@ -1,76 +1,44 @@
 # Project Notes
 
 ## Overview
-This project is a Barotrauma local client-side only mod named `Medical Icons` working by Lua.
+This project is a Barotrauma local client-side only mod named `Medical Icons` working by LuaCs bridge.
 
-The mod contains medical item icons, sprites, source images, generated atlases, Lua scripts, and Steam Workshop publishing text. The project separates development-only files from the final Barotrauma mod files.
+The project separates development-only files from the final Barotrauma mod files.
 
-## Project Location
-The intended project folder is:
-
-```text
-D:\SteamLibrary\steamapps\common\Barotrauma\LocalMods\Medical Icons
-```
-
-## Instruction Layout
-Use the nearest `AGENTS.md` for the files you are working on. This root file contains only project-wide rules.
-
-Area-specific instructions live here:
-
-- `devspace/textures/AGENTS.md` - item icon and sprite source assets, final per-item `icon.png` and `sprite.png` files, visual generation rules, sprite sizing references.
-- `devspace/preview/AGENTS.md` - development-only preview images and Steam Workshop preview generation.
-- `devspace/scripts/AGENTS.md` - global project automation, build pipeline, validation  and filelist updates.
-- `devspace/statusicons/AGENTS.md` - 24x24 Barotrauma affliction status icons.
-- `devspace/paint.net/AGENTS.md` - paint.net working files and visual editing sources.
 
 ## Development Workspace
-All development-only assets must be stored inside `devspace`.
+All development-only files belong under `internal`; do not place sources, references, scripts, temporary files, or working files outside it.
 
-Do not place development sources, references, scripts, temporary files, or working files outside `devspace`.
+Development areas:
 
-Expected development structure:
-
-```text
-devspace/
-  fonts/
-  paint.net/
-  preview/
-  scripts/
-  statusicons/
-  textures/
-```
-
-`devspace/fonts` stores font files used by development-only preview generation scripts.
+- `internal/fonts` - fonts used by preview/generation scripts.
+- `internal/paint.net` - paint.net working files.
+- `internal/preview` - development and Workshop previews.
+- `internal/scripts` - automation and validation scripts.
+- `internal/statusicons` - status icon sources.
+- `internal/textures` - item icon/sprite sources and final per-item texture inputs.
 
 ## Mod-Facing Files
-Everything outside `devspace` is mod-facing or publishing-facing.
-
-Do not store files outside `devspace` unless they are required for the mod to work in Barotrauma or are explicit publishing files.
-
-Expected mod-facing and publishing-facing structure:
-
-```text
-filelist.xml
-workshop_description_en.bbcode
-workshop_description_ru.bbcode
-```
-
-Root file meanings:
+Everything outside `internal` is mod-facing or publishing-facing; only place files there when Barotrauma needs them at runtime or they are explicit publishing files.
 
 - `filelist.xml` - root Barotrauma mod descriptor.
 - `workshop_description_en.bbcode` - English Steam Workshop description, similar to a Workshop-facing README.
 - `workshop_description_ru.bbcode` - Russian Steam Workshop description, similar to a Workshop-facing README.
 
-## Build Workflow Trigger
-Run the mod build workflow whenever a project change affects the future runtime build of the mod. This includes changes to final item icons or sprites under `devspace/textures/*/items/*`, status icon overlay inputs, build scripts, atlas packing behavior, Lua behaviour changes. 
+## Build Workflow
+The canonical build command is:
 
-Do not run the mod build workflow for changes that only affect documentation, `devspace/preview`, `devspace/paint.net`, Steam Workshop descriptions, or other publishing/development-only files unless the user explicitly asks to rebuild.
+```powershell
+python internal/scripts/build_project/build_project.py --all
+```
 
-When changing icon or sprite layout, update the relevant atlas and XML references together only if the user explicitly asked to build or update the mod-facing files.
+The build packs texture/status icon atlases and generates the Lua atlas data file used by the mod.
+
+Run the mod build workflow only when a change affects runtime data or generated assets: item icons/sprites under `internal/textures/*/items/*`, status icon inputs, atlas packing behavior or scripts that generate atlas data.
 
 ## Agent Guidelines
-- Keep development artifacts inside `devspace`.
+- Keep development artifacts inside `internal`.
 - Keep the mod root clean and Barotrauma-ready.
 - Before adding new root-level files, verify that Barotrauma needs them at runtime.
-- Scripts must not hard-code absolute paths or depend on external files outside the Barotrauma install/project tree. Computing paths from the current script, project root, or known Barotrauma directory structure is allowed. If a script needs external support files such as fonts, images, templates, or references, copy those files into the appropriate `devspace` folder and load them from there.
+- Scripts must not hard-code absolute paths or depend on external files outside the Barotrauma install/project tree. Computing paths from the current script, project root, or known Barotrauma directory structure is allowed. If a script needs external support files such as fonts, images, templates, or references, copy those files into the appropriate `internal` folder and load them from there.
 - After running any Python script anywhere in this project, remove all generated `__pycache__` folders and `.pyc` files from the mod workspace. The mod may be published to Steam Workshop with source files included, and Workshop publishing does not use `.gitignore` to exclude Python cache artifacts.

@@ -49,7 +49,7 @@ Start from the content types index, then open the specific generated page for th
 When docs explain a property but not enough surrounding context, search local XML examples:
 
 - Existing project XML under `Items/Medical`.
-- Development scripts or generated XML under `devspace`.
+- Development scripts or generated XML under `internal`.
 - Vanilla Barotrauma XML under the game install, if accessible.
 
 Prefer examples matching the same content type and component. Use examples to confirm structure and style, but use BaroModDoc for property meaning and constraints.

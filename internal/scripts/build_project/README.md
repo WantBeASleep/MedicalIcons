@@ -7,13 +7,13 @@ The script validates generated item assets, optionally overlays status icons on 
 ## Location
 
 ```text
-devspace/scripts/build_project/build_project.py
+internal/scripts/build_project/build_project.py
 ```
 
 ## Pipeline
 
-1. Validate item assets in `devspace/textures/*/items/*`.
-2. Optionally overlay status icons from `devspace/statusicons`.
+1. Validate item assets in `internal/textures/*/items/*`.
+2. Optionally overlay status icons from `internal/statusicons`.
 3. Build `assets/icons.png` and `assets/sprites.png`.
 4. Generate `lua/limanchel/medical_icons/generated/atlases.lua`.
 
@@ -24,19 +24,19 @@ The build script does not edit `lua/limanchel/medical_icons/data.lua`. Keep manu
 Validate only:
 
 ```powershell
-python devspace/scripts/build_project/build_project.py --validate-only
+python internal/scripts/build_project/build_project.py --validate-only
 ```
 
 Dry-run full build with status icon overlays:
 
 ```powershell
-python devspace/scripts/build_project/build_project.py --all --dry-run
+python internal/scripts/build_project/build_project.py --all --dry-run
 ```
 
 Full build with status icon overlays:
 
 ```powershell
-python devspace/scripts/build_project/build_project.py --all
+python internal/scripts/build_project/build_project.py --all
 ```
 
 ## Generated Lua
@@ -64,7 +64,7 @@ local atlases = {
 return atlases
 ```
 
-`texture` comes from `devspace/textures/<texture>/items/<identifier>`.
+`texture` comes from `internal/textures/<texture>/items/<identifier>`.
 
 ## Status Icon Overlay
 
@@ -79,31 +79,31 @@ hyperzine,haste
 Status icons are overlaid during atlas build by default. The default mapping file is:
 
 ```text
-devspace/scripts/build_project/statusicons.csv
+internal/scripts/build_project/statusicons.csv
 ```
 
 Use a custom mapping file:
 
 ```powershell
-python devspace/scripts/build_project/build_project.py --all --add-status-icons devspace/statusicon_map.csv
+python internal/scripts/build_project/build_project.py --all --add-status-icons internal/statusicon_map.csv
 ```
 
 Build without status icon overlays:
 
 ```powershell
-python devspace/scripts/build_project/build_project.py --all --disable-status-icons
+python internal/scripts/build_project/build_project.py --all --disable-status-icons
 ```
 
 Also save standalone 64x64 icons with status overlays:
 
 ```powershell
-python devspace/scripts/build_project/build_project.py --all --add-status-icons devspace/statusicon_map.csv --save-status-icons
+python internal/scripts/build_project/build_project.py --all --add-status-icons internal/statusicon_map.csv --save-status-icons
 ```
 
 Save them to a specific directory:
 
 ```powershell
-python devspace/scripts/build_project/build_project.py --all --add-status-icons devspace/statusicon_map.csv --save-status-icons devspace/scripts/build_project/status_icons
+python internal/scripts/build_project/build_project.py --all --add-status-icons internal/statusicon_map.csv --save-status-icons internal/scripts/build_project/status_icons
 ```
 
 ## Flags
@@ -137,7 +137,7 @@ Save standalone item icons after status icon overlay.
 If `DIR` is omitted, output goes to:
 
 ```text
-devspace/scripts/build_project/status_icons
+internal/scripts/build_project/status_icons
 ```
 
 ```text
@@ -179,7 +179,7 @@ Path to generated item texture folders.
 Default:
 
 ```text
-devspace/textures
+internal/textures
 ```
 
 ```text
@@ -191,7 +191,7 @@ Path to 24x24 status icon PNG files.
 Default:
 
 ```text
-devspace/statusicons
+internal/statusicons
 ```
 
 ```text
@@ -226,7 +226,7 @@ Print detailed validation output for every item.
 
 ## Notes
 
-- Final item assets are discovered only from `devspace/textures/<texture>/items/<identifier>/`.
+- Final item assets are discovered only from `internal/textures/<texture>/items/<identifier>/`.
 - Root-level `icon.png` and `sprite.png` inside a texture folder are previews and are not packed.
 - Status icons must be 24x24 PNG files.
 - Item icons must be 64x64 PNG files.

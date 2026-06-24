@@ -9,11 +9,11 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 
 ROOT = Path(__file__).resolve().parents[4]
-TEXTURES = ROOT / "devspace" / "textures"
-OUT_DIR = ROOT / "devspace" / "preview"
-FONT_DIR = ROOT / "devspace" / "fonts"
-STATUS_CSV = ROOT / "devspace" / "scripts" / "build_project" / "statusicons.csv"
-STATUS_ICON_OUT = ROOT / "devspace" / "scripts" / "build_project" / "status_icons"
+TEXTURES = ROOT / "internal" / "textures"
+OUT_DIR = ROOT / "internal" / "preview"
+FONT_DIR = ROOT / "internal" / "fonts"
+STATUS_CSV = ROOT / "internal" / "scripts" / "build_project" / "statusicons.csv"
+STATUS_ICON_OUT = ROOT / "internal" / "scripts" / "build_project" / "status_icons"
 
 W = 1920
 H = 1080

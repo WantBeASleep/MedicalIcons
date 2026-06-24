@@ -32,7 +32,7 @@ When internet access is unavailable, search for a local cached copy or inspect v
 - Use `%ModDir%` for mod-local file references.
 - Preserve existing identifiers unless the task explicitly requires renaming.
 - Keep generated/runtime files in the mod-facing locations defined by project `AGENTS.md`.
-- Keep development-only references, sources, and scratch assets under `devspace`.
+- Keep development-only references, sources, and scratch assets under `internal`.
 
 ## StatusEffect Checks
 

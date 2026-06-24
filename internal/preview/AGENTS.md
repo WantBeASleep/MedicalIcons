@@ -8,28 +8,28 @@ Preview files are not used by Barotrauma at runtime. Do not copy preview images 
 Expected structure:
 
 ```text
-devspace/preview/
+internal/preview/
   scripts/
   source/
   <preview_name>.png
 ```
 
-Preview scripts may use shared font files from `devspace/fonts`.
+Preview scripts may use shared font files from `internal/fonts`.
 
 ## Preview Scripts
-`devspace/preview/scripts` stores preview-only scripts, such as Steam Workshop preview generators and small preview-specific helpers.
+`internal/preview/scripts` stores preview-only scripts, such as Steam Workshop preview generators and small preview-specific helpers.
 
-Preview-only scripts are local scripts. Do not place preview-only helpers in the top-level `devspace/scripts`.
+Preview-only scripts are local scripts. Do not place preview-only helpers in the top-level `internal/scripts`.
 
-Preview scripts should load bundled fonts from `devspace/fonts` instead of hard-coded system font paths such as `C:/Windows/Fonts`.
+Preview scripts should load bundled fonts from `internal/fonts` instead of hard-coded system font paths such as `C:/Windows/Fonts`.
 
 ## Preview Sources
-`devspace/preview/source` stores source images used to generate finished Steam Workshop preview images.
+`internal/preview/source` stores source images used to generate finished Steam Workshop preview images.
 
 Files in this folder are preview-generation inputs only. They are not final Steam Workshop images, are not used by Barotrauma at runtime, and must not be added to `filelist.xml`.
 
 ## Preview Image Rules
-- Keep only finished Steam Workshop preview images directly inside `devspace/preview`.
-- Keep source images used for preview generation inside `devspace/preview/source`.
+- Keep only finished Steam Workshop preview images directly inside `internal/preview`.
+- Keep source images used for preview generation inside `internal/preview/source`.
 - Use 1920x1080 PNG files for Steam Workshop preview images unless the user explicitly requests another size.
 - Preview images may compose existing item icons, sprites, status icons, backgrounds, labels, and other development-only visual elements.

@@ -1,5 +1,5 @@
 legacy
 .vscode/
-devspace/preview/scripts/__pycache__
-devspace/scripts/__pycache__
-devspace/textures/*/scripts/__pycache__
+internal/preview/scripts/__pycache__
+internal/scripts/__pycache__
+internal/textures/*/scripts/__pycache__

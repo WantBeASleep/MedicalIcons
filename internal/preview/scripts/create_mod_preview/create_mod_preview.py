@@ -8,11 +8,11 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 
 ROOT = Path(__file__).resolve().parents[4]
-TEXTURES = ROOT / "devspace" / "textures"
-REFERENCE = ROOT / "devspace" / "reference"
-OUT_DIR = ROOT / "devspace" / "preview"
+TEXTURES = ROOT / "internal" / "textures"
+REFERENCE = ROOT / "internal" / "reference"
+OUT_DIR = ROOT / "internal" / "preview"
 SOURCE_DIR = OUT_DIR / "source"
-FONT_DIR = ROOT / "devspace" / "fonts"
+FONT_DIR = ROOT / "internal" / "fonts"
 HOST_IMAGE = SOURCE_DIR / "host_image.png"
 
 W = 1920

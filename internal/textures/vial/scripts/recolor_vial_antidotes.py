@@ -7,7 +7,7 @@ from PIL import Image, ImageDraw
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[4]
-VIAL_DIR = PROJECT_ROOT / "devspace" / "textures" / "vial"
+VIAL_DIR = PROJECT_ROOT / "internal" / "textures" / "vial"
 ITEMS_DIR = VIAL_DIR / "items"
 MASKS_DIR = VIAL_DIR / "masks"
 SOURCE_CAP_METAL_MASK = MASKS_DIR / "mask_source_cap_metal.png"
