@@ -20,8 +20,7 @@ local data = {
         },
     },
 
-    items = {
-    },
+    items = {},
 }
 
 return data

@@ -71,8 +71,14 @@ function logger.log(message, message_level, color)
 
         if ok then return end
 
-        print(string.format("[%s][%s] DebugConsole.NewMessage failed: %s; using print fallback",
-            logger.prefix, level_label[level.error], tostring(err)))
+        print(
+            string.format(
+                "[%s][%s] DebugConsole.NewMessage failed: %s; using print fallback",
+                logger.prefix,
+                level_label[level.error],
+                tostring(err)
+            )
+        )
     end
 
     print(text)

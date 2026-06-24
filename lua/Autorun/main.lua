@@ -21,12 +21,22 @@ for identifier, item in pairs(atlases.items) do
     end
 
     ---@diagnostic disable-next-line: invisible // private Init expose earlier
-    prefab.InventoryIcon.Init(mod_path .. "/" .. atlases.assets.icons, Rectangle(table.unpack(item.icon.rect)),
-        data.defaults.icon_origin, nil, data.defaults.sprite_rotation)
+    prefab.InventoryIcon.Init(
+        mod_path .. "/" .. atlases.assets.icons,
+        Rectangle(table.unpack(item.icon.rect)),
+        data.defaults.icon_origin,
+        nil,
+        data.defaults.sprite_rotation
+    )
 
     ---@diagnostic disable-next-line: invisible // private Init expose earlier
-    prefab.Sprite.Init(mod_path .. "/" .. atlases.assets.sprites, Rectangle(table.unpack(item.sprite.rect)),
-        data.defaults.sprite_origin, nil, data.defaults.sprite_rotation)
+    prefab.Sprite.Init(
+        mod_path .. "/" .. atlases.assets.sprites,
+        Rectangle(table.unpack(item.sprite.rect)),
+        data.defaults.sprite_origin,
+        nil,
+        data.defaults.sprite_rotation
+    )
     prefab.Sprite.Depth = data.defaults.sprite_depth
 
     ::continue::
