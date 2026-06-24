@@ -32,21 +32,21 @@ Development and source areas:
 The canonical build command is:
 
 ```powershell
-python tools/build/build_project/build_project.py --all
+python tools/build/build_project/build_project.py
 ```
 
 The build packs item icon/sprite atlases into `assets` and generates Lua atlas data under `Lua/limanchel/medical_icons/generated`.
 
-Run the mod build workflow when a change affects runtime data or generated assets: item icons/sprites under `source/textures/*/items/*`, status icon inputs, atlas packing behavior, or scripts that generate atlas data.
+Run the mod build workflow when a change affects runtime data or generated assets: item icons/sprites under `source/textures/*/items/*`, atlas packing behavior, or scripts that generate atlas data.
 
 ## Lua Lint
 The canonical Lua lint command is:
 
 ```powershell
-python tools/lint/run_selene.py
+python tools/lualint/lualint.py
 ```
 
-Run the Lua lint workflow after changing Lua runtime files under `Lua`, Selene configuration files such as `selene.toml` or `selene_defs/*`, or lint helper scripts under `tools/lint`.
+Run the Lua lint workflow after changing Lua runtime files under `Lua`, Selene configuration files such as `selene.toml` or `selene_defs/*`, or lint helper scripts under `tools/lualint`.
 
 ## Agent Guidelines
 - Agents must never create git commits in this repository.
@@ -56,4 +56,3 @@ Run the Lua lint workflow after changing Lua runtime files under `Lua`, Selene c
 - Keep source assets under `source`, scripts under `tools`, and generated previews under `preview`.
 - Scripts must not hard-code absolute paths. Compute paths from the current script, project root, or known Barotrauma directory structure.
 - Scripts must not depend on external files outside the Barotrauma install/project tree. If a script needs support files such as fonts, images, templates, or references, copy those files into the appropriate project folder and load them from there.
-- After running any Python script anywhere in this project, remove all generated `__pycache__` folders and `.pyc` files from the mod workspace. Use `python tools/build/clean_python_cache/clean_python_cache.py` for cleanup, or `python tools/build/clean_python_cache/clean_python_cache.py --dry-run` to preview what would be removed. The mod may be published to Steam Workshop with source files included, and Workshop publishing does not use `.gitignore` to exclude Python cache artifacts.

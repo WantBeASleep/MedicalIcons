@@ -1,5 +1,2 @@
 legacy
 .vscode/
-tools/preview/**/__pycache__
-tools/**/__pycache__
-source/textures/*/scripts/__pycache__

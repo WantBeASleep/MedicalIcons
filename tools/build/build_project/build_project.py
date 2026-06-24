@@ -3,13 +3,9 @@ from __future__ import annotations
 import argparse
 import csv
 import math
-import shutil
 import sys
 from dataclasses import dataclass
 from pathlib import Path
-
-from PIL import Image
-
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -92,7 +88,6 @@ def parse_args() -> argparse.Namespace:
         default=DEFAULT_ATLASES_LUA,
         help="Generated Lua atlas table. Default: Lua/limanchel/medical_icons/generated/atlases.lua.",
     )
-    parser.add_argument("--all", action="store_true", help="Run validation, atlas build, and atlases.lua generation.")
     parser.add_argument(
         "--textures-dir",
         type=Path,
@@ -164,6 +159,8 @@ def ensure_project_dirs(args: argparse.Namespace) -> None:
 
 
 def image_size(path: Path) -> tuple[int, int]:
+    from PIL import Image
+
     with Image.open(path) as image:
         return image.size
 
@@ -259,6 +256,8 @@ def warn_missing_status_icon_mappings(ctx: BuildContext, status_map: dict[str, s
 
 
 def load_icon_with_status_overlay(item: ItemAsset, statusicon: str | None, statusicons_dir: Path) -> Image.Image:
+    from PIL import Image
+
     icon = Image.open(item.icon_path).convert("RGBA")
     if statusicon is not None:
         overlay = Image.open(statusicons_dir / f"{statusicon}.png").convert("RGBA")
@@ -276,6 +275,8 @@ def build_icon_atlas(
     status_map: dict[str, str],
     args: argparse.Namespace,
 ) -> tuple[Image.Image, list[AtlasEntry]]:
+    from PIL import Image
+
     columns = math.ceil(math.sqrt(len(items)))
     rows = math.ceil(len(items) / columns)
     atlas = Image.new("RGBA", (atlas_dimension(columns * ICON_SIZE), atlas_dimension(rows * ICON_SIZE)), (0, 0, 0, 0))
@@ -293,6 +294,8 @@ def build_icon_atlas(
 
 
 def build_sprite_atlas(items: list[ItemAsset], atlas_width: int) -> tuple[Image.Image, list[AtlasEntry]]:
+    from PIL import Image
+
     if atlas_width <= 0:
         fail("--sprite-atlas-width must be greater than 0")
     atlas_width = atlas_dimension(atlas_width)
@@ -432,18 +435,6 @@ def print_item_summary(items: list[ItemAsset], verbose: bool) -> None:
         )
 
 
-def cleanup_python_cache() -> None:
-    try:
-        for cache_dir in PROJECT_ROOT.rglob("__pycache__"):
-            if cache_dir.is_dir():
-                shutil.rmtree(cache_dir)
-        for pyc_path in PROJECT_ROOT.rglob("*.pyc"):
-            if pyc_path.is_file():
-                pyc_path.unlink()
-    except OSError as error:
-        print(f"WARNING: could not remove Python cache artifacts: {error}")
-
-
 def main() -> None:
     args = parse_args()
     warn_deprecated_flags(args)
@@ -474,5 +465,3 @@ if __name__ == "__main__":
         main()
     except KeyboardInterrupt:
         sys.exit("Interrupted")
-    finally:
-        cleanup_python_cache()

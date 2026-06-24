@@ -4,6 +4,10 @@ Build script for the Medical Icons Barotrauma local Lua mod.
 
 The script validates generated item assets, optionally overlays status icons on item icons, builds item icon and sprite atlases, and writes generated Lua atlas metadata to `Lua/limanchel/medical_icons/generated/atlases.lua`.
 
+## Purpose
+
+Use this script after changing item icon or sprite sources under `source/textures`, status icon sources under `source/status_icons`, or atlas generation behavior. A normal run performs the full build by default.
+
 ## Location
 
 ```text
@@ -19,7 +23,13 @@ tools/build/build_project/build_project.py
 
 The build script does not edit `Lua/limanchel/medical_icons/data.lua`. Keep manual runtime constants there, such as `holdAngle`, origins, rotation, depth, and item-specific overrides.
 
-## Basic Usage
+## Usage
+
+Full build with status icon overlays:
+
+```powershell
+python tools/build/build_project/build_project.py
+```
 
 Validate only:
 
@@ -30,83 +40,34 @@ python tools/build/build_project/build_project.py --validate-only
 Dry-run full build with status icon overlays:
 
 ```powershell
-python tools/build/build_project/build_project.py --all --dry-run
-```
-
-Full build with status icon overlays:
-
-```powershell
-python tools/build/build_project/build_project.py --all
-```
-
-## Generated Lua
-
-`atlases.lua` is fully generated and may be overwritten on every build.
-
-Shape:
-
-```lua
-local atlases = {
-    assets = {
-        icons = "assets/icons.png",
-        sprites = "assets/sprites.png",
-    },
-
-    items = {
-        ["adrenaline"] = {
-            texture = "ampoule",
-            icon = { rect = { 0, 0, 64, 64 } },
-            sprite = { rect = { 0, 0, 9, 44 } },
-        },
-    },
-}
-
-return atlases
-```
-
-`texture` comes from `source/textures/<texture>/items/<identifier>`.
-
-## Status Icon Overlay
-
-CSV format:
-
-```csv
-identifier,statusicon
-antidama1,opiatewithdrawal
-hyperzine,haste
-```
-
-Status icons are overlaid during atlas build by default. The default mapping file is:
-
-```text
-tools/build/build_project/statusicons.csv
-```
-
-Use a custom mapping file:
-
-```powershell
-python tools/build/build_project/build_project.py --all --add-status-icons tools/build/build_project/statusicons.csv
+python tools/build/build_project/build_project.py --dry-run
 ```
 
 Build without status icon overlays:
 
 ```powershell
-python tools/build/build_project/build_project.py --all --disable-status-icons
+python tools/build/build_project/build_project.py --disable-status-icons
 ```
 
-Also save standalone 64x64 icons with status overlays:
+Use a custom status icon mapping file:
 
 ```powershell
-python tools/build/build_project/build_project.py --all --add-status-icons tools/build/build_project/statusicons.csv --save-status-icons
+python tools/build/build_project/build_project.py --add-status-icons tools/build/build_project/statusicons.csv
 ```
 
-Save them to a specific directory:
+Save standalone 64x64 icons with status overlays:
 
 ```powershell
-python tools/build/build_project/build_project.py --all --add-status-icons tools/build/build_project/statusicons.csv --save-status-icons tools/build/build_project/status_icons
+python tools/build/build_project/build_project.py --save-status-icons
 ```
 
-## Flags
+Save standalone status-overlaid icons to a specific directory:
+
+```powershell
+python tools/build/build_project/build_project.py --save-status-icons tools/build/build_project/status_icons
+```
+
+## Options
 
 ```text
 --validate-only
@@ -119,6 +80,12 @@ Only validate item assets. Does not write atlases or Lua metadata.
 ```
 
 Read `identifier,statusicon` mappings and overlay status icons onto matching item icons before atlas packing.
+
+Default:
+
+```text
+tools/build/build_project/statusicons.csv
+```
 
 ```text
 --disable-status-icons
@@ -163,12 +130,6 @@ Default:
 ```text
 Lua/limanchel/medical_icons/generated/atlases.lua
 ```
-
-```text
---all
-```
-
-Run validation, atlas build, and `atlases.lua` generation.
 
 ```text
 --textures-dir PATH
@@ -224,6 +185,47 @@ Treat warnings as errors.
 
 Print detailed validation output for every item.
 
+## Inputs
+
+- `source/textures/*/items/*/icon.png` - source item icons, required to be 64x64 PNG files.
+- `source/textures/*/items/*/sprite.png` - source item sprites.
+- `tools/build/build_project/statusicons.csv` - default `identifier,statusicon` mapping.
+- `source/status_icons/*.png` - 24x24 status icon overlays.
+
+## Outputs
+
+- `assets/icons.png` - packed item icon atlas.
+- `assets/sprites.png` - packed item sprite atlas.
+- `Lua/limanchel/medical_icons/generated/atlases.lua` - generated atlas paths and item rectangles for Lua runtime code.
+- `tools/build/build_project/status_icons/*.png` - optional standalone status-overlaid icons when `--save-status-icons` is used.
+
+## Generated Lua
+
+`atlases.lua` is fully generated and may be overwritten on every build.
+
+Shape:
+
+```lua
+local atlases = {
+    assets = {
+        icons = "assets/icons.png",
+        sprites = "assets/sprites.png",
+    },
+
+    items = {
+        ["adrenaline"] = {
+            texture = "ampoule",
+            icon = { rect = { 0, 0, 64, 64 } },
+            sprite = { rect = { 0, 0, 9, 44 } },
+        },
+    },
+}
+
+return atlases
+```
+
+`texture` comes from `source/textures/<texture>/items/<identifier>`.
+
 ## Notes
 
 - Final item assets are discovered only from `source/textures/<texture>/items/<identifier>/`.
@@ -232,4 +234,3 @@ Print detailed validation output for every item.
 - Item icons must be 64x64 PNG files.
 - Sprite atlas dimensions are padded to multiples of 4.
 - The script no longer generates CSV atlas maps or XML overrides.
-- After each run, Python cache artifacts under the mod workspace are removed.
