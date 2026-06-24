@@ -33,6 +33,8 @@ Use bundled vanilla Barotrauma atlas images under `references` as the default vi
 6. Validate resullt via QA check list 
 7. Report changed files and any visual caveats.
 
+Make visual changes to icons, sprites, and source images by regenerating the visual asset, not by manually editing or patching the bitmap.
+
 ## Boundaries
 
 This skill prepares the five-file art set only. It does not decide project atlas packing, XML `sourcerect`, `filelist.xml`, item identifiers, mod build workflows, or Steam Workshop packaging.

@@ -1,8 +1,8 @@
 # build_project
 
-Build script for the Medical Icons Barotrauma local mod.
+Build script for the Medical Icons Barotrauma local Lua mod.
 
-The script validates generated item assets, optionally overlays status icons on item icons, builds item atlases, writes atlas CSV maps, rebuilds XML overrides, and updates the root `filelist.xml`.
+The script validates generated item assets, optionally overlays status icons on item icons, builds item icon and sprite atlases, and writes generated Lua atlas metadata to `lua/limanchel/medical_icons/generated/atlases.lua`.
 
 ## Location
 
@@ -14,9 +14,10 @@ devspace/scripts/build_project/build_project.py
 
 1. Validate item assets in `devspace/textures/*/items/*`.
 2. Optionally overlay status icons from `devspace/statusicons`.
-3. Build `icons.png` and `sprites.png` atlases, plus `icons.csv` and `sprites.csv`.
-4. Build item XML files from vanilla Barotrauma XML using `<Override><Items>...`, updating visual references and `Body` size from the generated sprite.
-5. Update root `filelist.xml`.
+3. Build `assets/icons.png` and `assets/sprites.png`.
+4. Generate `lua/limanchel/medical_icons/generated/atlases.lua`.
+
+The build script does not edit `lua/limanchel/medical_icons/data.lua`. Keep manual runtime constants there, such as `holdAngle`, origins, rotation, depth, and item-specific overrides.
 
 ## Basic Usage
 
@@ -37,6 +38,33 @@ Full build with status icon overlays:
 ```powershell
 python devspace/scripts/build_project/build_project.py --all
 ```
+
+## Generated Lua
+
+`atlases.lua` is fully generated and may be overwritten on every build.
+
+Shape:
+
+```lua
+local atlases = {
+    assets = {
+        icons = "assets/icons.png",
+        sprites = "assets/sprites.png",
+    },
+
+    items = {
+        ["adrenaline"] = {
+            texture = "ampoule",
+            icon = { rect = { 0, 0, 64, 64 } },
+            sprite = { rect = { 0, 0, 9, 44 } },
+        },
+    },
+}
+
+return atlases
+```
+
+`texture` comes from `devspace/textures/<texture>/items/<identifier>`.
 
 ## Status Icon Overlay
 
@@ -63,7 +91,7 @@ python devspace/scripts/build_project/build_project.py --all --add-status-icons 
 Build without status icon overlays:
 
 ```powershell
-python devspace/scripts/build_project/build_project.py --all --disable-staus-icons
+python devspace/scripts/build_project/build_project.py --all --disable-status-icons
 ```
 
 Also save standalone 64x64 icons with status overlays:
@@ -78,25 +106,13 @@ Save them to a specific directory:
 python devspace/scripts/build_project/build_project.py --all --add-status-icons devspace/statusicon_map.csv --save-status-icons devspace/scripts/build_project/status_icons
 ```
 
-## XML Rules
-
-When building XML, the script updates each item's `InventoryIcon`, `Sprite`, and `Body` dimensions from the generated atlases.
-
-Items generated from these texture asset folders also get `holdangle="10"` on their `MeleeWeapon` or `Holdable` component:
-
-```text
-devspace/textures/ampoule
-devspace/textures/pocket_injector
-devspace/textures/vial
-```
-
 ## Flags
 
 ```text
 --validate-only
 ```
 
-Only validate item assets. Does not write atlases, XML, or `filelist.xml`.
+Only validate item assets. Does not write atlases or Lua metadata.
 
 ```text
 --add-status-icons STATUS_CSV
@@ -104,19 +120,13 @@ Only validate item assets. Does not write atlases, XML, or `filelist.xml`.
 
 Read `identifier,statusicon` mappings and overlay status icons onto matching item icons before atlas packing.
 
-Default:
-
 ```text
-devspace/scripts/build_project/statusicons.csv
-```
-
-When status icon overlays are enabled, this CSV must exist. If the CSV does not contain a row for a discovered item, the script emits a warning and packs that item's icon without an overlay.
-
-```text
---disable-staus-icons
+--disable-status-icons
 ```
 
 Build item icon atlases without status icon overlays.
+
+The legacy misspelled `--disable-staus-icons` spelling is still accepted.
 
 ```text
 --save-status-icons [DIR]
@@ -139,60 +149,26 @@ Directory for `icons.png` and `sprites.png`.
 Default:
 
 ```text
-Items/Medical
+assets
 ```
 
 ```text
---csv-out DIR
+--atlases-lua FILE
 ```
 
-Directory for `icons.csv` and `sprites.csv`.
+Path for generated Lua atlas metadata.
 
 Default:
 
 ```text
-devspace/scripts/build_project
+lua/limanchel/medical_icons/generated/atlases.lua
 ```
-
-```text
---xml
-```
-
-Build `Items/Medical/medical.xml`, `Items/Medical/poisons.xml`, and `Items/Medical/buffs.xml`.
-
-XML output uses:
-
-```xml
-<Override>
-  <Items>
-    ...
-  </Items>
-</Override>
-```
-
-```text
---filelist
-```
-
-Update root `filelist.xml` with required mod-facing files.
 
 ```text
 --all
 ```
 
-Run the full pipeline.
-
-```text
---vanilla-medical-dir PATH
-```
-
-Path to vanilla Barotrauma medical XML files.
-
-Default:
-
-```text
-D:/SteamLibrary/steamapps/common/Barotrauma/Content/Items/Medical
-```
+Run validation, atlas build, and `atlases.lua` generation.
 
 ```text
 --textures-dir PATH
@@ -250,11 +226,10 @@ Print detailed validation output for every item.
 
 ## Notes
 
-- Final item assets are discovered only from `devspace/textures/<asset>/items/<identifier>/`.
-- Root-level `icon.png` and `sprite.png` inside an asset folder are previews and are not packed.
+- Final item assets are discovered only from `devspace/textures/<texture>/items/<identifier>/`.
+- Root-level `icon.png` and `sprite.png` inside a texture folder are previews and are not packed.
 - Status icons must be 24x24 PNG files.
 - Item icons must be 64x64 PNG files.
 - Sprite atlas dimensions are padded to multiples of 4.
-- XML is generated from vanilla XML first. If an item does not exist in vanilla XML, the script tries to reuse an existing item definition from `Items/Medical/*.xml`.
-- Generated XML updates each item's `Body width` and `Body height` to match the generated sprite dimensions.
-- Items not found in vanilla XML or existing mod XML are skipped during XML generation with a warning. Use `--strict` to make that an error.
+- The script no longer generates CSV atlas maps or XML overrides.
+- After each run, Python cache artifacts under the mod workspace are removed.
