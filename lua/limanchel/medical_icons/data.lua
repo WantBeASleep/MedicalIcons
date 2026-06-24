@@ -1,22 +1,22 @@
 local data = {
     defaults = {
-        iconOrigin = Vector2(0.5, 0.5),
-        spriteOrigin = Vector2(0.5, 0.5),
-        spriteRotation = 0,
-        spriteDepth = 0.6,
+        icon_origin = Vector2(0.5, 0.5),
+        sprite_origin = Vector2(0.5, 0.5),
+        sprite_rotation = 0,
+        sprite_depth = 0.6,
     },
 
     textures = {
         ampoule = {
-            holdAngle = 10,
+            hold_angle = 10,
         },
 
         pocket_injector = {
-            holdAngle = 10,
+            hold_angle = 10,
         },
 
         vial = {
-            holdAngle = 10,
+            hold_angle = 10,
         },
     },
 
