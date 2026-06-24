@@ -13,7 +13,7 @@ sys.dont_write_bytecode = True
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parents[1]
-VENDOR_DIR = SCRIPT_DIR / "_vendor"
+VENDOR_DIR = PROJECT_ROOT / "_vendor"
 DEFAULT_TEXTURES_DIR = PROJECT_ROOT / "source" / "textures"
 DEFAULT_STATUSICONS_DIR = PROJECT_ROOT / "source" / "status_icons"
 DEFAULT_ATLAS_OUT_DIR = PROJECT_ROOT / "assets"
@@ -395,7 +395,7 @@ def load_lua_ast_modules() -> tuple[Any, Any]:
     except ModuleNotFoundError:
         fail(
             "Missing vendored luaparser dependency. "
-            "Install it with: python -m pip install luaparser==4.0.1 --target tools/build/_vendor"
+            "Install it with: python -m pip install luaparser==4.0.1 --target _vendor"
         )
     return ast, astnodes
 

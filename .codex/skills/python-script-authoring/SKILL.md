@@ -14,6 +14,7 @@ description: Create or edit project Python utility scripts with a consistent fol
 - Do not hard-code absolute paths.
 - Resolve project paths relative to the script location, the current script folder, or an explicitly detected project root.
 - Keep support files that the script needs inside the project tree and load them through relative paths.
+- If a script needs external non-standard Python dependencies, vendor or install them into the current project's root `_vendor` directory and load them from there, for example by inserting `PROJECT_ROOT / "_vendor"` into `sys.path`. Do not create per-script `_vendor` folders for shared project dependencies.
 
 ## Script Pattern
 
