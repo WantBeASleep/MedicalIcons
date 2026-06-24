@@ -1,7 +1,7 @@
 {
   "folders": [
     {
-      "name": "Medical Icons",
+      "name": "[DEV] medical-icons",
       "path": "../"
     },
   ],
@@ -15,5 +15,6 @@
     "Lua.workspace.maxPreload": 50000,
     "Lua.diagnostics.disable": [],
     "Lua.diagnostics.workspaceDelay": 300000,
+    "terminal.integrated.cwd": "D:\\SteamLibrary\\steamapps\\common\\Barotrauma\\LocalMods\\[DEV] medical-icons"
   }
 }
