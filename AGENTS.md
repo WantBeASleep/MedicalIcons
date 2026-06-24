@@ -39,7 +39,17 @@ The build packs item icon/sprite atlases into `assets` and generates Lua atlas d
 
 Run the mod build workflow when a change affects runtime data or generated assets: item icons/sprites under `source/textures/*/items/*`, status icon inputs, atlas packing behavior, or scripts that generate atlas data.
 
+## Lua Lint
+The canonical Lua lint command is:
+
+```powershell
+python tools/lint/run_selene.py
+```
+
+Run the Lua lint workflow after changing Lua runtime files under `Lua`, Selene configuration files such as `selene.toml` or `selene_defs/*`, or lint helper scripts under `tools/lint`.
+
 ## Agent Guidelines
+- Agents must never create git commits in this repository.
 - Keep Lua runtime code under `Lua`, preserving the `limanchel/medical_icons` namespace required by the LuaCs loading layout.
 - Store generated Lua files under `Lua/limanchel/medical_icons/generated`.
 - Store generated runtime atlases directly under `assets`.
