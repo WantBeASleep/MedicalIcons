@@ -208,11 +208,30 @@ Print detailed validation output for every item.
 
 ## Generated Lua
 
-`atlases.lua` is fully generated and may be overwritten on every build. The executable Lua source is rendered from a `luaparser.astnodes.Chunk` tree.
+`atlases.lua` is fully generated and may be overwritten on every build. The executable Lua source is rendered from a `luaparser.astnodes.Chunk` tree. The generated file includes LuaLS annotations for the atlas assets, item entries, regions, and rectangle arrays before the executable table.
 
 Shape:
 
 ```lua
+---@alias MedicalIconsAtlasRect integer[]
+
+---@class MedicalIconsAtlasRegion
+---@field rect MedicalIconsAtlasRect
+
+---@class MedicalIconsAtlasItem
+---@field texture string
+---@field icon MedicalIconsAtlasRegion
+---@field sprite MedicalIconsAtlasRegion
+
+---@class MedicalIconsAtlasAssets
+---@field icons string
+---@field sprites string
+
+---@class MedicalIconsAtlases
+---@field assets MedicalIconsAtlasAssets
+---@field items table<string, MedicalIconsAtlasItem>
+
+---@type MedicalIconsAtlases
 local atlases = {
     assets = {
         icons = 'assets/icons.png',
