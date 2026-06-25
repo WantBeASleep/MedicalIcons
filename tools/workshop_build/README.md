@@ -57,9 +57,10 @@ medical-icons
 The script reads these runtime files from the development folder:
 
 - `filelist.xml`
-- `preview/logo.gif`
 - `Lua/`
-- `assets/`
+- `assets/icons.png`
+- `assets/sprites.png`
+- `preview/logo.gif`
 
 The copied `filelist.xml` is adjusted for Workshop upload:
 
@@ -74,5 +75,5 @@ The script creates or replaces one sibling folder under the parent `LocalMods` d
 
 - The source project folder must start with `DEV`.
 - The target folder must be a direct child of the same parent `LocalMods` directory.
-- Development-only folders such as `source`, `tools`, `bin`, `.git`, and `.codex` are intentionally not copied. The only copied preview file is `preview/logo.gif`, because Steam Workshop uses it as the preview image.
+- The Workshop output is built strictly from the allow-list in `build_workshop.py`. Development-only folders such as `source`, `tools`, `bin`, `.git`, `.codex`, and non-allow-listed files under `assets` and `preview` are intentionally not copied.
 - When replacing an existing Workshop folder, the script removes the whole target first. On Windows it retries read-only files by making them writable; if a file is still locked by another process, close that process and run the script again.

@@ -29,8 +29,13 @@ LOCALMODS_DIR = PROJECT_ROOT.parent
 DEV_PREFIX = "DEV"
 DEV_PREFIX_SEPARATORS = " -_"
 STEAM_WORKSHOP_ID = "3748775860"
-REQUIRED_FILES = ("filelist.xml", "preview/logo.gif")
-REQUIRED_ROOT_DIRS = ("Lua", "assets")
+WORKSHOP_ALLOWLIST = (
+    "Lua",
+    "assets/icons.png",
+    "assets/sprites.png",
+    "preview/logo.gif",
+    "filelist.xml",
+)
 
 
 def clean_dev_prefix(value: str) -> str:
@@ -97,17 +102,13 @@ def validate_target(target_dir: Path) -> None:
 def collect_entries(target_dir: Path) -> list[CopyEntry]:
     entries: list[CopyEntry] = []
 
-    for file_name in REQUIRED_FILES:
-        source = PROJECT_ROOT / file_name
-        if not source.is_file():
-            fail(f"Required file not found: {rel(source)}")
-        entries.append(CopyEntry(source=source, target=target_dir / file_name))
-
-    for dir_name in REQUIRED_ROOT_DIRS:
-        source = PROJECT_ROOT / dir_name
-        if not source.is_dir():
-            fail(f"Required directory not found: {rel(source)}")
-        entries.append(CopyEntry(source=source, target=target_dir / dir_name))
+    for allowlist_path in WORKSHOP_ALLOWLIST:
+        source = PROJECT_ROOT / allowlist_path
+        if not source.exists():
+            fail(f"Allow-listed path not found: {rel(source)}")
+        if not source.is_file() and not source.is_dir():
+            fail(f"Allow-listed path is not a file or directory: {rel(source)}")
+        entries.append(CopyEntry(source=source, target=target_dir / allowlist_path))
 
     return entries
 
