@@ -26,10 +26,18 @@ def find_project_root() -> Path:
 
 PROJECT_ROOT = find_project_root()
 LOCALMODS_DIR = PROJECT_ROOT.parent
-DEFAULT_TARGET_NAME = PROJECT_ROOT.name.removeprefix("[DEV]").strip()
+DEV_PREFIX = "DEV"
+DEV_PREFIX_SEPARATORS = " -_"
 STEAM_WORKSHOP_ID = "3748775860"
-REQUIRED_ROOT_FILES = ("filelist.xml",)
+REQUIRED_FILES = ("filelist.xml", "preview/logo.gif")
 REQUIRED_ROOT_DIRS = ("Lua", "assets")
+
+
+def clean_dev_prefix(value: str) -> str:
+    return value.removeprefix(DEV_PREFIX).lstrip(DEV_PREFIX_SEPARATORS)
+
+
+DEFAULT_TARGET_NAME = clean_dev_prefix(PROJECT_ROOT.name)
 
 
 def parse_args() -> argparse.Namespace:
@@ -44,7 +52,7 @@ def parse_args() -> argparse.Namespace:
         default=DEFAULT_TARGET_NAME,
         help=(
             "Output folder name inside the parent LocalMods directory. "
-            f"Default: {DEFAULT_TARGET_NAME!r}, derived from the current folder without the [DEV] prefix."
+            f"Default: {DEFAULT_TARGET_NAME!r}, derived from the current folder without the DEV prefix."
         ),
     )
     parser.add_argument(
@@ -74,8 +82,8 @@ def validate_target(target_dir: Path) -> None:
 
     if not DEFAULT_TARGET_NAME:
         fail("Development folder name does not produce a valid Workshop folder name.")
-    if not PROJECT_ROOT.name.startswith("[DEV]"):
-        fail("Refusing to build Workshop folder because the source folder does not start with [DEV].")
+    if not PROJECT_ROOT.name.startswith(DEV_PREFIX):
+        fail("Refusing to build Workshop folder because the source folder does not start with DEV.")
     if target_dir == project_root:
         fail("Target folder resolves to the development folder.")
     if target_dir.parent != localmods_dir:
@@ -89,7 +97,7 @@ def validate_target(target_dir: Path) -> None:
 def collect_entries(target_dir: Path) -> list[CopyEntry]:
     entries: list[CopyEntry] = []
 
-    for file_name in REQUIRED_ROOT_FILES:
+    for file_name in REQUIRED_FILES:
         source = PROJECT_ROOT / file_name
         if not source.is_file():
             fail(f"Required file not found: {rel(source)}")
@@ -128,10 +136,6 @@ def remove_existing_target(target_dir: Path) -> None:
             "Could not remove the existing Workshop folder. "
             f"Close programs that may be using it and check file permissions: {error.filename}"
         )
-
-
-def clean_dev_prefix(value: str) -> str:
-    return value.removeprefix("[DEV]").strip()
 
 
 def copy_workshop_filelist(source: Path, target: Path) -> None:

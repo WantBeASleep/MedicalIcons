@@ -6,7 +6,7 @@ Build the clean Workshop version of the Medical Icons Barotrauma mod.
 
 The development folder contains source assets, scripts, tooling, previews, lint configuration, and other files that must not be uploaded as the runtime Workshop mod. This script rebuilds a sibling folder in `LocalMods` with only the files required by the mod at runtime.
 
-For a development folder named `[DEV] medical-icons`, the default output folder is:
+For a development folder named `DEV-medical-icons`, the default output folder is:
 
 ```text
 ../medical-icons
@@ -57,12 +57,13 @@ medical-icons
 The script reads these runtime files from the development folder:
 
 - `filelist.xml`
+- `preview/logo.gif`
 - `Lua/`
 - `assets/`
 
 The copied `filelist.xml` is adjusted for Workshop upload:
 
-- A leading `[DEV]` prefix is removed from the root `contentpackage` `name` attribute.
+- A leading `DEV` prefix is removed from the root `contentpackage` `name` attribute.
 - The root `contentpackage` gets `steamworkshopid="3748775860"`.
 
 ## Outputs
@@ -71,7 +72,7 @@ The script creates or replaces one sibling folder under the parent `LocalMods` d
 
 ## Notes
 
-- The source project folder must start with `[DEV]`.
+- The source project folder must start with `DEV`.
 - The target folder must be a direct child of the same parent `LocalMods` directory.
-- Development-only folders such as `source`, `tools`, `preview`, `bin`, `.git`, and `.codex` are intentionally not copied.
+- Development-only folders such as `source`, `tools`, `bin`, `.git`, and `.codex` are intentionally not copied. The only copied preview file is `preview/logo.gif`, because Steam Workshop uses it as the preview image.
 - When replacing an existing Workshop folder, the script removes the whole target first. On Windows it retries read-only files by making them writable; if a file is still locked by another process, close that process and run the script again.
